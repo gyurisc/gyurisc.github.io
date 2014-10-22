@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Code | My Octopress Blog]]></title>
+  <link href="http://gyurisc.github.io/blog/categories/code/atom.xml" rel="self"/>
+  <link href="http://gyurisc.github.io/"/>
+  <updated>2014-10-22T13:27:00+02:00</updated>
+  <id>http://gyurisc.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[BootstrapMVC, an ASP.NET MVC Project Using Twitter Bootstrap]]></title>
+    <link href="http://gyurisc.github.io/blog/2011/09/08/bootstrapmvc-an-asp-net-mvc-project-using-twitter-bootstrap/"/>
+    <updated>2011-09-08T13:22:35+02:00</updated>
+    <id>http://gyurisc.github.io/blog/2011/09/08/bootstrapmvc-an-asp-net-mvc-project-using-twitter-bootstrap</id>
+    <content type="html"><![CDATA[<p>My favorite web development framework is <strong>ASP.NET MVC</strong>. I like its simplicity and that it is very easy to learn. The whole approach is just makes sense to me, unlike the classic ASP.NET. However, the default MVC theme is getting really old and bring.</p>
+
+<p>I also really like the <strong><a href="https://dev.twitter.com/blog/bootstrap-twitter">Twitter Bootstrap</a></strong> framework from twitter. It looks totally awesome and it can be used to create good looking websites really quick. So it made sense to create an MVC project using <strong><a href="https://dev.twitter.com/blog/bootstrap-twitter">Twitter Bootstrap</a></strong>. The result is <strong><a href="https://github.com/gyurisc/BootstrapMVC">BootstrapMVC</a></strong>.</p>
+
+<p>BootstrapMVC is an ASP.NET MVC project using the Twitter Botstrap CSS. Just download it from github and open the solution file in Visual Studio.NET.</p>
+
+<p>This is how it looks:</p>
+
+<p><img src="/images/BootstrapMVC-300x217.png" width="300" height="217" title="&lsquo;BootstrapMVC&rsquo; &lsquo;ASP.NET MVC theme using Twitter Bootstrap&rsquo;" ></p>
+
+<p>Check out the <a href="http://www.littlebigtomatoes.com/bootstrapmvc/">BootstrapMVC</a> or <a href="https://github.com/gyurisc/BootstrapMVC">download the project from github</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-21T14:17:47+02:00</updated>
+  <updated>2014-10-22T13:27:00+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,5 +12,369 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Developer Recipes - Using Git and Dropbox Together]]></title>
+    <link href="http://gyurisc.github.io/blog/2012/05/07/developer-recipes-using-git-and-dropbox-together/"/>
+    <updated>2012-05-07T16:13:28+02:00</updated>
+    <id>http://gyurisc.github.io/blog/2012/05/07/developer-recipes-using-git-and-dropbox-together</id>
+    <content type="html"><![CDATA[<p>I love coding. My work is my hobby and I like to write small little apps and tools that I can use myself. I also use several machines with multiple operating systems on them and I need a workflow that would allow me to seamlesly synchornize between my machines. For this I created this process that involves git and dropbox, to keep my personal projects under source code control and have it synchroned to all my machines automatically. So I decided to document this method here.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p><strong>Disclaimer:</strong> I do not invented this method. Originally I saw the idea on stackoverflow.com:</p>
+
+<p><a href="http://stackoverflow.com/questions/1960799/using-gitdropbox-together-effectively">Stackoverflow - Using git dropbox together effectively?</a></p>
+
+<p>I am also not convinced that this method is suitable for more than one person to use. I am a single developer and this process fits my need perfectly.</p>
+
+<h3>Overview</h3>
+
+<p>I use Visual Studio.NET 2010, <a href="https://www.dropbox.com/">dropbox</a> and <a href="http://code.google.com/p/msysgit/">msysgit</a> on all my Windows machines. I am mainly developing for my Windows Phone and soon I will try to create Metro Apps for Windows 8. Although, this will be .NET and Visual Studio centric recipe, you can still use it with your own stuff. The only crucial component is dropbox and git.</p>
+
+<p>Let say, you have two machines. One laptop that you carry around and one desktop. Both have dropbox and git installed. You start creating your project on your laptop, but when you arrive home you would like to continue the coding on your desktop machine. So what will happen is the following:</p>
+
+<ul>
+<li>I will set up the project on my laptop and add it to the git source control</li>
+<li>I will initialize a bare repository on my laptop’s dropbox folder.</li>
+<li>Will push the project to dropbox.</li>
+<li>Get the project on the desktop machine</li>
+</ul>
+
+
+<h3>Setting up project and add it to git</h3>
+
+<ul>
+<li>Set up your Visual Studio.NET project and do some coding</li>
+</ul>
+
+
+<p>First, thing first is to create your application in Visual Studio.NET 2010. I will create a new todo app for my Windows Phone called <strong>TodoApp_WP7</strong>. Cannot see enough todo app on this new platform yet. So we need one :)</p>
+
+<ul>
+<li>Initialize the git repository in the solution folder</li>
+</ul>
+
+
+<p>Open up msysgit and navigate to your solution folder. Initialize your git repo and your</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git init</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Before adding your project files, it is a good idea to create a .gitognore file. Here you can specify what files you want to exclude from source code controll! So in your msysgit command line you issue this command to create .gitignore and add the things you would like to ignore.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>touch .gitignore
+</span><span class='line'>notepad .gitignore</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I have something like this in my .gitignore</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>User-specific files
+</span><span class='line'> 
+</span><span class='line'>*.suo
+</span><span class='line'>*.user
+</span><span class='line'>*.sln.docstates
+</span><span class='line'>  
+</span><span class='line'>Others
+</span><span class='line'>  
+</span><span class='line'>[Bb]in
+</span><span class='line'>[Oo]bj</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then you can add your files and do your first commit</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
+</span><span class='line'>git commit -m “first commit”</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Pushing the changes to Dropbox</h3>
+
+<ul>
+<li>Create a git folder in your Dropbox folder and initialize a bare git repository</li>
+</ul>
+
+
+<p>Navigate to your git dropbox folder and create your bare repository. Navigating in the git shell can be tricky to someone, who knows only windows command line.</p>
+
+<p>My Dropbox is installed on my machine here D:\Dropbox, so to go to that folder you need to issue this command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /d/Dropbox/git
+</span><span class='line'>git init —bare TodoApp_WP7.git</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Adding remotes</li>
+</ul>
+
+
+<p>Now you need to go back to your project directory and configure the dropbox folder as the origin for your project. I also add a remote called dropbox as a convenience.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git remote add origin /d/Dropbox/git/TodoApp_WP7.git
+</span><span class='line'>git remote add dropbox /d/Dropbox/git/TodoApp_WP7.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+ * Push the project to your bare dropbox repository</p>
+
+<p>Now you need to push the project to your dropbox repository</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> git push -u origin master</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>On your other machine just simply do a git clone to get the project</li>
+</ul>
+
+
+<h3>Getting your project from Dropbox to another computer for the first time</h3>
+
+<p>When logging on to your other machine you will see that dropbox is busy to refresh all the files you were changing or it already has been happened. All you need to do is to open up the git client on your machine, navigate to your dev folder an issue the command</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone /d/Dropbox/git/TodoApp_WP7.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will create the folder in your dev folder and gets the source code of your app. You will need not to worry about remotes, however you can create anew remote called dropbox, if you like.
+Now you are ready to launch Visual Studio on the machine and do some changes. After finishing your work you can return to the git command line and issue the following command to find out what has changed:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git status</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You will see all files that are changed or new. You will need to add the changes to your change set and commit these changes .</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
+</span><span class='line'>git commit -m “My new changes to my app”</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With the commit command you added all the changes to your git repository. However, you still need to push these changes to your dropbox. It is called origin and it is automatically created when you cloned your project from dropbox.</p>
+
+<p>All you need to do is to issue the following command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git push</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you are done with all the changes and these are now synchronized on all your developer machines.</p>
+
+<h3>Getting the changes for your project on a machine that already has your project.</h3>
+
+<p>This is the simples command. All you need to do is to go to your project repository and do a pull operation:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git pull</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I hope that you will find this method useful for synchronizing code between your computer via dropbox and git. If you have any questions, please do not hesitate to contact me!</p>
+
+<h3>Useful links</h3>
+
+<ul>
+<li><a href="https://github.com/AlexZeitler/gitcheatsheet/blob/master/gitcheatsheet.pdf">git cheat sheet</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[An Easy Way to Create Awesome Looking Windows Phone7 Icons Using Expression Design]]></title>
+    <link href="http://gyurisc.github.io/blog/2012/03/21/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design/"/>
+    <updated>2012-03-21T18:18:08+01:00</updated>
+    <id>http://gyurisc.github.io/blog/2012/03/21/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design</id>
+    <content type="html"><![CDATA[<p>I am always having problems when it comes to creating icons for my Wp7 apps.I am a coder and not a designer, so drawing something nice looking is really really out of my comfort zone.</p>
+
+<p>Previously I spent hours trying to draw symbols myself, but I never really liked the outcome. But lately, I found a quick and effective way to create nice looking icons for my Windows Phone 7 apps. Here it goes:</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h3>The Noun project</h3>
+
+<p>First, I go to the <a href="http://thenounproject.com">nounproject</a> website to find some nice looking symbols. This website has hundreeds of symbols and you can download them for free in vector format. The graphics comes with a Creative Commons license, so you&rsquo;re free to do whatever you want with them. Sounds pretty neat, if you ask me!</p>
+
+<p><img src="http://gyurisc.github.io/images/000.png" title="thenounproject website" alt="The Noun Project a website a source for symbols in SVG format"></p>
+
+<p>Once, you found the symbol you like, download and extract it. The symbol is in SVG format. I am using Expression Design for drawing my icons, but Design unfortunately does not support SVG yet. I need a tool that can convert SVG to something that I can import to Expression Design.</p>
+
+<p><img src="http://gyurisc.github.io/images/001_thumb.png" title="Choose a symbol from thenounproject site." alt="Symbol from thenounproject website."></p>
+
+<h3>Inkscape</h3>
+
+<p>With Inkscape I can do exactly this. Inkscape can import SVG and can export .PDF and .PDF can be imported to Expression Design.Inkscape is a very cool, free and open source drawing application. You can download it from <a href="http://inkscape.org/">here</a>.</p>
+
+<p><img src="http://gyurisc.github.io/images/002_thumb.png" title="Inkscape" alt="Download and install inkscape"></p>
+
+<p>Once Inkscape is installed then you can import the .SVG file and save it as .PDF file. After that I change the  .PDF extension to .AI and now I can import into Expression Design.</p>
+
+<p>First, import your svg file to Inkscape for converting to AI format:</p>
+
+<p><img src="http://gyurisc.github.io/images/003_thumb.png" title="Import your symbol to Inkscape" alt="Import your symbol to Inkscape"></p>
+
+<p><img src="http://gyurisc.github.io/images/004_thumb.png" title="Symbol imported" alt="Symbol imported"></p>
+
+<p>Then save the your symbol in PDF format. Make sure that PDF 1.4 is selected as PDF version:</p>
+
+<p><img src="http://gyurisc.github.io/images/005_thumb.png" title="Export your symbol in PDF format" alt="Export your symbol in PDF format"></p>
+
+<p><img src="http://gyurisc.github.io/images/007_thumb.png" title="Setting the correct PDF version" alt="Setting the correct PDF version to PDF 1.4"></p>
+
+<h3>Expression Design</h3>
+
+<p>Before importing to Expression Design rename the exported .pdf to  .ai. This way Expression Design can export your artwork as an Adobe Illustrator file.</p>
+
+<p><img src="http://gyurisc.github.io/images/009_thumb.png" title="Import your artwork to Expression Design" alt="Import your artwork to Expression Design"></p>
+
+<p>Here in Expression Design I can re-use my icon design template to create all the different sizes of icons that are needed for my WP7 app and export them to .PNG format to embedd in your WP7 Application project.</p>
+
+<p><img src="http://gyurisc.github.io/images/010_thumb.png" title="Your artwork now imported to Expression Design" alt="Your artwork now imported to Expression Design"></p>
+
+<p>You can also change the shape as it is vector based to alter the shape!</p>
+
+<p><img src="http://gyurisc.github.io/images/011_thumb.png" title="Vector shapes in Expression Design" alt="Vector shapes in Expression Design"></p>
+
+<h3>Bonus</h3>
+
+<p>If you would like to have this artwork in your silverlight, wpf or your windows phone app, you can also create a xaml file out of it in Expression Blend importing the .ai file and converting it to xaml.</p>
+
+<p><img src="http://gyurisc.github.io/images/014_thumb.png" title="Artwork imported to Expression Blend" alt="Artwork imported to Expression Blend"></p>
+
+<p>Happy coding!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My Version of the IKEAPad]]></title>
+    <link href="http://gyurisc.github.io/blog/2012/01/13/my-version-of-the-ikeapad/"/>
+    <updated>2012-01-13T07:50:24+01:00</updated>
+    <id>http://gyurisc.github.io/blog/2012/01/13/my-version-of-the-ikeapad</id>
+    <content type="html"><![CDATA[<p>I recently saw the <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad stand</a> on <a href="http://www.ikeahackers.net/">IKEA Hackers</a> and I really liked it. <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad</a> is basically a simple iPad stand constructed from an <a href="http://www.ikea.com/us/en/catalog/products/76696009/">Ekby Valter</a> that costs 3$, that is less cheaper that you would pay for any iPad stand on the market. After reading the article, I decided to create my own version, for this you will need to buy 2 pieces of Ekby Valter and take out the shortest piece of wood from one of the Ekby Valter and use it as a dowel. I guess it is easier to understand if you see it.</p>
+
+<p><img src="http://gyurisc.github.io/images/WP_0003951-300x225.jpg" title="Finished iPad stand" alt="The finished iPad stand in my kitchen holding the iPad"></p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>The rest of the images:</p>
+
+<p><img src="http://gyurisc.github.io/images/WP_000394-150x150.jpg" title="Testing with iPad" alt="Testing with iPad"></p>
+
+<p><img src="http://gyurisc.github.io/images/WP_0003951-150x150.jpg" title="Finished iPad stand" alt="The finished iPad stand in my kitchen holding the iPad"></p>
+
+<p><img src="http://gyurisc.github.io/images/WP_0003981-150x150.jpg" title="Finished iPad stand in the kitchen" alt="Finished iPad stand in the kitchen"></p>
+
+<p><img src="http://gyurisc.github.io/images/WP_0003911-150x150.jpg" title="Ekby Valter" alt="Ekby Valter"></p>
+
+<p><img src="http://gyurisc.github.io/images/WP_0003921-150x150.jpg" title="Ekby Valter parts" alt="Ekby Valter parts"></p>
+
+<p><img src="http://gyurisc.github.io/images/WP_0003941-150x150.jpg" title="iPad stand is ready" alt="iPad stand is ready"></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[An Easy Way to Create Windows Phone 7 Icons Using Expression Design]]></title>
+    <link href="http://gyurisc.github.io/blog/2011/11/29/an-easy-way-to-create-windows-phone-7-icons-using-expression-design/"/>
+    <updated>2011-11-29T06:23:55+01:00</updated>
+    <id>http://gyurisc.github.io/blog/2011/11/29/an-easy-way-to-create-windows-phone-7-icons-using-expression-design</id>
+    <content type="html"><![CDATA[<p>In the past I had problems when I wanted to create icons quickly for my Windows Phone 7 apps before submitting them to the marketplace certification. A good set of consistent icons is a good way to give a good first impression to your future customers, but if you decide to create those icons yourself then it is a time consuming task. I decided to fix this problem for good!</p>
+
+<p><img src="http://gyurisc.github.io/images/expression_design-300x176.png" title="Windows Phone 7 Icons with Expression Designy" alt="Windows Phone 7 Icons with Expression Design"></p>
+
+<p>For your application and for marketplace submission you will need the following artwork:</p>
+
+<ul>
+<li>Application Icon (62 x 62)</li>
+<li>Application Tile Image (173 x 173)</li>
+<li>Marketplace catalog icon (small) (99 x 99)</li>
+<li>Marketplate catalog icon (large) (173 x 173)</li>
+<li>Desktop application icon (200 x 200)</li>
+</ul>
+
+
+<p>To create an icon and the resize it correctly and export it is always a lot of repetitive work, the one I do not enjoy. So in my favorite design tool - Expression Design 4 - created a file, where all you need is to replace the shape in each icon and select <strong>File | Export</strong> and you are done. All the icons will be ready for your project.</p>
+
+<p>I created a git repository for it called <a href="https://github.com/gyurisc/WP7ExpressionIcons">WP7ExpressionIcons</a>.
+I used this to articles as my starting point:</p>
+
+<ul>
+<li><a href="http://cgeers.com/2011/10/30/programming-windows-phone-7-5-part-2-icons/#more-3521">Programming Windows Phone 7.5 Part 2: Icons</a></li>
+<li><a href="http://expression.microsoft.com/en-us/gg317447">Creating Windows Phone 7 Application and Marketplace icons</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BootstrapMVC, an ASP.NET MVC Project Using Twitter Bootstrap]]></title>
+    <link href="http://gyurisc.github.io/blog/2011/09/08/bootstrapmvc-an-asp-net-mvc-project-using-twitter-bootstrap/"/>
+    <updated>2011-09-08T13:22:35+02:00</updated>
+    <id>http://gyurisc.github.io/blog/2011/09/08/bootstrapmvc-an-asp-net-mvc-project-using-twitter-bootstrap</id>
+    <content type="html"><![CDATA[<p>My favorite web development framework is <strong>ASP.NET MVC</strong>. I like its simplicity and that it is very easy to learn. The whole approach is just makes sense to me, unlike the classic ASP.NET. However, the default MVC theme is getting really old and bring.</p>
+
+<p>I also really like the <strong><a href="https://dev.twitter.com/blog/bootstrap-twitter">Twitter Bootstrap</a></strong> framework from twitter. It looks totally awesome and it can be used to create good looking websites really quick. So it made sense to create an MVC project using <strong><a href="https://dev.twitter.com/blog/bootstrap-twitter">Twitter Bootstrap</a></strong>. The result is <strong><a href="https://github.com/gyurisc/BootstrapMVC">BootstrapMVC</a></strong>.</p>
+
+<p>BootstrapMVC is an ASP.NET MVC project using the Twitter Botstrap CSS. Just download it from github and open the solution file in Visual Studio.NET.</p>
+
+<p>This is how it looks:</p>
+
+<p><img src="http://gyurisc.github.io/images/BootstrapMVC-300x217.png" width="300" height="217" title="BootstrapMVC" alt="ASP.NET MVC theme using Twitter Bootstrap"></p>
+
+<p>Check out the <a href="http://www.littlebigtomatoes.com/bootstrapmvc/">BootstrapMVC</a> or <a href="https://github.com/gyurisc/BootstrapMVC">download the project from github</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apphub Membership Is Free for Nokia Launchpad Members]]></title>
+    <link href="http://gyurisc.github.io/blog/2011/08/11/apphub-membership-is-free-for-nokia-launchpad-members/"/>
+    <updated>2011-08-11T14:18:11+02:00</updated>
+    <id>http://gyurisc.github.io/blog/2011/08/11/apphub-membership-is-free-for-nokia-launchpad-members</id>
+    <content type="html"><![CDATA[<p>It seems that you can save the price of 1 year <a href="http://create.msdn.com/en-US/">Microsoft AppHub</a> membership, if you are a<a href="https://www.developer.nokia.com/Developer_Programs/Launchpad/"> Nokia Launchpad</a> member and an <a href="http://info.publish.ovi.com/">Ovi Appstore Publisher</a>.</p>
+
+<p>If you use the same email address that you used to register with Nokia Launchpad to register for a one year membership for Apphub, the $99 price of the membership will be returned to you.</p>
+
+<p>The Apphub is the main site, where you can register to publish apps to the Windows Phone 7 Marketplace or to xbox360, a one year membership costs $99 dollars. So if you are planning to develop and publish apps for the Windows Phone 7 platform then it is time take the chance and register for free.</p>
+
+<p>Here is the information from Nokia:</p>
+
+<blockquote><p>We are offering a free Microsoft App Hub registration for the first one year to those Nokia Developer PRO and Launchpad members who are registered Ovi publishers in the countries that Microsoft supports on the App Hub. This offer will save you $99 USD (the regular annual membership fee) as the membership fee will be refunded to you by Microsoft. The membership will give you access to submit applications for Windows Phone Marketplace as well as access to the developer tools, documentation, code samples and forums.</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Google Plus for .NET]]></title>
+    <link href="http://gyurisc.github.io/blog/2011/07/21/google-plus-for-net/"/>
+    <updated>2011-07-21T16:05:41+02:00</updated>
+    <id>http://gyurisc.github.io/blog/2011/07/21/google-plus-for-net</id>
+    <content type="html"><![CDATA[<p>I uploaded my first version of the GooglePlus.NET unofficiall API called <a href="https://github.com/gyurisc/dotnet.googleplus">Dotnet.GooglePlus</a>. Happy Hacking! :)</p>
+]]></content>
+  </entry>
   
 </feed>
