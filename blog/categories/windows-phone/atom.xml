@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Windows Phone | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/windows-phone/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:36:19+02:00</updated>
+  <updated>2014-10-22T13:41:47+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[The 5th Recommendation to Get Better at Designing Windows Phone Apps]]></title>
-    <link href="http://gyurisc.github.io/blog/2013/02/05/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps/"/>
+    <link href="http://gyurisc.github.io/2013/02/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps/"/>
     <updated>2013-02-05T17:57:00+01:00</updated>
-    <id>http://gyurisc.github.io/blog/2013/02/05/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps</id>
+    <id>http://gyurisc.github.io/2013/02/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps</id>
     <content type="html"><![CDATA[<p>It seems I am unable to count to 5. In my last blog <a href="http://www.littlebigtomatoes.com/2013/01/5-ways-to-get-better-at-designing-apps-for-windows-phone/">5 ways to get better at designing apps for Windows Phone</a> I promised 5 ways and I delivered only four. This is the follow up, where I try to give one last piece of advice.</p>
 
 <h2>Write apps for yourself</h2>
@@ -34,9 +34,9 @@
   
   <entry>
     <title type="html"><![CDATA[5 Ways to Get Better at Designing Apps for Windows Phone]]></title>
-    <link href="http://gyurisc.github.io/blog/2013/01/31/5-ways-to-get-better-at-designing-apps-for-windows-phone/"/>
+    <link href="http://gyurisc.github.io/2013/01/5-ways-to-get-better-at-designing-apps-for-windows-phone/"/>
     <updated>2013-01-31T21:51:00+01:00</updated>
-    <id>http://gyurisc.github.io/blog/2013/01/31/5-ways-to-get-better-at-designing-apps-for-windows-phone</id>
+    <id>http://gyurisc.github.io/2013/01/5-ways-to-get-better-at-designing-apps-for-windows-phone</id>
     <content type="html"><![CDATA[<p>I am constantly trying to improve the quality of apps that I am publishing on the market for Windows Phone and Windows 8 or to other platforms in the future. In the last couple of days I try to think ways how I can get better at designing and creating apps. My primary device at the moment is a Lumia 800 and my primary desktop OS is Windows 8. These are not the dominant platforms yet, but I am hoping they get more popular over time.</p>
 
 <h2>Buy an iPod Touch</h2>
@@ -69,9 +69,9 @@
   
   <entry>
     <title type="html"><![CDATA[Will Windows Phone 8 and Lumia Come Around Finally?]]></title>
-    <link href="http://gyurisc.github.io/blog/2012/12/11/will-windows-phone-8-and-lumia-come-around-finally/"/>
+    <link href="http://gyurisc.github.io/2012/12/will-windows-phone-8-and-lumia-come-around-finally/"/>
     <updated>2012-12-11T16:42:00+01:00</updated>
-    <id>http://gyurisc.github.io/blog/2012/12/11/will-windows-phone-8-and-lumia-come-around-finally</id>
+    <id>http://gyurisc.github.io/2012/12/will-windows-phone-8-and-lumia-come-around-finally</id>
     <content type="html"><![CDATA[<p>{% blockquote Mashable <a href="http://mashable.com/2012/11/27/living-with-lumia-wrap-up/">http://mashable.com/2012/11/27/living-with-lumia-wrap-up/</a> Living With Lumia: The Final Verdict on Windows Phone 8 %}</p>
 
 <p>Microsoft and Nokia&rsquo;s marketing blitz is really paying off. Over Thanksgiving weekend, there were several instances where regular people off the street commented or approached me about the phone. The first time was at a diner in Union Square. The waitress recognized the phone and asked to take it to the back to show her co-worker who is obsessed with Windows 8.</p>
@@ -87,9 +87,9 @@
   
   <entry>
     <title type="html"><![CDATA[EmailMe for Windows Phone 7]]></title>
-    <link href="http://gyurisc.github.io/blog/2012/11/27/emailme-for-windows-phone-7/"/>
+    <link href="http://gyurisc.github.io/2012/11/emailme-for-windows-phone-7/"/>
     <updated>2012-11-27T08:53:00+01:00</updated>
-    <id>http://gyurisc.github.io/blog/2012/11/27/emailme-for-windows-phone-7</id>
+    <id>http://gyurisc.github.io/2012/11/emailme-for-windows-phone-7</id>
     <content type="html"><![CDATA[<p><em>This post was written by me about two months ago, then I forgot about it. I decided to publish it regardless. This app did not really live up to the plans downloadwise, but I am still happy with it. I plan to write a follow up and discuss what I learnt from it marketing and business wise!</em></p>
 
 <p>In the last three-four months I worked on my first app called <a href="http://hotbidd.com/apps/wp7/emailme/">EmailMe</a>, while commuting and now it is available on the marketplace for 0.99.</p>

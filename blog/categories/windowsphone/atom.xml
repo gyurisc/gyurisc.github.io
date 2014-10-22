@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Windowsphone | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/windowsphone/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:36:19+02:00</updated>
+  <updated>2014-10-22T13:41:47+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Build a Windows Phone 7 App With Expression Blend]]></title>
-    <link href="http://gyurisc.github.io/blog/2012/07/30/build-a-windows-phone-7-app-with-expression-blend/"/>
+    <link href="http://gyurisc.github.io/2012/07/build-a-windows-phone-7-app-with-expression-blend/"/>
     <updated>2012-07-30T21:31:58+02:00</updated>
-    <id>http://gyurisc.github.io/blog/2012/07/30/build-a-windows-phone-7-app-with-expression-blend</id>
+    <id>http://gyurisc.github.io/2012/07/build-a-windows-phone-7-app-with-expression-blend</id>
     <content type="html"><![CDATA[<p>I am proud to announce that my first article got published on mobiletutsplus. Please check it out:</p>
 
 <p><a href="http://mobile.tutsplus.com/tutorials/windows/build-a-windows-phone-7-clock-app/">Build a Windows Phone 7 Clock App</a></p>
@@ -30,9 +30,9 @@
   
   <entry>
     <title type="html"><![CDATA[An Easy Way to Create Awesome Looking Windows Phone7 Icons Using Expression Design]]></title>
-    <link href="http://gyurisc.github.io/blog/2012/03/21/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design/"/>
+    <link href="http://gyurisc.github.io/2012/03/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design/"/>
     <updated>2012-03-21T18:18:08+01:00</updated>
-    <id>http://gyurisc.github.io/blog/2012/03/21/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design</id>
+    <id>http://gyurisc.github.io/2012/03/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design</id>
     <content type="html"><![CDATA[<p>I am always having problems when it comes to creating icons for my Wp7 apps.I am a coder and not a designer, so drawing something nice looking is really really out of my comfort zone.</p>
 
 <p>Previously I spent hours trying to draw symbols myself, but I never really liked the outcome. But lately, I found a quick and effective way to create nice looking icons for my Windows Phone 7 apps. Here it goes:</p>

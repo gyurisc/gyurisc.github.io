@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ipad | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/ipad/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:36:19+02:00</updated>
+  <updated>2014-10-22T13:41:47+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Dear User, We Love You!]]></title>
-    <link href="http://gyurisc.github.io/blog/2012/07/16/dear-user-we-love-you/"/>
+    <link href="http://gyurisc.github.io/2012/07/dear-user-we-love-you/"/>
     <updated>2012-07-16T13:39:59+02:00</updated>
-    <id>http://gyurisc.github.io/blog/2012/07/16/dear-user-we-love-you</id>
+    <id>http://gyurisc.github.io/2012/07/dear-user-we-love-you</id>
     <content type="html"><![CDATA[<p>When looking at the latest and greatest apps on iOS, you might see things that are not really essential part of the app. They might not make sense at all! Like silly animation or stitches on the edge of the screen, corinthian leather or some old-age cassette player designed by Diether Someone. You might wonder why they wasted time all on these silly details, why not just put out the app and move to make the next one!</p>
 
 <p>When I look at these apps, I see something different. With all these subtle touches and sweating the small details, these apps express craftmanship, pride, humbleness. These apps tell me the following:</p>
@@ -40,9 +40,9 @@ PS: Oh and the stiched corinthian leather is there, because we think you deserve
   
   <entry>
     <title type="html"><![CDATA[Not Getting an iPad]]></title>
-    <link href="http://gyurisc.github.io/blog/2012/06/19/not-getting-an-ipad/"/>
+    <link href="http://gyurisc.github.io/2012/06/not-getting-an-ipad/"/>
     <updated>2012-06-19T16:23:57+02:00</updated>
-    <id>http://gyurisc.github.io/blog/2012/06/19/not-getting-an-ipad</id>
+    <id>http://gyurisc.github.io/2012/06/not-getting-an-ipad</id>
     <content type="html"><![CDATA[<p>John Gruber at DaringFireball quickly <a href="http://daringfireball.net/linked/2012/06/18/grobart-ipad">points out</a> the logical error in Sam Grobart&rsquo;s <a href="http://bits.blogs.nytimes.com/2012/06/18/microsofts-not-competing-with-the-ipadnot-entirely/">justification</a> why he is not getting the iPad.</p>
 
 <blockquote><p>There’s a significant population out there, people who look at an iPad and say, “I like it, but can I get one to replace my laptop? Even for just some of the time?” And the honest answer has always been, “No.” The iPad has plenty of accessories, but it’s not a productivity device.</p></blockquote>
@@ -55,9 +55,9 @@ PS: Oh and the stiched corinthian leather is there, because we think you deserve
   
   <entry>
     <title type="html"><![CDATA[My Version of the IKEAPad]]></title>
-    <link href="http://gyurisc.github.io/blog/2012/01/13/my-version-of-the-ikeapad/"/>
+    <link href="http://gyurisc.github.io/2012/01/my-version-of-the-ikeapad/"/>
     <updated>2012-01-13T07:50:24+01:00</updated>
-    <id>http://gyurisc.github.io/blog/2012/01/13/my-version-of-the-ikeapad</id>
+    <id>http://gyurisc.github.io/2012/01/my-version-of-the-ikeapad</id>
     <content type="html"><![CDATA[<p>I recently saw the <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad stand</a> on <a href="http://www.ikeahackers.net/">IKEA Hackers</a> and I really liked it. <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad</a> is basically a simple iPad stand constructed from an <a href="http://www.ikea.com/us/en/catalog/products/76696009/">Ekby Valter</a> that costs 3$, that is less cheaper that you would pay for any iPad stand on the market. After reading the article, I decided to create my own version, for this you will need to buy 2 pieces of Ekby Valter and take out the shortest piece of wood from one of the Ekby Valter and use it as a dowel. I guess it is easier to understand if you see it.</p>
 
 <p>{% img /images/WP_0003951-300x225.jpg &lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo; %}</p>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:36:19+02:00</updated>
+  <updated>2014-10-22T13:41:47+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Getting Started With gridster.js]]></title>
-    <link href="http://gyurisc.github.io/blog/2013/03/08/getting-started-with-gridster-dot-js/"/>
+    <link href="http://gyurisc.github.io/2013/03/getting-started-with-gridster-dot-js/"/>
     <updated>2013-03-08T17:24:00+01:00</updated>
-    <id>http://gyurisc.github.io/blog/2013/03/08/getting-started-with-gridster-dot-js</id>
+    <id>http://gyurisc.github.io/2013/03/getting-started-with-gridster-dot-js</id>
     <content type="html"><![CDATA[<p>I am looking into to learn more about web client side programming, but whenever I find an interesting project I am overwhelmed with the unknown names of different libraries and technologies mentioned, while reading the project&rsquo;s page. Consider <a href="http://shopify.github.com/dashing/">Dashing</a> for example. They mention Sinatra, <a href="https://github.com/Shopify/dashing/wiki/How-to%3A-Deploy-to-Heroku">Heroku</a>, jQuery.. These are the ones that I have at least a slight idea what they are good for. But the list continues: <a href="https://github.com/sstephenson/sprockets">Sprockets</a>, <a href="http://gridster.net/">Gridster.js</a>, <a href="http://www.html5rocks.com/en/tutorials/eventsource/basics/">Server Sent Events</a> and <a href="http://batmanjs.org/docs/batman.html#batman-view-bindings-keypath-filters">batman bindings</a>.</p>
 
 <p>This is nuts, I do not understand any of these. So I decided to divide and conquer the problem and try to focus on one unknown technology at a time. The aim is not to master the library, but to construct a minimum viable sample that helps to understand what it is good for.</p>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linking | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/linking/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:36:19+02:00</updated>
+  <updated>2014-10-22T13:41:47+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Reading About Date and Time]]></title>
-    <link href="http://gyurisc.github.io/blog/2013/06/27/reading-about-date-and-time/"/>
+    <link href="http://gyurisc.github.io/2013/06/reading-about-date-and-time/"/>
     <updated>2013-06-27T12:45:00+02:00</updated>
-    <id>http://gyurisc.github.io/blog/2013/06/27/reading-about-date-and-time</id>
+    <id>http://gyurisc.github.io/2013/06/reading-about-date-and-time</id>
     <content type="html"><![CDATA[<p>{% blockquote NodaTime <a href="http://noda-time.blogspot.hu/2011/08/what-wrong-with-datetime-anyway.html">http://noda-time.blogspot.hu/2011/08/what-wrong-with-datetime-anyway.html</a> What&rsquo;s wrong with DateTime anyway? %}
 So is Noda Time perfect then?</p>
 
@@ -32,9 +32,9 @@ So is Noda Time perfect then?</p>
   
   <entry>
     <title type="html"><![CDATA[All Navy Outside and a Pirate Dying to Be Released Inside]]></title>
-    <link href="http://gyurisc.github.io/blog/2013/04/16/all-navy-outside-and-a-pirate-dying-to-be-released-inside/"/>
+    <link href="http://gyurisc.github.io/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside/"/>
     <updated>2013-04-16T14:14:00+02:00</updated>
-    <id>http://gyurisc.github.io/blog/2013/04/16/all-navy-outside-and-a-pirate-dying-to-be-released-inside</id>
+    <id>http://gyurisc.github.io/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside</id>
     <content type="html"><![CDATA[<p>{% blockquote Wikipedia <a href="http://en.wikipedia.org/wiki/Grace_Hopper">http://en.wikipedia.org/wiki/Grace_Hopper</a> Grace Hopper %}
 She was then hired as a senior consultant to Digital Equipment Corporation, a position she retained until her death in 1992, aged 85.</p>
 
@@ -47,9 +47,9 @@ She was then hired as a senior consultant to Digital Equipment Corporation, a po
   
   <entry>
     <title type="html"><![CDATA[Stop the Troll]]></title>
-    <link href="http://gyurisc.github.io/blog/2013/04/09/stop-the-troll/"/>
+    <link href="http://gyurisc.github.io/2013/04/stop-the-troll/"/>
     <updated>2013-04-09T06:44:00+02:00</updated>
-    <id>http://gyurisc.github.io/blog/2013/04/09/stop-the-troll</id>
+    <id>http://gyurisc.github.io/2013/04/stop-the-troll</id>
     <content type="html"><![CDATA[<p>{% blockquote Joel On Software <a href="http://www.joelonsoftware.com/items/2013/04/02.html">http://www.joelonsoftware.com/items/2013/04/02.html</a> The Patent Protection Racket %}
 What does this sound like? Yes, it’s a textbook case of a protection racket. It is organized crime, plain and simple. It is an abuse of the legal system, an abuse of the patent system, and a moral affront.</p>
 
@@ -64,9 +64,9 @@ What does this sound like? Yes, it’s a textbook case of a protection racket. I
   
   <entry>
     <title type="html"><![CDATA[OverConsumerizing]]></title>
-    <link href="http://gyurisc.github.io/blog/2013/03/07/overconsumerizing/"/>
+    <link href="http://gyurisc.github.io/2013/03/overconsumerizing/"/>
     <updated>2013-03-07T08:11:00+01:00</updated>
-    <id>http://gyurisc.github.io/blog/2013/03/07/overconsumerizing</id>
+    <id>http://gyurisc.github.io/2013/03/overconsumerizing</id>
     <content type="html"><![CDATA[<p>Microsoft has the tendency to overdo things. It happened before with .NET around the 2000s. They started to call all of their product ending with .NET. Do you remember Windows Server.NET or Windows CE.NET? Now, they are back with overdoing other stuff such as secrecy, not listening and neglectic developers with Windows Phone and Windows 8. <a href="http://hal2020.com">Hal</a> nails it again:</p>
 
 <p>{% blockquote hal2020 <a href="http://hal2020.com/2013/03/05/now-i-get-it-the-consumer-guys-at-microsoft-are-just-plain-wrong/">http://hal2020.com/2013/03/05/now-i-get-it-the-consumer-guys-at-microsoft-are-just-plain-wrong/</a> Now I get it, the Consumer guys at Microsoft are just plain wrong! %}
@@ -77,9 +77,9 @@ Let me contrast three strategic thrusts going on at Microsoft.  Windows, Windows
   
   <entry>
     <title type="html"><![CDATA[Mass Customization of Apps]]></title>
-    <link href="http://gyurisc.github.io/blog/2013/02/14/mass-customization-of-apps/"/>
+    <link href="http://gyurisc.github.io/2013/02/mass-customization-of-apps/"/>
     <updated>2013-02-14T16:13:00+01:00</updated>
-    <id>http://gyurisc.github.io/blog/2013/02/14/mass-customization-of-apps</id>
+    <id>http://gyurisc.github.io/2013/02/mass-customization-of-apps</id>
     <content type="html"><![CDATA[<p>{% blockquote triggerio <a href="http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/">http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/</a> Trend towards the Mass Customization of Apps from Banking to Government to Entertainment %}</p>
 
 <p>But in the past couple of months we’ve noticed another category of customers, and that group is growing fast.</p>
