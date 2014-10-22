@@ -4,10 +4,10 @@
   <title><![CDATA[Category: Dotnet | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/dotnet/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:41:47+02:00</updated>
+  <updated>2014-10-22T13:49:46+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Krisztian Gyuris]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -24,13 +24,7 @@
 var user = db.Users.FindByNameAndPassword(name, password);
 </code></pre>
 
-<p>{% blockquote Mark Rendle <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data">http://blog.markrendle.net/2010/08/05/introducing-simple-data</a> Introducing Simple.Data %}
-That’s pretty neat, right? So, did we have to generate the Database class and a bunch of table classes to make this work?</p>
-
-<p>No.</p>
-
-<p>In this example, the type returned by Database.Open() is dynamic. It doesn’t have a Users property, but when that property is referenced on it, it returns a new instance of a DynamicTable type, again as dynamic. That instance doesn’t actually have a method called FindByNameAndPassword, but when it’s called, it sees “FindBy” at the start of the method, so it pulls apart the rest of the method name, combines it with the arguments, and builds an ADO.NET command which safely encapsulates the name and password values inside parameters. The FindBy<em> methods will only return one record; there are FindAllBy</em> methods which return result sets. This approach is used by the Ruby/Rails ActiveRecord library; Ruby’s metaprogramming nature encourages stuff like this.
-{% endblockquote %}</p>
+<p><blockquote><p>That’s pretty neat, right? So, did we have to generate the Database class and a bunch of table classes to make this work?</p></p><p><p>No.</p></p><p><p>In this example, the type returned by Database.Open() is dynamic. It doesn’t have a Users property, but when that property is referenced on it, it returns a new instance of a DynamicTable type, again as dynamic. That instance doesn’t actually have a method called FindByNameAndPassword, but when it’s called, it sees “FindBy” at the start of the method, so it pulls apart the rest of the method name, combines it with the arguments, and builds an ADO.NET command which safely encapsulates the name and password values inside parameters. The FindBy<em> methods will only return one record; there are FindAllBy</em> methods which return result sets. This approach is used by the Ruby/Rails ActiveRecord library; Ruby’s metaprogramming nature encourages stuff like this.</p><footer><strong>Mark Rendle <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data">http://blog.markrendle.net/2010/08/05/introducing-simple-data</a> Introducing Simple.Data</strong></footer></blockquote></p>
 
 <p>Just read that sentence once again&hellip;</p>
 

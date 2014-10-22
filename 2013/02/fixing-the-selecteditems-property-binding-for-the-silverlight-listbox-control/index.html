@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fixing the SelectedItems Property Binding for the Silverlight Listbox Control - My Octopress Blog</title>
+  <meta name="author" content="Krisztian Gyuris">
+
+  
+  <meta name="description" content="I recently had to implement a feature in our silverlight app, where the user can remove multiple items selected in a listbox. The project uses the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gyurisc.github.io/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>Design.Create.Smile.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gyurisc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Fixing the SelectedItems Property Binding for the Silverlight Listbox Control</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-02-21T15:43:00+01:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2013</span></span> <span class='time'>3:43 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I recently had to implement a feature in our silverlight app, where the user can remove multiple items selected in a listbox. The project uses the MVVM pattern, so all logic and state is handle in the ViewModel class. When trying to implement the multiple selection, I needed to add a property to my viewmodel that would be a reflection of the items selected on the view. It turns out the ListBox control does not support binding against the SelectedItems property for some reason.</p>
+
+<p>This article describe, how the problem has been solved.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h3>Solution:</h3>
+
+<p>The full code for the classes is included at the end of the article.<br/>
+The idea here is to able to create a two-way binding that would be able to represent the items selected in the listbox control. The definition for the property that holds the selected items on the viewmodel side would be defined like this:</p>
+
+<figure class='code'><figcaption><span>property definition for the view model </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">private</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">_selectedItems</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">SelectedItems</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_selectedItems</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">set</span> <span class="p">{</span> <span class="n">_selectedItems</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span> <span class="n">RaisePropertyChanged</span><span class="p">(</span><span class="s">&quot;SelectedItems&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>The expected behavior is that whenever the user selects one or more items in the listbox our SelectedItems property would be able to hold selections and notify all parties that are subscribed to the changes of our collections. This is why the ObservableCollection<T> type is picked for this property.</p>
+
+<p>Next on the view side we would like to add a databinding that binds the listbox&rsquo;s selecteditems collection to our view-model SelectedItems property. As the listbox is not allowing to bind to this property, we need to have a new control called SmartListbox.</p>
+
+<p>The binding expression is the most important one here. On the left hand side you can see the SmartSelectedItems property of the SmartListBox. On the right hand side of the binding expression there is the SelectedItems property of our viewmodel. For the rest of the article, I will refer these properties as left side and right side of the binding expression.</p>
+
+<figure class='code'><figcaption><span>SmartListBox </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;my:SmartListBox</span> <span class="na">HorizontalAlignment=</span><span class="s">&quot;Stretch&quot;</span> <span class="na">x:Name=</span><span class="s">&quot;smartListBox&quot;</span>
+</span><span class='line'>                 <span class="na">VerticalAlignment=</span><span class="s">&quot;Stretch&quot;</span> <span class="na">VerticalContentAlignment=</span><span class="s">&quot;Stretch&quot;</span> <span class="na">HorizontalContentAlignment=</span><span class="s">&quot;Stretch&quot;</span>
+</span><span class='line'>                 <span class="na">ItemsSource=</span><span class="s">&quot;{Binding Items, Mode=TwoWay}&quot;</span> <span class="na">SmartSelectedItems=</span><span class="s">&quot;{Binding SelectedItems, Mode=TwoWay}&quot;</span>
+</span><span class='line'>                 <span class="na">SelectionMode=</span><span class="s">&quot;Extended&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>To be able to bind to a property in Xaml word the property needs to be defined as a DependencyProperty. This will be consisting a static and a non-static definition of the property. The static definition describes the property, so the runtime and editor tools will understand what the property type is, what the name of the property is and so on&hellip;</p>
+
+<figure class='code'><figcaption><span>DependencyProperty definition </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">DependencyProperty</span> <span class="n">SmartSelectedItemsProperty</span> <span class="p">=</span>
+</span><span class='line'>  <span class="n">DependencyProperty</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="s">&quot;SmartSelectedItems&quot;</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">INotifyCollectionChanged</span><span class="p">),</span> <span class="k">typeof</span><span class="p">(</span><span class="n">SmartListBox</span><span class="p">),</span> <span class="k">new</span> <span class="n">PropertyMetadata</span><span class="p">(</span><span class="n">OnSmartSelectedItemsPropertyChanged</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="n">INotifyCollectionChanged</span> <span class="n">SmartSelectedItems</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="n">INotifyCollectionChanged</span><span class="p">)</span><span class="n">GetValue</span><span class="p">(</span><span class="n">SmartSelectedItemsProperty</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">set</span> <span class="p">{</span> <span class="n">SetValue</span><span class="p">(</span><span class="n">SmartSelectedItemsProperty</span><span class="p">,</span> <span class="k">value</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>The general idea here is that we have two collections and we need to be able to detect and synchronize the changes between them, so we subscribe to the SmartListbox collection changes and we also subscribe to the changes of the collection that binds to our property.</p>
+
+<p>In the constructor we simply just subscribe to the changes of our control</p>
+
+<figure class='code'><figcaption><span>SmartListBox constructor </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="nf">SmartListBox</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">SelectionChanged</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">SelectionChangedEventHandler</span><span class="p">(</span><span class="n">BaseListBoxSelectionChanged</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When the dependency property is defined we referenced a method called OnSmartSelectedItemsPropertyChanged. The purpose of the method is to handle the subscription to the dependency property. We would like to detect everything that happens to the right side collection in the binding, so we can support two way bindings as well.</p>
+
+<p>You might notice the weirdness of the subscription here - the unsubscribe before subscribe - this is needed because if a view is visited more than binding is evaluated every time and we would end up subscribing to the collection more than once. This is unneeded, so the best is to make sure that we have one subscription only. Kudos for this tip to my colleague Mr. Rajnai for the tip.</p>
+
+<figure class='code'><figcaption><span>Handling collection changes</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">OnSmartSelectedItemsPropertyChanged</span><span class="p">(</span><span class="n">DependencyObject</span> <span class="n">target</span><span class="p">,</span> <span class="n">DependencyPropertyChangedEventArgs</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">var</span> <span class="n">collection</span> <span class="p">=</span> <span class="n">args</span><span class="p">.</span><span class="n">NewValue</span> <span class="k">as</span> <span class="n">INotifyCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">collection</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// unsubscribe, before subscribe to make sure not to have multiple subscription</span>
+</span><span class='line'>    <span class="n">collection</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">-=</span> <span class="p">((</span><span class="n">SmartListBox</span><span class="p">)</span><span class="n">target</span><span class="p">).</span><span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">collection</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">+=</span> <span class="p">((</span><span class="n">SmartListBox</span><span class="p">)</span><span class="n">target</span><span class="p">).</span><span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>The next method is handling the changes in the right hand side of the binding expression. The control unsubscribes from all collection notification, then transfers the selected items from the right hand side collection to the left hand side collection and then subscribes back to the events. The unsubscribe-subscribe is need this because there is no need to trigger any notifications to the collection that is being updated.</p>
+
+<figure class='code'><figcaption><span>Handling selection changes </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">void</span> <span class="nf">SmartSelectedItemsCollectionChanged</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">NotifyCollectionChangedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">//Need to unsubscribe from the events so we don&#39;t override the transfer</span>
+</span><span class='line'>  <span class="n">UnsubscribeFromEvents</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//Move items from the selected items list to the list box selection</span>
+</span><span class='line'>  <span class="n">Transfer</span><span class="p">(</span><span class="n">SmartSelectedItems</span> <span class="k">as</span> <span class="n">IList</span><span class="p">,</span> <span class="k">base</span><span class="p">.</span><span class="n">SelectedItems</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//subscribe to the events again so we know when changes are made</span>
+</span><span class='line'>  <span class="n">SubscribeToEvents</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The following method is responsible to handle the changes when the selected items in the listbox are changing.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">void</span> <span class="nf">BaseListBoxSelectionChanged</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">SelectionChangedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">//Need to unsubscribe from the events so we don&#39;t override the transfer</span>
+</span><span class='line'>  <span class="n">UnsubscribeFromEvents</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//Move items from the selected items list to the list box selection</span>
+</span><span class='line'>  <span class="n">Transfer</span><span class="p">(</span><span class="k">base</span><span class="p">.</span><span class="n">SelectedItems</span><span class="p">,</span> <span class="n">SmartSelectedItems</span> <span class="k">as</span> <span class="n">IList</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//subscribe to the events again so we know when changes are made</span>
+</span><span class='line'>  <span class="n">SubscribeToEvents</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There is one possible risk with the implementation though. The dependency property is defined as INotifyCollectionChanged, but the code works with IList when doing the transfer. It is possible that the control binds against a property in the future that not implementing the IList. What will happen then?</p>
+
+<p>Well, in the worst case when the Transfer method is called the conversion to IList results a null and the method simply returns resulting the binding to be not working. This is not ideal, but it solves the problem I faced.</p>
+
+<p>Obviously, if this control would be sold to third parties the hidden requirement to also implement the IList for the viewmodel property needed to be addressed in some ways.</p>
+
+<p><strong>Disclaimer:</strong> I do not work in vacuum nor inventing everything from scratch. I rely on google searching when coding and to find great solutions from fellow developers. For this particular problem, I found this great article and it served me as a starting point:</p>
+
+<p><a href="http://blog.bdcsoft.com/developer-blog/2011/no-binding-for-you-a-listbox-selecteditems-behavior-solution/">No Binding for you a ListBox SelectedItems behavior solution</a></p>
+
+<h3>Full code</h3>
+
+<figure class='code'><figcaption><span>SmartListBox full class</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'>  <span class="k">public</span> <span class="k">class</span> <span class="nc">SmartListBox</span> <span class="p">:</span> <span class="n">ListBox</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="cp">#region Properties </span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">DependencyProperty</span> <span class="n">SmartSelectedItemsProperty</span> <span class="p">=</span>
+</span><span class='line'>      <span class="n">DependencyProperty</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="s">&quot;SmartSelectedItems&quot;</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">INotifyCollectionChanged</span><span class="p">),</span> <span class="k">typeof</span><span class="p">(</span><span class="n">SmartListBox</span><span class="p">),</span> <span class="k">new</span> <span class="n">PropertyMetadata</span><span class="p">(</span><span class="n">OnSmartSelectedItemsPropertyChanged</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="n">INotifyCollectionChanged</span> <span class="n">SmartSelectedItems</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="n">INotifyCollectionChanged</span><span class="p">)</span><span class="n">GetValue</span><span class="p">(</span><span class="n">SmartSelectedItemsProperty</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>      <span class="k">set</span> <span class="p">{</span> <span class="n">SetValue</span><span class="p">(</span><span class="n">SmartSelectedItemsProperty</span><span class="p">,</span> <span class="k">value</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cp">#endregion</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">SmartListBox</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">SelectionChanged</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">SelectionChangedEventHandler</span><span class="p">(</span><span class="n">BaseListBoxSelectionChanged</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">OnSmartSelectedItemsPropertyChanged</span><span class="p">(</span><span class="n">DependencyObject</span> <span class="n">target</span><span class="p">,</span> <span class="n">DependencyPropertyChangedEventArgs</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="kt">var</span> <span class="n">collection</span> <span class="p">=</span> <span class="n">args</span><span class="p">.</span><span class="n">NewValue</span> <span class="k">as</span> <span class="n">INotifyCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">collection</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// unsubscribe, before subscribe to make sure not to have multiple subscription</span>
+</span><span class='line'>        <span class="n">collection</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">-=</span> <span class="p">((</span><span class="n">SmartListBox</span><span class="p">)</span><span class="n">target</span><span class="p">).</span><span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">collection</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">+=</span> <span class="p">((</span><span class="n">SmartListBox</span><span class="p">)</span><span class="n">target</span><span class="p">).</span><span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">void</span> <span class="nf">SmartSelectedItemsCollectionChanged</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">NotifyCollectionChangedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="c1">//Need to unsubscribe from the events so we don&#39;t override the transfer</span>
+</span><span class='line'>      <span class="n">UnsubscribeFromEvents</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//Move items from the selected items list to the list box selection</span>
+</span><span class='line'>      <span class="n">Transfer</span><span class="p">(</span><span class="n">SmartSelectedItems</span> <span class="k">as</span> <span class="n">IList</span><span class="p">,</span> <span class="k">base</span><span class="p">.</span><span class="n">SelectedItems</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//subscribe to the events again so we know when changes are made</span>
+</span><span class='line'>      <span class="n">SubscribeToEvents</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">void</span> <span class="nf">BaseListBoxSelectionChanged</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">SelectionChangedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="c1">//Need to unsubscribe from the events so we don&#39;t override the transfer</span>
+</span><span class='line'>      <span class="n">UnsubscribeFromEvents</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//Move items from the selected items list to the list box selection</span>
+</span><span class='line'>      <span class="n">Transfer</span><span class="p">(</span><span class="k">base</span><span class="p">.</span><span class="n">SelectedItems</span><span class="p">,</span> <span class="n">SmartSelectedItems</span> <span class="k">as</span> <span class="n">IList</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//subscribe to the events again so we know when changes are made</span>
+</span><span class='line'>      <span class="n">SubscribeToEvents</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="k">void</span> <span class="nf">SubscribeToEvents</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">SelectionChanged</span> <span class="p">+=</span> <span class="n">BaseListBoxSelectionChanged</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">SmartSelectedItems</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="n">SmartSelectedItems</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">+=</span> <span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="k">void</span> <span class="nf">Transfer</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">IList</span> <span class="n">source</span><span class="p">,</span> <span class="n">IList</span> <span class="n">target</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">source</span> <span class="p">==</span> <span class="k">null</span> <span class="p">||</span> <span class="n">target</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">target</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">o</span> <span class="k">in</span> <span class="n">source</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="n">target</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="k">void</span> <span class="nf">UnsubscribeFromEvents</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">SelectionChanged</span> <span class="p">-=</span> <span class="n">BaseListBoxSelectionChanged</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">SmartSelectedItems</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="n">SmartSelectedItems</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">-=</span> <span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>ViewModel full class</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'>  <span class="k">public</span> <span class="k">class</span> <span class="nc">SmartListboxViewModel</span> <span class="p">:</span> <span class="n">ViewModelBase</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">SmartListboxViewModel</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">_selectedItems</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">+=</span> <span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="n">SelectionCount</span> <span class="p">=</span> <span class="n">SelectedItems</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="p">};</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cp">#region Properties</span>
+</span><span class='line'>    <span class="k">private</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">_items</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">Items</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_items</span><span class="p">;</span>  <span class="p">}</span>
+</span><span class='line'>      <span class="k">set</span> <span class="p">{</span> <span class="n">_items</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span> <span class="n">RaisePropertyChanged</span><span class="p">(</span><span class="s">&quot;Items&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">_selectedItems</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">SelectedItems</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_selectedItems</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>      <span class="k">set</span> <span class="p">{</span> <span class="n">_selectedItems</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span> <span class="n">RaisePropertyChanged</span><span class="p">(</span><span class="s">&quot;SelectedItems&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="kt">int</span> <span class="n">_selectionCount</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">SelectionCount</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_selectionCount</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>      <span class="k">set</span> <span class="p">{</span> <span class="n">_selectionCount</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span> <span class="n">RaisePropertyChanged</span><span class="p">(</span><span class="s">&quot;SelectionCount&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cp">#endregion</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Krisztian Gyuris</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2013-02-21T15:43:00+01:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2013</span></span> <span class='time'>3:43 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/silverlight/'>silverlight</a>, <a class='category' href='/blog/categories/xaml/'>xaml</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://gyurisc.github.io/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/" data-via="gyurisc" data-counturl="http://gyurisc.github.io/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2013/02/mass-customization-of-apps/" title="Previous Post: Mass customization of apps">&laquo; Mass customization of apps</a>
+      
+      
+        <a class="basic-alignment right" href="/2013/03/git-and-visual-studio-are-awesome-together/" title="Next Post: Git and Visual Studio are awesome together">Git and Visual Studio are awesome together &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/06/reading-about-date-and-time/">Reading About Date and Time</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/">Simple.Data and Dynamic Calls Are Awesome</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside/">All Navy Outside and a Pirate Dying to Be Released Inside</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/stop-the-troll/">Stop the Troll</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/exploring-xamarin-ios-on-windows/">Exploring Xamarin iOS on Windows</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/gyurisc">@gyurisc</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'gyurisc',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:gyurisc">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "gyurisc"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Krisztian Gyuris -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'littlebigtomatoes';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gyurisc.github.io/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/';
+        var disqus_url = 'http://gyurisc.github.io/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

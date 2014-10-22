@@ -4,10 +4,10 @@
   <title><![CDATA[Category: Linking | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/linking/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:41:47+02:00</updated>
+  <updated>2014-10-22T13:49:46+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Krisztian Gyuris]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -18,13 +18,7 @@
     <link href="http://gyurisc.github.io/2013/06/reading-about-date-and-time/"/>
     <updated>2013-06-27T12:45:00+02:00</updated>
     <id>http://gyurisc.github.io/2013/06/reading-about-date-and-time</id>
-    <content type="html"><![CDATA[<p>{% blockquote NodaTime <a href="http://noda-time.blogspot.hu/2011/08/what-wrong-with-datetime-anyway.html">http://noda-time.blogspot.hu/2011/08/what-wrong-with-datetime-anyway.html</a> What&rsquo;s wrong with DateTime anyway? %}
-So is Noda Time perfect then?</p>
-
-<p>Of course not. Noda Time suffers several problems:</p>
-
-<p>Despite all of the above, I&rsquo;m a rank amateur when it comes to the theory of date and time. Leap seconds baffle me. The thought of a Julian-Gregorian calendar with a cutover point makes me want to cry, which is why I haven&rsquo;t quite implemented it yet.
-{% endblockquote %}</p>
+    <content type="html"><![CDATA[<p><blockquote><p>So is Noda Time perfect then?</p></p><p><p>Of course not. Noda Time suffers several problems:</p></p><p><p>Despite all of the above, I&rsquo;m a rank amateur when it comes to the theory of date and time. Leap seconds baffle me. The thought of a Julian-Gregorian calendar with a cutover point makes me want to cry, which is why I haven&rsquo;t quite implemented it yet.</p><footer><strong>NodaTime <a href="http://noda-time.blogspot.hu/2011/08/what-wrong-with-datetime-anyway.html">http://noda-time.blogspot.hu/2011/08/what-wrong-with-datetime-anyway.html</a> What&rsquo;s wrong with DateTime anyway?</strong></footer></blockquote></p>
 
 <p>I am getting more confused about this <strong>simple</strong> thing called date and time minute by minute&hellip;</p>
 ]]></content>
@@ -35,11 +29,7 @@ So is Noda Time perfect then?</p>
     <link href="http://gyurisc.github.io/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside/"/>
     <updated>2013-04-16T14:14:00+02:00</updated>
     <id>http://gyurisc.github.io/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside</id>
-    <content type="html"><![CDATA[<p>{% blockquote Wikipedia <a href="http://en.wikipedia.org/wiki/Grace_Hopper">http://en.wikipedia.org/wiki/Grace_Hopper</a> Grace Hopper %}
-She was then hired as a senior consultant to Digital Equipment Corporation, a position she retained until her death in 1992, aged 85.</p>
-
-<p>Her primary activity in this capacity was as a goodwill ambassador, lecturing widely on the early days of computers, her career, and on efforts that computer vendors could take to make life easier for their users. She visited a large fraction of Digital&rsquo;s engineering facilities, where she generally received a standing ovation at the conclusion of her remarks. During many of her lectures, she illustrated a nanosecond using salvaged obsolete Bell System 25 pair telephone cable, cut it to 11.8 inch (30 cm) lengths, the distance that light travels in one nanosecond, and handed out the individual wires to her listeners. Although no longer a serving officer, she always wore her Navy full dress uniform to these lectures.
-{% endblockquote %}</p>
+    <content type="html"><![CDATA[<p><blockquote><p>She was then hired as a senior consultant to Digital Equipment Corporation, a position she retained until her death in 1992, aged 85.</p></p><p><p>Her primary activity in this capacity was as a goodwill ambassador, lecturing widely on the early days of computers, her career, and on efforts that computer vendors could take to make life easier for their users. She visited a large fraction of Digital&rsquo;s engineering facilities, where she generally received a standing ovation at the conclusion of her remarks. During many of her lectures, she illustrated a nanosecond using salvaged obsolete Bell System 25 pair telephone cable, cut it to 11.8 inch (30 cm) lengths, the distance that light travels in one nanosecond, and handed out the individual wires to her listeners. Although no longer a serving officer, she always wore her Navy full dress uniform to these lectures.</p><footer><strong>Wikipedia <a href="http://en.wikipedia.org/wiki/Grace_Hopper">http://en.wikipedia.org/wiki/Grace_Hopper</a> Grace Hopper</strong></footer></blockquote></p>
 
 <p>Grace Hopper invented the compiler and coined the term debugging. The two things I do in most of my professional life. She must be a truly remarkable person and I owe her my job! :)</p>
 ]]></content>
@@ -50,11 +40,7 @@ She was then hired as a senior consultant to Digital Equipment Corporation, a po
     <link href="http://gyurisc.github.io/2013/04/stop-the-troll/"/>
     <updated>2013-04-09T06:44:00+02:00</updated>
     <id>http://gyurisc.github.io/2013/04/stop-the-troll</id>
-    <content type="html"><![CDATA[<p>{% blockquote Joel On Software <a href="http://www.joelonsoftware.com/items/2013/04/02.html">http://www.joelonsoftware.com/items/2013/04/02.html</a> The Patent Protection Racket %}
-What does this sound like? Yes, it’s a textbook case of a protection racket. It is organized crime, plain and simple. It is an abuse of the legal system, an abuse of the patent system, and a moral affront.</p>
-
-<p>In the face of organized crime, civilized people don’t pay up. When you pay up, you’re funding the criminals, which makes you complicit in their next attacks. I know, you’re just trying to write a little app for the iPhone with in-app purchases, and you didn’t ask for this fight to be yours, but if you pay the trolls, giving them money and comfort to go after the next round of indie developers, you’re not just being “pragmatic,” you have actually gone over to the dark side. Sorry. Life is a bit hard sometimes, and sometimes you have to step up and fight fights that you never signed up for.
-{% endblockquote %}</p>
+    <content type="html"><![CDATA[<p><blockquote><p>What does this sound like? Yes, it’s a textbook case of a protection racket. It is organized crime, plain and simple. It is an abuse of the legal system, an abuse of the patent system, and a moral affront.</p></p><p><p>In the face of organized crime, civilized people don’t pay up. When you pay up, you’re funding the criminals, which makes you complicit in their next attacks. I know, you’re just trying to write a little app for the iPhone with in-app purchases, and you didn’t ask for this fight to be yours, but if you pay the trolls, giving them money and comfort to go after the next round of indie developers, you’re not just being “pragmatic,” you have actually gone over to the dark side. Sorry. Life is a bit hard sometimes, and sometimes you have to step up and fight fights that you never signed up for.</p><footer><strong>Joel On Software <a href="http://www.joelonsoftware.com/items/2013/04/02.html">http://www.joelonsoftware.com/items/2013/04/02.html</a> The Patent Protection Racket</strong></footer></blockquote></p>
 
 <p>I think the last sentence is classic and I fully agree with it. Life is a bit hard sometimes, and sometimes you have to step up and fight fights that you never signed up for.</p>
 
@@ -69,9 +55,7 @@ What does this sound like? Yes, it’s a textbook case of a protection racket. I
     <id>http://gyurisc.github.io/2013/03/overconsumerizing</id>
     <content type="html"><![CDATA[<p>Microsoft has the tendency to overdo things. It happened before with .NET around the 2000s. They started to call all of their product ending with .NET. Do you remember Windows Server.NET or Windows CE.NET? Now, they are back with overdoing other stuff such as secrecy, not listening and neglectic developers with Windows Phone and Windows 8. <a href="http://hal2020.com">Hal</a> nails it again:</p>
 
-<p>{% blockquote hal2020 <a href="http://hal2020.com/2013/03/05/now-i-get-it-the-consumer-guys-at-microsoft-are-just-plain-wrong/">http://hal2020.com/2013/03/05/now-i-get-it-the-consumer-guys-at-microsoft-are-just-plain-wrong/</a> Now I get it, the Consumer guys at Microsoft are just plain wrong! %}
-Let me contrast three strategic thrusts going on at Microsoft.  Windows, Windows Phone, and Azure.  Windows and Windows Phone are in the “shut up and ship” camp.  Azure is in the ENGAGE camp.  It seems like every week Scott Guthrie is announcing new Azure technology previews or releases.  Everything about Azure is exciting.  Amazon, Salesforce, and a few others defined cloud computing.  Azure is displacing them.  It has the Big Mo.  Let me make this clear, AZURE IS GOING TO WIN the cloud computing infrastructure and platform battle.  Meanwhile Windows and Windows Phone continue to alienate their ecosystems.  It is unclear if Windows Phone will ever amount to a significant third ecosystem.  It is unclear that Windows will be able to halt an overall market share decline against IOS and Android tablets.  Azure developers are excited.  No, it’s beyond excitement.  Windows and Windows Phone developers?  Not so much.  They are, at best, conflicted.  Azure is doing platforms right.  Windows and Windows Phone?  They prefer to “shut up and ship”, even if it risks no one caring what they ship&hellip;. <br/>
-{% endblockquote %}</p>
+<p><blockquote><p>Let me contrast three strategic thrusts going on at Microsoft.  Windows, Windows Phone, and Azure.  Windows and Windows Phone are in the “shut up and ship” camp.  Azure is in the ENGAGE camp.  It seems like every week Scott Guthrie is announcing new Azure technology previews or releases.  Everything about Azure is exciting.  Amazon, Salesforce, and a few others defined cloud computing.  Azure is displacing them.  It has the Big Mo.  Let me make this clear, AZURE IS GOING TO WIN the cloud computing infrastructure and platform battle.  Meanwhile Windows and Windows Phone continue to alienate their ecosystems.  It is unclear if Windows Phone will ever amount to a significant third ecosystem.  It is unclear that Windows will be able to halt an overall market share decline against IOS and Android tablets.  Azure developers are excited.  No, it’s beyond excitement.  Windows and Windows Phone developers?  Not so much.  They are, at best, conflicted.  Azure is doing platforms right.  Windows and Windows Phone?  They prefer to “shut up and ship”, even if it risks no one caring what they ship&hellip;. <br/></p><footer><strong>hal2020 <a href="http://hal2020.com/2013/03/05/now-i-get-it-the-consumer-guys-at-microsoft-are-just-plain-wrong/">http://hal2020.com/2013/03/05/now-i-get-it-the-consumer-guys-at-microsoft-are-just-plain-wrong/</a> Now I get it</strong> <cite>The Consumer Guys at Microsoft Are Just Plain Wrong!</cite></footer></blockquote></p>
 ]]></content>
   </entry>
   
@@ -80,12 +64,7 @@ Let me contrast three strategic thrusts going on at Microsoft.  Windows, Windows
     <link href="http://gyurisc.github.io/2013/02/mass-customization-of-apps/"/>
     <updated>2013-02-14T16:13:00+01:00</updated>
     <id>http://gyurisc.github.io/2013/02/mass-customization-of-apps</id>
-    <content type="html"><![CDATA[<p>{% blockquote triggerio <a href="http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/">http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/</a> Trend towards the Mass Customization of Apps from Banking to Government to Entertainment %}</p>
-
-<p>But in the past couple of months we’ve noticed another category of customers, and that group is growing fast.</p>
-
-<p>I call the trend the “mass customization” of apps, to borrow the manufacturing term. This group creates app templates designed for a particular industry and then customize those templates for each end customer. The customization could be as simple as different branding but more often includes adding differentiating features also.
-{% endblockquote %}</p>
+    <content type="html"><![CDATA[<p><blockquote><p></p></p><p><p>But in the past couple of months we’ve noticed another category of customers, and that group is growing fast.</p></p><p><p>I call the trend the “mass customization” of apps, to borrow the manufacturing term. This group creates app templates designed for a particular industry and then customize those templates for each end customer. The customization could be as simple as different branding but more often includes adding differentiating features also.</p><footer><strong>triggerio <a href="http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/">http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/</a> Trend towards the Mass Customization of Apps from Banking to Government to Entertainment</strong></footer></blockquote></p>
 
 <p>This article is a total eye-opener for me. With this trend, non-native apps (HTML-CSS-JS have now an edge over native mobile apps. The common source code base. With this common code-base, you can provide customizable apps that can be built and packaged from a web page and deployed much faster. Obviously, you will not build cutting edge racing games or first person shooters in html, but it does not matter. You can build awesome apps to large customers on all platform using the same codebase.</p>
 

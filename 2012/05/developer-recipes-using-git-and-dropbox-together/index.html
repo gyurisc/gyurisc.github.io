@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Developer Recipes - Using Git and Dropbox Together - My Octopress Blog</title>
+  <meta name="author" content="Krisztian Gyuris">
+
+  
+  <meta name="description" content="I love coding. My work is my hobby and I like to write small little apps and tools that I can use myself. I also use several machines with multiple &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gyurisc.github.io/2012/05/developer-recipes-using-git-and-dropbox-together">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>Design.Create.Smile.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gyurisc.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Developer Recipes - Using Git and Dropbox Together</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-05-07T16:13:28+02:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>4:13 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I love coding. My work is my hobby and I like to write small little apps and tools that I can use myself. I also use several machines with multiple operating systems on them and I need a workflow that would allow me to seamlesly synchornize between my machines. For this I created this process that involves git and dropbox, to keep my personal projects under source code control and have it synchroned to all my machines automatically. So I decided to document this method here.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p><strong>Disclaimer:</strong> I do not invented this method. Originally I saw the idea on stackoverflow.com:</p>
+
+<p><a href="http://stackoverflow.com/questions/1960799/using-gitdropbox-together-effectively">Stackoverflow - Using git dropbox together effectively?</a></p>
+
+<p>I am also not convinced that this method is suitable for more than one person to use. I am a single developer and this process fits my need perfectly.</p>
+
+<h3>Overview</h3>
+
+<p>I use Visual Studio.NET 2010, <a href="https://www.dropbox.com/">dropbox</a> and <a href="http://code.google.com/p/msysgit/">msysgit</a> on all my Windows machines. I am mainly developing for my Windows Phone and soon I will try to create Metro Apps for Windows 8. Although, this will be .NET and Visual Studio centric recipe, you can still use it with your own stuff. The only crucial component is dropbox and git.</p>
+
+<p>Let say, you have two machines. One laptop that you carry around and one desktop. Both have dropbox and git installed. You start creating your project on your laptop, but when you arrive home you would like to continue the coding on your desktop machine. So what will happen is the following:</p>
+
+<ul>
+<li>I will set up the project on my laptop and add it to the git source control</li>
+<li>I will initialize a bare repository on my laptop’s dropbox folder.</li>
+<li>Will push the project to dropbox.</li>
+<li>Get the project on the desktop machine</li>
+</ul>
+
+
+<h3>Setting up project and add it to git</h3>
+
+<ul>
+<li>Set up your Visual Studio.NET project and do some coding</li>
+</ul>
+
+
+<p>First, thing first is to create your application in Visual Studio.NET 2010. I will create a new todo app for my Windows Phone called <strong>TodoApp_WP7</strong>. Cannot see enough todo app on this new platform yet. So we need one :)</p>
+
+<ul>
+<li>Initialize the git repository in the solution folder</li>
+</ul>
+
+
+<p>Open up msysgit and navigate to your solution folder. Initialize your git repo and your</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git init</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Before adding your project files, it is a good idea to create a .gitognore file. Here you can specify what files you want to exclude from source code controll! So in your msysgit command line you issue this command to create .gitignore and add the things you would like to ignore.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>touch .gitignore
+</span><span class='line'>notepad .gitignore</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I have something like this in my .gitignore</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>User-specific files
+</span><span class='line'> 
+</span><span class='line'>*.suo
+</span><span class='line'>*.user
+</span><span class='line'>*.sln.docstates
+</span><span class='line'>  
+</span><span class='line'>Others
+</span><span class='line'>  
+</span><span class='line'>[Bb]in
+</span><span class='line'>[Oo]bj</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then you can add your files and do your first commit</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
+</span><span class='line'>git commit -m “first commit”</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Pushing the changes to Dropbox</h3>
+
+<ul>
+<li>Create a git folder in your Dropbox folder and initialize a bare git repository</li>
+</ul>
+
+
+<p>Navigate to your git dropbox folder and create your bare repository. Navigating in the git shell can be tricky to someone, who knows only windows command line.</p>
+
+<p>My Dropbox is installed on my machine here D:\Dropbox, so to go to that folder you need to issue this command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /d/Dropbox/git
+</span><span class='line'>git init —bare TodoApp_WP7.git</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Adding remotes</li>
+</ul>
+
+
+<p>Now you need to go back to your project directory and configure the dropbox folder as the origin for your project. I also add a remote called dropbox as a convenience.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git remote add origin /d/Dropbox/git/TodoApp_WP7.git
+</span><span class='line'>git remote add dropbox /d/Dropbox/git/TodoApp_WP7.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+ * Push the project to your bare dropbox repository</p>
+
+<p>Now you need to push the project to your dropbox repository</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> git push -u origin master</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>On your other machine just simply do a git clone to get the project</li>
+</ul>
+
+
+<h3>Getting your project from Dropbox to another computer for the first time</h3>
+
+<p>When logging on to your other machine you will see that dropbox is busy to refresh all the files you were changing or it already has been happened. All you need to do is to open up the git client on your machine, navigate to your dev folder an issue the command</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone /d/Dropbox/git/TodoApp_WP7.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will create the folder in your dev folder and gets the source code of your app. You will need not to worry about remotes, however you can create anew remote called dropbox, if you like.
+Now you are ready to launch Visual Studio on the machine and do some changes. After finishing your work you can return to the git command line and issue the following command to find out what has changed:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git status</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You will see all files that are changed or new. You will need to add the changes to your change set and commit these changes .</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
+</span><span class='line'>git commit -m “My new changes to my app”</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With the commit command you added all the changes to your git repository. However, you still need to push these changes to your dropbox. It is called origin and it is automatically created when you cloned your project from dropbox.</p>
+
+<p>All you need to do is to issue the following command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git push</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you are done with all the changes and these are now synchronized on all your developer machines.</p>
+
+<h3>Getting the changes for your project on a machine that already has your project.</h3>
+
+<p>This is the simples command. All you need to do is to go to your project repository and do a pull operation:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git pull</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I hope that you will find this method useful for synchronizing code between your computer via dropbox and git. If you have any questions, please do not hesitate to contact me!</p>
+
+<h3>Useful links</h3>
+
+<ul>
+<li><a href="https://github.com/AlexZeitler/gitcheatsheet/blob/master/gitcheatsheet.pdf">git cheat sheet</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Krisztian Gyuris</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2012-05-07T16:13:28+02:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>4:13 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/recipes/'>recipes</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://gyurisc.github.io/2012/05/developer-recipes-using-git-and-dropbox-together/" data-via="gyurisc" data-counturl="http://gyurisc.github.io/2012/05/developer-recipes-using-git-and-dropbox-together/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/03/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design/" title="Previous Post: An easy way to create awesome looking Windows Phone7 icons using expression Design">&laquo; An easy way to create awesome looking Windows Phone7 icons using expression Design</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/06/not-getting-an-ipad/" title="Next Post: Not Getting an iPad">Not Getting an iPad &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/06/reading-about-date-and-time/">Reading About Date and Time</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/">Simple.Data and Dynamic Calls Are Awesome</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside/">All Navy Outside and a Pirate Dying to Be Released Inside</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/stop-the-troll/">Stop the Troll</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/exploring-xamarin-ios-on-windows/">Exploring Xamarin iOS on Windows</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/gyurisc">@gyurisc</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'gyurisc',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:gyurisc">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "gyurisc"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Krisztian Gyuris -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'littlebigtomatoes';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -6,10 +6,10 @@
 <head>
   <meta charset="utf-8">
   <title>My Octopress Blog</title>
-  <meta name="author" content="Your Name">
+  <meta name="author" content="Krisztian Gyuris">
 
   
-  <meta name="description" content="I love coding. My work is my hobby and I like to write small little apps and tools that I can use myself. I also use several machines with multiple &hellip;">
+  <meta name="description" content="So is Noda Time perfect then?Of course not. Noda Time suffers several problems:Despite all of the above, I'm a rank amateur when it comes to the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -38,7 +38,7 @@
   <header role="banner"><hgroup>
   <h1><a href="/">My Octopress Blog</a></h1>
   
-    <h2>A blogging framework for hackers.</h2>
+    <h2>Design.Create.Smile.</h2>
   
 </hgroup>
 
@@ -71,7 +71,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/05/07/developer-recipes-using-git-and-dropbox-together/">Developer Recipes - Using Git and Dropbox Together</a></h1>
+      <h1 class="entry-title"><a href="/2013/06/reading-about-date-and-time/">Reading About Date and Time</a></h1>
     
     
       <p class="meta">
@@ -80,20 +80,78 @@
 
 
 
-<time class='entry-date' datetime='2012-05-07T16:13:28+02:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>4:13 pm</span></time>
+<time class='entry-date' datetime='2013-06-27T12:45:00+02:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:45 pm</span></time>
+        
+           | <a href="/2013/06/reading-about-date-and-time/#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io/2013/06/reading-about-date-and-time/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I love coding. My work is my hobby and I like to write small little apps and tools that I can use myself. I also use several machines with multiple operating systems on them and I need a workflow that would allow me to seamlesly synchornize between my machines. For this I created this process that involves git and dropbox, to keep my personal projects under source code control and have it synchroned to all my machines automatically. So I decided to document this method here.</p>
+  <div class="entry-content"><blockquote><p>So is Noda Time perfect then?</p><p>Of course not. Noda Time suffers several problems:</p><p>Despite all of the above, I&#8217;m a rank amateur when it comes to the theory of date and time. Leap seconds baffle me. The thought of a Julian-Gregorian calendar with a cutover point makes me want to cry, which is why I haven&#8217;t quite implemented it yet.</p><footer><strong>NodaTime</strong> <cite><a href='http://noda-time.blogspot.hu/2011/08/what-wrong-with-datetime-anyway.html'>What&#8217;s Wrong With DateTime Anyway?</a></cite></footer></blockquote>
+
+
+<p>I am getting more confused about this <strong>simple</strong> thing called date and time minute by minute&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/">Simple.Data and Dynamic Calls Are Awesome</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-06-17T11:59:00+02:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>11:59 am</span></time>
+        
+           | <a href="/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Couple of weeks ago I started to look into different open source packages on the .NET platform such as <a href="http://nancyfx.org/">Nancy</a> and <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data/">Simple.Data</a>. They all looked very cool, but one paragraph in an article called <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data/">Introducing Simple.Data</a> - explaining how the code snippet below works - caught my attention:</p>
+
+<figure class='code'><figcaption><span>getting data from db </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">db</span> <span class="p">=</span> <span class="n">Database</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span> <span class="c1">// Connection specified in config.</span>
+</span><span class='line'><span class="kt">var</span> <span class="n">user</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Users</span><span class="p">.</span><span class="n">FindByNameAndPassword</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>That’s pretty neat, right? So, did we have to generate the Database class and a bunch of table classes to make this work?</p><p>No.</p><p>In this example, the type returned by Database.Open() is dynamic. It doesn’t have a Users property, but when that property is referenced on it, it returns a new instance of a DynamicTable type, again as dynamic. That instance doesn’t actually have a method called FindByNameAndPassword, but when it’s called, it sees “FindBy” at the start of the method, so it pulls apart the rest of the method name, combines it with the arguments, and builds an ADO.NET command which safely encapsulates the name and password values inside parameters. The FindBy* methods will only return one record; there are FindAllBy* methods which return result sets. This approach is used by the Ruby/Rails ActiveRecord library; Ruby’s metaprogramming nature encourages stuff like this.</p><footer><strong>Mark Rendle</strong> <cite><a href='http://blog.markrendle.net/2010/08/05/introducing-simple-data'>Introducing Simple.Data</a></cite></footer></blockquote>
+
+
+<p>Just read that sentence once again&hellip;</p>
+
+<p><em>That instance doesn’t actually have a method called FindByNameAndPassword, but when it’s called, it sees “FindBy” at the start of the method, so it pulls apart the rest of the method name, combines it with the arguments, and builds an ADO.NET command which safely encapsulates the name and password values inside parameters.</em></p>
+
+<p>This sounds like crazy awesome magic and I need to understand it!</p>
+
+<h2>How magic works?</h2>
+
+<p>To find out how the magic worked, I downloaded the source code from github and started to poke around the code. The rest of the article explains what I got out of this experiment.</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2012/05/07/developer-recipes-using-git-and-dropbox-together/">Read on &rarr;</a>
+      <a rel="full-article" href="/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/">Read on &rarr;</a>
     </footer>
   
 
@@ -105,7 +163,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/03/21/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design/">An Easy Way to Create Awesome Looking Windows Phone7 Icons Using Expression Design</a></h1>
+      <h1 class="entry-title"><a href="/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside/">All Navy Outside and a Pirate Dying to Be Released Inside</a></h1>
     
     
       <p class="meta">
@@ -114,22 +172,97 @@
 
 
 
-<time class='entry-date' datetime='2012-03-21T18:18:08+01:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>6:18 pm</span></time>
+<time class='entry-date' datetime='2013-04-16T14:14:00+02:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>2:14 pm</span></time>
+        
+           | <a href="/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside/#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I am always having problems when it comes to creating icons for my Wp7 apps.I am a coder and not a designer, so drawing something nice looking is really really out of my comfort zone.</p>
+  <div class="entry-content"><blockquote><p>She was then hired as a senior consultant to Digital Equipment Corporation, a position she retained until her death in 1992, aged 85.</p><p>Her primary activity in this capacity was as a goodwill ambassador, lecturing widely on the early days of computers, her career, and on efforts that computer vendors could take to make life easier for their users. She visited a large fraction of Digital&#8217;s engineering facilities, where she generally received a standing ovation at the conclusion of her remarks. During many of her lectures, she illustrated a nanosecond using salvaged obsolete Bell System 25 pair telephone cable, cut it to 11.8 inch (30 cm) lengths, the distance that light travels in one nanosecond, and handed out the individual wires to her listeners. Although no longer a serving officer, she always wore her Navy full dress uniform to these lectures.</p><footer><strong>Wikipedia</strong> <cite><a href='http://en.wikipedia.org/wiki/Grace_Hopper'>Grace Hopper</a></cite></footer></blockquote>
 
-<p>Previously I spent hours trying to draw symbols myself, but I never really liked the outcome. But lately, I found a quick and effective way to create nice looking icons for my Windows Phone 7 apps. Here it goes:</p>
+
+<p>Grace Hopper invented the compiler and coined the term debugging. The two things I do in most of my professional life. She must be a truly remarkable person and I owe her my job! :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2013/04/stop-the-troll/">Stop the Troll</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-04-09T06:44:00+02:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>6:44 am</span></time>
+        
+           | <a href="/2013/04/stop-the-troll/#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io/2013/04/stop-the-troll/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>What does this sound like? Yes, it’s a textbook case of a protection racket. It is organized crime, plain and simple. It is an abuse of the legal system, an abuse of the patent system, and a moral affront.</p><p>In the face of organized crime, civilized people don’t pay up. When you pay up, you’re funding the criminals, which makes you complicit in their next attacks. I know, you’re just trying to write a little app for the iPhone with in-app purchases, and you didn’t ask for this fight to be yours, but if you pay the trolls, giving them money and comfort to go after the next round of indie developers, you’re not just being “pragmatic,” you have actually gone over to the dark side. Sorry. Life is a bit hard sometimes, and sometimes you have to step up and fight fights that you never signed up for.</p><footer><strong>Joel On Software</strong> <cite><a href='http://www.joelonsoftware.com/items/2013/04/02.html'>The Patent Protection Racket</a></cite></footer></blockquote>
+
+
+<p>I think the last sentence is classic and I fully agree with it. Life is a bit hard sometimes, and sometimes you have to step up and fight fights that you never signed up for.</p>
+
+<p>There are some very awfull software patents granted in the past and there are some, who are clearly abusing this system. Let&rsquo;s stop these trolls together!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2013/03/exploring-xamarin-ios-on-windows/">Exploring Xamarin iOS on Windows</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-03-28T08:24:00+01:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>8:24 am</span></time>
+        
+           | <a href="/2013/03/exploring-xamarin-ios-on-windows/#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io/2013/03/exploring-xamarin-ios-on-windows/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Xamarin not so long ago released the version 2.0 of their product that allows all .NET developers to use C# and .NET libraries to code apps for iOS and Android. Better yet, it allows us to use our bellowed Visual Studio.NET to code for these platforms.</p>
+
+<p>I love to try out new things, so I decide to figure out if it is really possible to create very basic application for iOS and for Android purely from Visual Studio.NET.</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2012/03/21/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design/">Read on &rarr;</a>
+      <a rel="full-article" href="/2013/03/exploring-xamarin-ios-on-windows/">Read on &rarr;</a>
     </footer>
   
 
@@ -141,7 +274,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/01/13/my-version-of-the-ikeapad/">My Version of the IKEAPad</a></h1>
+      <h1 class="entry-title"><a href="/2013/03/getting-started-with-gridster-dot-js/">Getting Started With gridster.js</a></h1>
     
     
       <p class="meta">
@@ -150,22 +283,31 @@
 
 
 
-<time class='entry-date' datetime='2012-01-13T07:50:24+01:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>7:50 am</span></time>
+<time class='entry-date' datetime='2013-03-08T17:24:00+01:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>5:24 pm</span></time>
+        
+           | <a href="/2013/03/getting-started-with-gridster-dot-js/#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io/2013/03/getting-started-with-gridster-dot-js/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I recently saw the <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad stand</a> on <a href="http://www.ikeahackers.net/">IKEA Hackers</a> and I really liked it. <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad</a> is basically a simple iPad stand constructed from an <a href="http://www.ikea.com/us/en/catalog/products/76696009/">Ekby Valter</a> that costs 3$, that is less cheaper that you would pay for any iPad stand on the market. After reading the article, I decided to create my own version, for this you will need to buy 2 pieces of Ekby Valter and take out the shortest piece of wood from one of the Ekby Valter and use it as a dowel. I guess it is easier to understand if you see it.</p>
+  <div class="entry-content"><p>I am looking into to learn more about web client side programming, but whenever I find an interesting project I am overwhelmed with the unknown names of different libraries and technologies mentioned, while reading the project&rsquo;s page. Consider <a href="http://shopify.github.com/dashing/">Dashing</a> for example. They mention Sinatra, <a href="https://github.com/Shopify/dashing/wiki/How-to%3A-Deploy-to-Heroku">Heroku</a>, jQuery.. These are the ones that I have at least a slight idea what they are good for. But the list continues: <a href="https://github.com/sstephenson/sprockets">Sprockets</a>, <a href="http://gridster.net/">Gridster.js</a>, <a href="http://www.html5rocks.com/en/tutorials/eventsource/basics/">Server Sent Events</a> and <a href="http://batmanjs.org/docs/batman.html#batman-view-bindings-keypath-filters">batman bindings</a>.</p>
 
-<p><img src="/images/WP_0003951-300x225.jpg" title="Finished iPad stand" alt="The finished iPad stand in my kitchen holding the iPad"></p>
+<p>This is nuts, I do not understand any of these. So I decided to divide and conquer the problem and try to focus on one unknown technology at a time. The aim is not to master the library, but to construct a minimum viable sample that helps to understand what it is good for.</p>
+
+<p>Let&rsquo;s start with <a href="http://gridster.net/">Gridster.js</a>.</p>
+
+<p><img src="/images/gridster_demo.png" title="Gridster demo page" alt="Gridster demo page"></p>
+
+<p>The project page describes this library as:</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2012/01/13/my-version-of-the-ikeapad/">Read on &rarr;</a>
+      <a rel="full-article" href="/2013/03/getting-started-with-gridster-dot-js/">Read on &rarr;</a>
     </footer>
   
 
@@ -177,7 +319,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/11/29/an-easy-way-to-create-windows-phone-7-icons-using-expression-design/">An Easy Way to Create Windows Phone 7 Icons Using Expression Design</a></h1>
+      <h1 class="entry-title"><a href="/2013/03/overconsumerizing/">OverConsumerizing</a></h1>
     
     
       <p class="meta">
@@ -186,37 +328,19 @@
 
 
 
-<time class='entry-date' datetime='2011-11-29T06:23:55+01:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>6:23 am</span></time>
+<time class='entry-date' datetime='2013-03-07T08:11:00+01:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>8:11 am</span></time>
+        
+           | <a href="/2013/03/overconsumerizing/#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io/2013/03/overconsumerizing/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>In the past I had problems when I wanted to create icons quickly for my Windows Phone 7 apps before submitting them to the marketplace certification. A good set of consistent icons is a good way to give a good first impression to your future customers, but if you decide to create those icons yourself then it is a time consuming task. I decided to fix this problem for good!</p>
+  <div class="entry-content"><p>Microsoft has the tendency to overdo things. It happened before with .NET around the 2000s. They started to call all of their product ending with .NET. Do you remember Windows Server.NET or Windows CE.NET? Now, they are back with overdoing other stuff such as secrecy, not listening and neglectic developers with Windows Phone and Windows 8. <a href="http://hal2020.com">Hal</a> nails it again:</p>
 
-<p><img src="/images/expression_design-300x176.png" title="Windows Phone 7 Icons with Expression Designy" alt="Windows Phone 7 Icons with Expression Design"></p>
-
-<p>For your application and for marketplace submission you will need the following artwork:</p>
-
-<ul>
-<li>Application Icon (62 x 62)</li>
-<li>Application Tile Image (173 x 173)</li>
-<li>Marketplace catalog icon (small) (99 x 99)</li>
-<li>Marketplate catalog icon (large) (173 x 173)</li>
-<li>Desktop application icon (200 x 200)</li>
-</ul>
-
-
-<p>To create an icon and the resize it correctly and export it is always a lot of repetitive work, the one I do not enjoy. So in my favorite design tool - Expression Design 4 - created a file, where all you need is to replace the shape in each icon and select <strong>File | Export</strong> and you are done. All the icons will be ready for your project.</p>
-
-<p>I created a git repository for it called <a href="https://github.com/gyurisc/WP7ExpressionIcons">WP7ExpressionIcons</a>.
-I used this to articles as my starting point:</p>
-
-<ul>
-<li><a href="http://cgeers.com/2011/10/30/programming-windows-phone-7-5-part-2-icons/#more-3521">Programming Windows Phone 7.5 Part 2: Icons</a></li>
-<li><a href="http://expression.microsoft.com/en-us/gg317447">Creating Windows Phone 7 Application and Marketplace icons</a></li>
-</ul>
+<blockquote><p>Let me contrast three strategic thrusts going on at Microsoft.  Windows, Windows Phone, and Azure.  Windows and Windows Phone are in the “shut up and ship” camp.  Azure is in the ENGAGE camp.  It seems like every week Scott Guthrie is announcing new Azure technology previews or releases.  Everything about Azure is exciting.  Amazon, Salesforce, and a few others defined cloud computing.  Azure is displacing them.  It has the Big Mo.  Let me make this clear, AZURE IS GOING TO WIN the cloud computing infrastructure and platform battle.  Meanwhile Windows and Windows Phone continue to alienate their ecosystems.  It is unclear if Windows Phone will ever amount to a significant third ecosystem.  It is unclear that Windows will be able to halt an overall market share decline against IOS and Android tablets.  Azure developers are excited.  No, it’s beyond excitement.  Windows and Windows Phone developers?  Not so much.  They are, at best, conflicted.  Azure is doing platforms right.  Windows and Windows Phone?  They prefer to “shut up and ship”, even if it risks no one caring what they ship&#8230;.</p><footer><strong>hal2020</strong> <cite><a href='http://hal2020.com/2013/03/05/now-i-get-it-the-consumer-guys-at-microsoft-are-just-plain-wrong/'>Now I Get It, the Consumer Guys at Microsoft Are Just Plain Wrong!</a></cite></footer></blockquote>
 
 </div>
   
@@ -230,7 +354,7 @@ I used this to articles as my starting point:</p>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/09/08/bootstrapmvc-an-asp-net-mvc-project-using-twitter-bootstrap/">BootstrapMVC, an ASP.NET MVC Project Using Twitter Bootstrap</a></h1>
+      <h1 class="entry-title"><a href="/2013/03/git-and-visual-studio-are-awesome-together/">Git and Visual Studio Are Awesome Together</a></h1>
     
     
       <p class="meta">
@@ -239,26 +363,28 @@ I used this to articles as my starting point:</p>
 
 
 
-<time class='entry-date' datetime='2011-09-08T13:22:35+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>1:22 pm</span></time>
+<time class='entry-date' datetime='2013-03-01T19:59:00+01:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2013</span></span> <span class='time'>7:59 pm</span></time>
+        
+           | <a href="/2013/03/git-and-visual-studio-are-awesome-together/#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io/2013/03/git-and-visual-studio-are-awesome-together/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>My favorite web development framework is <strong>ASP.NET MVC</strong>. I like its simplicity and that it is very easy to learn. The whole approach is just makes sense to me, unlike the classic ASP.NET. However, the default MVC theme is getting really old and bring.</p>
+  <div class="entry-content"><p>I love Visual Studio and I love git too. What can be even better than this? Visual Studio 2012 integrated with Git. The two together are pure awesomeness and I fell in love with them.</p>
 
-<p>I also really like the <strong><a href="https://dev.twitter.com/blog/bootstrap-twitter">Twitter Bootstrap</a></strong> framework from twitter. It looks totally awesome and it can be used to create good looking websites really quick. So it made sense to create an MVC project using <strong><a href="https://dev.twitter.com/blog/bootstrap-twitter">Twitter Bootstrap</a></strong>. The result is <strong><a href="https://github.com/gyurisc/BootstrapMVC">BootstrapMVC</a></strong>.</p>
+<p><img src="/images/git_vs_001.png" title="Git SSCP" alt="Git Source Control Provider"></p>
 
-<p>BootstrapMVC is an ASP.NET MVC project using the Twitter Botstrap CSS. Just download it from github and open the solution file in Visual Studio.NET.</p>
+<p>There is a provider that you can install in visual studio 2012 and you will get git integration. It can talk to tfs, if you use git there. IT can create local git repos and even can clone repositories from github or from other git hosting servers.</p>
 
-<p>This is how it looks:</p>
-
-<p><img src="/images/BootstrapMVC-300x217.png" width="300" height="217" title="BootstrapMVC" alt="ASP.NET MVC theme using Twitter Bootstrap"></p>
-
-<p>Check out the <a href="http://www.littlebigtomatoes.com/bootstrapmvc/">BootstrapMVC</a> or <a href="https://github.com/gyurisc/BootstrapMVC">download the project from github</a>.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2013/03/git-and-visual-studio-are-awesome-together/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -269,7 +395,7 @@ I used this to articles as my starting point:</p>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/08/11/apphub-membership-is-free-for-nokia-launchpad-members/">Apphub Membership Is Free for Nokia Launchpad Members</a></h1>
+      <h1 class="entry-title"><a href="/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/">Fixing the SelectedItems Property Binding for the Silverlight Listbox Control</a></h1>
     
     
       <p class="meta">
@@ -278,24 +404,26 @@ I used this to articles as my starting point:</p>
 
 
 
-<time class='entry-date' datetime='2011-08-11T14:18:11+02:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>2:18 pm</span></time>
+<time class='entry-date' datetime='2013-02-21T15:43:00+01:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2013</span></span> <span class='time'>3:43 pm</span></time>
+        
+           | <a href="/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>It seems that you can save the price of 1 year <a href="http://create.msdn.com/en-US/">Microsoft AppHub</a> membership, if you are a<a href="https://www.developer.nokia.com/Developer_Programs/Launchpad/"> Nokia Launchpad</a> member and an <a href="http://info.publish.ovi.com/">Ovi Appstore Publisher</a>.</p>
+  <div class="entry-content"><p>I recently had to implement a feature in our silverlight app, where the user can remove multiple items selected in a listbox. The project uses the MVVM pattern, so all logic and state is handle in the ViewModel class. When trying to implement the multiple selection, I needed to add a property to my viewmodel that would be a reflection of the items selected on the view. It turns out the ListBox control does not support binding against the SelectedItems property for some reason.</p>
 
-<p>If you use the same email address that you used to register with Nokia Launchpad to register for a one year membership for Apphub, the $99 price of the membership will be returned to you.</p>
+<p>This article describe, how the problem has been solved.</p>
 
-<p>The Apphub is the main site, where you can register to publish apps to the Windows Phone 7 Marketplace or to xbox360, a one year membership costs $99 dollars. So if you are planning to develop and publish apps for the Windows Phone 7 platform then it is time take the chance and register for free.</p>
-
-<p>Here is the information from Nokia:</p>
-
-<blockquote><p>We are offering a free Microsoft App Hub registration for the first one year to those Nokia Developer PRO and Launchpad members who are registered Ovi publishers in the countries that Microsoft supports on the App Hub. This offer will save you $99 USD (the regular annual membership fee) as the membership fee will be refunded to you by Microsoft. The membership will give you access to submit applications for Windows Phone Marketplace as well as access to the developer tools, documentation, code samples and forums.</p></blockquote>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -306,7 +434,7 @@ I used this to articles as my starting point:</p>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/07/21/google-plus-for-net/">Google Plus for .NET</a></h1>
+      <h1 class="entry-title"><a href="/2013/02/mass-customization-of-apps/">Mass Customization of Apps</a></h1>
     
     
       <p class="meta">
@@ -315,14 +443,22 @@ I used this to articles as my starting point:</p>
 
 
 
-<time class='entry-date' datetime='2011-07-21T16:05:41+02:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>4:05 pm</span></time>
+<time class='entry-date' datetime='2013-02-14T16:13:00+01:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>4:13 pm</span></time>
+        
+           | <a href="/2013/02/mass-customization-of-apps/#disqus_thread"
+             data-disqus-identifier="http://gyurisc.github.io/2013/02/mass-customization-of-apps/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I uploaded my first version of the GooglePlus.NET unofficiall API called <a href="https://github.com/gyurisc/dotnet.googleplus">Dotnet.GooglePlus</a>. Happy Hacking! :)</p>
+  <div class="entry-content"><blockquote><p>But in the past couple of months we’ve noticed another category of customers, and that group is growing fast.</p><p>I call the trend the “mass customization” of apps, to borrow the manufacturing term. This group creates app templates designed for a particular industry and then customize those templates for each end customer. The customization could be as simple as different branding but more often includes adding differentiating features also.</p><footer><strong>triggerio</strong> <cite><a href='http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/'>Trend Towards the Mass Customization of Apps From Banking to Government to Entertainment</a></cite></footer></blockquote>
+
+
+<p>This article is a total eye-opener for me. With this trend, non-native apps (HTML-CSS-JS have now an edge over native mobile apps. The common source code base. With this common code-base, you can provide customizable apps that can be built and packaged from a web page and deployed much faster. Obviously, you will not build cutting edge racing games or first person shooters in html, but it does not matter. You can build awesome apps to large customers on all platform using the same codebase.</p>
+
+<p>This is totally awesome!</p>
 </div>
   
   
@@ -331,6 +467,8 @@ I used this to articles as my starting point:</p>
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/posts/2">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -343,28 +481,75 @@ I used this to articles as my starting point:</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2012/05/07/developer-recipes-using-git-and-dropbox-together/">Developer Recipes - Using Git and Dropbox Together</a>
+        <a href="/2013/06/reading-about-date-and-time/">Reading About Date and Time</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/03/21/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design/">An Easy Way to Create Awesome Looking Windows Phone7 Icons Using Expression Design</a>
+        <a href="/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/">Simple.Data and Dynamic Calls Are Awesome</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/01/13/my-version-of-the-ikeapad/">My Version of the IKEAPad</a>
+        <a href="/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside/">All Navy Outside and a Pirate Dying to Be Released Inside</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/11/29/an-easy-way-to-create-windows-phone-7-icons-using-expression-design/">An Easy Way to Create Windows Phone 7 Icons Using Expression Design</a>
+        <a href="/2013/04/stop-the-troll/">Stop the Troll</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/09/08/bootstrapmvc-an-asp-net-mvc-project-using-twitter-bootstrap/">BootstrapMVC, an ASP.NET MVC Project Using Twitter Bootstrap</a>
+        <a href="/2013/03/exploring-xamarin-ios-on-windows/">Exploring Xamarin iOS on Windows</a>
       </li>
     
   </ul>
 </section>
 
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/gyurisc">@gyurisc</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'gyurisc',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:gyurisc">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "gyurisc"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
 
 
 
@@ -375,14 +560,36 @@ I used this to articles as my starting point:</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Your Name -
+  Copyright &copy; 2014 - Krisztian Gyuris -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
 </footer>
   
 
+<script type="text/javascript">
+      var disqus_shortname = 'littlebigtomatoes';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
 

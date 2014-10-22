@@ -4,10 +4,10 @@
   <title><![CDATA[Category: Projects | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:41:47+02:00</updated>
+  <updated>2014-10-22T13:49:46+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Krisztian Gyuris]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -29,7 +29,7 @@
 
 <p>To help myself and hopefully others to memorize these shortcuts I created an app that makes easy to find and learn the shortcuts. Currently, it contains about 100 shortcuts for Windows 8, Calendar and Mail. I am hoping to add more shortcuts and other applications soon.</p>
 
-<p>{% youtube HiyMIWcum_c %}</p>
+<p><div class="embed-video-container"><iframe src="http://www.youtube.com/embed/HiyMIWcum_c "></iframe></div></p>
 
 <p>If you have any feedback, issues or you think there is something missing just ping me on twitter. I would be happy to help you!</p>
 ]]></content>

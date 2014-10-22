@@ -4,10 +4,10 @@
   <title><![CDATA[Category: Javascript | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:41:47+02:00</updated>
+  <updated>2014-10-22T13:49:46+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Krisztian Gyuris]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -24,7 +24,7 @@
 
 <p>Let&rsquo;s start with <a href="http://gridster.net/">Gridster.js</a>.</p>
 
-<p>{%img /images/gridster_demo.png &lsquo;Gridster demo page&rsquo; &lsquo;Gridster demo page&rsquo; %}</p>
+<p><img src="/images/gridster_demo.png" title="&lsquo;Gridster demo page&rsquo; &lsquo;Gridster demo page&rsquo;" ></p>
 
 <p>The project page describes this library as:</p>
 
@@ -33,9 +33,7 @@
 
 <p></p>
 
-<p>{% blockquote %}
-Gridster is a jQuery plugin that allows building intuitive draggable layouts from elements spanning multiple columns. You can even dynamically add and remove elements from the grid. It is on par with sliced bread, or possibly better. MIT licensed. Suitable for children of all ages. Made by Ducksboard.
-{% endblockquote %}</p>
+<p><blockquote><p>Gridster is a jQuery plugin that allows building intuitive draggable layouts from elements spanning multiple columns. You can even dynamically add and remove elements from the grid. It is on par with sliced bread, or possibly better. MIT licensed. Suitable for children of all ages. Made by Ducksboard.</p></blockquote></p>
 
 <h3>Making the minimum gridster page</h3>
 
