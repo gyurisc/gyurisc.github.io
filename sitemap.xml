@@ -1,6 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gyurisc.github.io/blog/2013/06/27/reading-about-date-and-time/</loc>
+    <lastmod>2013-06-27T12:45:00+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/06/17/simple-dot-data-and-dynamic-calls-are-simply-awesome/</loc>
+    <lastmod>2013-06-17T11:59:00+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/04/16/all-navy-outside-and-a-pirate-dying-to-be-released-inside/</loc>
+    <lastmod>2013-04-16T14:14:00+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/04/09/stop-the-troll/</loc>
+    <lastmod>2013-04-09T06:44:00+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/03/28/exploring-xamarin-ios-on-windows/</loc>
+    <lastmod>2013-03-28T08:24:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/03/08/getting-started-with-gridster-dot-js/</loc>
+    <lastmod>2013-03-08T17:24:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/03/07/overconsumerizing/</loc>
+    <lastmod>2013-03-07T08:11:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/03/01/git-and-visual-studio-are-awesome-together/</loc>
+    <lastmod>2013-03-01T19:59:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/02/21/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/</loc>
+    <lastmod>2013-02-21T15:43:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/02/14/mass-customization-of-apps/</loc>
+    <lastmod>2013-02-14T16:13:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/02/05/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps/</loc>
+    <lastmod>2013-02-05T17:57:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/01/31/5-ways-to-get-better-at-designing-apps-for-windows-phone/</loc>
+    <lastmod>2013-01-31T21:51:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/01/26/branching-out/</loc>
+    <lastmod>2013-01-26T14:41:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2013/01/18/is-android-catching-up-to-ios/</loc>
+    <lastmod>2013-01-18T08:32:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/12/31/reverse-todo-process/</loc>
+    <lastmod>2012-12-31T08:52:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/12/20/keyboard-shortcuts-for-windows-8/</loc>
+    <lastmod>2012-12-20T07:54:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/12/11/will-windows-phone-8-and-lumia-come-around-finally/</loc>
+    <lastmod>2012-12-11T16:42:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/12/10/todo-or-todont/</loc>
+    <lastmod>2012-12-10T18:01:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/12/04/keyboard-shortcut-starter-kit-for-windows-8/</loc>
+    <lastmod>2012-12-04T08:58:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/11/28/windows-app-store-leaves-mac-app-store-behind/</loc>
+    <lastmod>2012-11-28T15:18:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/11/27/emailme-for-windows-phone-7/</loc>
+    <lastmod>2012-11-27T08:53:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/11/21/crossing-the-rubicon/</loc>
+    <lastmod>2012-11-21T10:11:00+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/10/26/ipad-mini-stealing-the-stage/</loc>
+    <lastmod>2012-10-26T09:45:00+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/10/26/launching-windows-8/</loc>
+    <lastmod>2012-10-26T08:07:00+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/10/16/no-coins/</loc>
+    <lastmod>2012-10-16T08:38:38+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/07/30/build-a-windows-phone-7-app-with-expression-blend/</loc>
+    <lastmod>2012-07-30T21:31:58+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/07/19/acceleratedknob-for-windows-phone-7/</loc>
+    <lastmod>2012-07-19T13:15:22+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/07/16/dear-user-we-love-you/</loc>
+    <lastmod>2012-07-16T13:39:59+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://gyurisc.github.io/blog/2012/06/19/not-getting-an-ipad/</loc>
+    <lastmod>2012-06-19T16:23:57+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>http://gyurisc.github.io/blog/2012/05/07/developer-recipes-using-git-and-dropbox-together/</loc>
     <lastmod>2012-05-07T16:13:28+02:00</lastmod>
     <priority>0.8</priority>
@@ -37,13 +182,13 @@
   </url>
   <url>
     <loc>http://gyurisc.github.io/blog/archives/</loc>
-    <lastmod>2014-10-22T13:27:00+02:00</lastmod>
+    <lastmod>2014-10-22T13:34:00+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://gyurisc.github.io/</loc>
-    <lastmod>2014-10-22T13:27:00+02:00</lastmod>
+    <lastmod>2014-10-22T13:34:00+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

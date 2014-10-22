@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Productivity | My Octopress Blog]]></title>
+  <link href="http://gyurisc.github.io/blog/categories/productivity/atom.xml" rel="self"/>
+  <link href="http://gyurisc.github.io/"/>
+  <updated>2014-10-22T13:34:00+02:00</updated>
+  <id>http://gyurisc.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Reverse Todo Process]]></title>
+    <link href="http://gyurisc.github.io/blog/2012/12/31/reverse-todo-process/"/>
+    <updated>2012-12-31T08:52:00+01:00</updated>
+    <id>http://gyurisc.github.io/blog/2012/12/31/reverse-todo-process</id>
+    <content type="html"><![CDATA[<p>In my <a href="http://www.littlebigtomatoes.com/2012/12/todo-or-todont/">previous article</a>, I wrote about the my motivations using the Anti Todo list and how it took out tons of stress of my daily life. This way of doing things works well for me and here is how I implemented it.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>{% img /images/20121218_anti_todo.png &lsquo;Anti Todo&rsquo; &lsquo;Anti Todo list in Sublime Text 2&rsquo; %}</p>
+
+<p>The idea here is to have this list everywhere and to be easily accessible and synchronized all the time. For synchronization I am using the <a href="http://www.dropbox.com">Dropbox</a> service. In the root of my dropbox folder I created a file called anti.todo The easiest way of do something like this from your bash command line:</p>
+
+<pre><code>touch anti.todo 
+</code></pre>
+
+<p>With this, the synchronization part of my solution is taken care of. For creation of the items you will need to have Sublime Text 2 installed on your machine, which is a terrific text editor. You will need the <a href="https://github.com/aziz/PlainTasks">PlainTasks</a> package to be installed as well. This package will be responsible for displaying the list. You can learn how to use the <a href="http://youtu.be/VQMU0PDfXyA">PlainTasks</a> package.</p>
+
+<p>Once it is all set, you can open the anti.todo file with Sublime Text 2 and start adding your achivements to the list like this:</p>
+
+<ul>
+<li>Add todays date with a colon at the end. Underneath, you will collect the list you achieved for today.</li>
+<li>If you have done something then press ⌘+enter (ctrl+enter on Windows) to add achievement for today.</li>
+<li>After adding the new achievement, press ⌘+D (ctrl+d on Windows) to mark your achievement as done</li>
+<li>Also you can use tags using @ sign, like this @tag</li>
+<li>Once you are done for today just save the file.</li>
+<li>Rinse and repeat.</li>
+</ul>
+
+
+<p>Another alternative I can recommend on thhe Mac for creating this list is <a href="http://www.hogbaysoftware.com/products/taskpaper">TaskPaper</a> for the Mac, or try <a href="http://widefido.com/products/todopaper/">TodoPaper</a> on Windows.</p>
+
+<p>If you find this usefull and start using yourself, please let me know how it works out for you!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Keyboard Shortcuts for Windows 8]]></title>
+    <link href="http://gyurisc.github.io/blog/2012/12/20/keyboard-shortcuts-for-windows-8/"/>
+    <updated>2012-12-20T07:54:00+01:00</updated>
+    <id>http://gyurisc.github.io/blog/2012/12/20/keyboard-shortcuts-for-windows-8</id>
+    <content type="html"><![CDATA[<p>I released my first app for Windows 8! Now you can download <a href="http://apps.microsoft.com/windows/en-US/app/keyboard-shortcuts/a098e87b-cbeb-49ad-a356-c19b4c025afb">Keyboard Shortcuts App</a> from the Windows Store for Free.</p>
+
+<p>As you might guessed, I am quite a bit of fan of productivity and doing things fast and swift on my computers. One of the main driver of productivity on a desktop computer are keyboard shortcuts. With Windows 8, it is even more so! I believe <a href="http://www.littlebigtomatoes.com/2012/12/keyboard-shortcut-starter-kit-for-windows-8/">keyboard shortcuts</a> on Windows 8 are essential to be productive.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>To help myself and hopefully others to memorize these shortcuts I created an app that makes easy to find and learn the shortcuts. Currently, it contains about 100 shortcuts for Windows 8, Calendar and Mail. I am hoping to add more shortcuts and other applications soon.</p>
+
+<p>{% youtube HiyMIWcum_c %}</p>
+
+<p>If you have any feedback, issues or you think there is something missing just ping me on twitter. I would be happy to help you!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Todo or Not Todo]]></title>
+    <link href="http://gyurisc.github.io/blog/2012/12/10/todo-or-todont/"/>
+    <updated>2012-12-10T18:01:00+01:00</updated>
+    <id>http://gyurisc.github.io/blog/2012/12/10/todo-or-todont</id>
+    <content type="html"><![CDATA[<p>If you are looking for the typical customer to whom all the app makers creating the infinite number of todo applications then look no further! Guilty as charged, I am one of those folks whom seems to be addicted to todo lists and todo app addicts.</p>
+
+<p>{% pullquote %}
+I tried many of them and I am always seemed to be hooked on the greatest and latest todo app. One impresses me with the gorgeous design, the other with the revolutionary way of handling the items with clever gestures, the next with its speed of light synchronization between devices. {&ldquo; In todo land, there is never a dull moment! &rdquo;} I even have blocked out half an hour every two weeks just to see and try what&rsquo;s new on the todo app market (just joking)!
+{% endpullquote %}</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>One day then I read this article written by Jeff Atwood at coddinghorror:</p>
+
+<p>{% blockquote CodingHorror <a href="http://www.codinghorror.com/blog/2012/10/todont.html">http://www.codinghorror.com/blog/2012/10/todont.html</a> Todon&rsquo;t%}
+Eventually I realized that the problem wasn&rsquo;t me. All my to-do lists started out as innocuous tools to assist me in my life, but slowly transformed, each and every time, into thankless, soul-draining exercises in reductionism. My to-do list was killing me.</p>
+
+<p>For the things in my life that actually mattered, I&rsquo;ve never needed any to-do list to tell me to do them. If I did, then that&rsquo;d be awfully strong evidence that I have some serious life problems to face before considering the rather trivial matter of which to-do lifehack fits my personality best. As for the things that didn&rsquo;t matter in my life, well, those just tended to pile up endlessly in the old to-do list. And the collective psychic weight of all these minor undone tasks were caught up in my ever-growing to-do katamari ball, where they continually weighed on me, day after day.
+{% endblockquote %}</p>
+
+<p>The false promise of these apps that they will solve none of my problems&hellip; the list just makes me more and more depressed when facing the ever growing group of tasks with missed deadlines. Once they grew big enough they were starting to live a life on their own and captured all my focus and attention, leaving no way to deal anything other than the list, leaving no place for fun and creativity at all!</p>
+
+<p>I took Jeff&rsquo;s advice to my heart and radically reduced the size of my todo list to one item and even went further and created my own rule:</p>
+
+<h3>There is only one or less items on my task list at any given day!</h3>
+
+<p>Being a geek though, I need some sense of progress here. I had an urge to track and measure things. I need some proof that I am achieving something each day. I guess, I am not only one with this problem:</p>
+
+<p>{% blockquote IDoneThis <a href="http://blog.idonethis.com/post/34170232603/marc-andreessens-productivity-trick-to-feeling">http://blog.idonethis.com/post/34170232603/marc-andreessens-productivity-trick-to-feeling</a> Marc Andreessen’s Productivity Trick to Feeling Marvelously Efficient %}
+Between starting Netscape, Opsware, Ning, and Andreessen Horowitz, Marc Andreessen has done monumental work in his career and seems particularly at risk to fall into this trap.  To arm himself against the daunting imperative of making meaningful progress toward his big objectives, Marc came up with a system:<br/>
+the Anti-Todo List.  It’s his way to stop and recognize his own accomplishments, measured not by a project’s impressive success, but in increments, to fuel his motivation for getting stuff done day after day.
+{% endblockquote %}</p>
+
+<p>Marc&rsquo;s way of doing this is rather ingenious:</p>
+
+<p>{% blockquote PMarca <a href="http://pmarca-archive.posterous.com/the-pmarca-guide-to-personal-productivity">http://pmarca-archive.posterous.com/the-pmarca-guide-to-personal-productivity</a> The Pmarca Guide to Personal Productivity %}
+What you do is this: every time you do something — anything — useful during the day, write it down in your Anti-Todo List on the card.
+Each time you do something, you get to write it down and you get that little rush of endorphins that the mouse gets every time he presses the button in his cage and gets a food pellet.
+And then at the end of the day, … take a look at today’s card and its Anti-Todo list and marvel at all the things you actually got done that day.
+{% endblockquote %}</p>
+
+<p>It turns out that this small change in process do wonders. At the end of the day, it is really warm and fuzzy feeling to look at the list and as the list grows over time it does not become frustrating or depressing, but it feels rather good to see the mass of things I achieved over the last couple of weeks. In fact, it works so well that I am now capable of letting go the task list and do a zero task day!
+I guess the quote from Jacobi the famous mathematician fits here wonderfully well - Invert, always invert!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Keyboard Shortcut Starter Kit for Windows 8]]></title>
+    <link href="http://gyurisc.github.io/blog/2012/12/04/keyboard-shortcut-starter-kit-for-windows-8/"/>
+    <updated>2012-12-04T08:58:00+01:00</updated>
+    <id>http://gyurisc.github.io/blog/2012/12/04/keyboard-shortcut-starter-kit-for-windows-8</id>
+    <content type="html"><![CDATA[<p>As you might found out I am huge fan of Microsoft&rsquo;s latest operating system Windows 8. I love the new Start Screen and how fast the metro style apps are. I am waiting for a touch based device that runs Windows 8, but until I have a touch device at hand and can try all the touch features, I am stuck with a standard pre-touch laptop.</p>
+
+<p>Windows 8 is also very nice on a standard PC and what really makes it fly high are the keyboard shortcuts. I highly encourage you to try those and memorize them. Once they become muscle memory, they will make you super-fast and productive.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>I would like to present you with a collection of the most useful and essential shortcuts:</p>
+
+<p><strong>Windows</strong> key is the mother of all shortcuts on Windows 8. It will get you to the Start Screen from the current app and back to your previous app, if you press it once more. Once you are on the Start Screen, just start typing and it will search the apps that you have installed. This is the fastest way to start the apps on your system.</p>
+
+<p><strong>Windows + D</strong>, gets you to the classic desktop and back to the app you were using, if you press it once more.
+The next shortcut is <em>Windows + C</em>, that brings up the charms bar. This one lets you access the charms such as search or settings. It will also show the current date and time, the battery and network status on the bottom left side of the screen.</p>
+
+<p><strong>Windows + I</strong> is the shortcut I use the most. This brings up the settings charm and you can switch on and off the airport mode, audio volume and brightness and control panel directly. As a laptop user, I find it very convenient to be able to switch Wi-Fi on/off with two clicks.</p>
+
+<p><strong>Windows + Space</strong> is my all-time favorite. This one lets you to change the input language or cycle them through if you press it many times. The reason while I am so enthusiastic about this one is because I am using its twin sister on OS X <em>Apple + Space</em> to switch input language. For me this is a welcome change, because in the past I often found myself trying the shortcut, when using Windows 7 just to find out that this is a different OS and this will be not working here. This is not the case anymore and I can rely on muscle memory to switch the input language. I am truly happy!</p>
+
+<p><strong>Windows + X</strong> is the last one. This keyboard shortcut is for the power users. It will bring up an advanced menu on the bottom left side of the screen and there will be menus to access all the advanced features of the operating system such Command Prompt Admin, Task Manager, Control Panel, File Explorer. This comes very handy, if you need to access the more advanced functions a lot.</p>
+
+<p>This is my start kit of keyboard shortcuts for Windows8. I hope it will help you to become faster. Enjoy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Crossing the Rubicon]]></title>
+    <link href="http://gyurisc.github.io/blog/2012/11/21/crossing-the-rubicon/"/>
+    <updated>2012-11-21T10:11:00+01:00</updated>
+    <id>http://gyurisc.github.io/blog/2012/11/21/crossing-the-rubicon</id>
+    <content type="html"><![CDATA[<p>Once in every few years I have this moment, when I start to use something new and I realize that this thing will stay with me and I cannot go back anymore to the old stuff!</p>
+
+<p>Couple of days ago I had this moment with Windows 8, because of a keyboard shortcut!</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>I clearly remember when I first installed Google Chrome and realized that is far superior to the browser that I was using before Chrome. The moment for me when I realized that I will not be able to switch back to IE was when I discovered that I can create shortcuts out of websites such as Gmail and when launching Chrome it will present the site for me as an app!</p>
+
+<p>Before that I had such moment, when I discovered Gmail and the way Gmail is using labels instead of folders. I instantly said goodbye to Outlook and Hotmail and Yahoo Mail! Whenever I had to use Outlook at work it was such a pain afterwards and I just could not understand why I was putting up with this slow beast for so long!</p>
+
+<p>Years before that I discovered IE4 is much superior to Netscape and I do not remember what was the tiny feature that pushed me over to use IE, but I never turned back!</p>
+
+<p>The Kindle ditched the PDF. iPod with iTunes decimated Windows Media based no-name portable player in my life. Because of Instapaper I stopped using RSS readers.</p>
+
+<p>They all had tiny features that pushed me over and made me never look back. Kindle had seamless syncing. Instapaper allowed me to read longer articles in a clutter free format. iPod and iTunes were far superior, but the final straw for me were the seamless podcast experience!</p>
+
+<p>I started to use Windows 8 as my full time operating system since the consumer preview. I generally liked this newest operating system and its new start screen, but what pushed me over finally was a keyboard shortcut.</p>
+
+<p><strong>Windows + Spacebar</strong></p>
+
+<p>This shortcut is for switching input language in Windows. OS X had the Apple Key and Spacebar shortcut since I started to use Macs and it was one of my favorite shortcut on that platform.</p>
+
+<p>When I discovered this keyboard shortcut to switch languages and started using it on Windows 8, I found myself more and more annoyed when I needed to switch from English to Hungarian on my Windows 7 desktop at work. That one click on the language not tolerable anymore.</p>
+
+<p>Since that moment I found more and more new stuff to like in Windows 8 every day and less and less I could bear Windows 7. In my eyes, these small moments that make the difference between a great product and a good one!</p>
+]]></content>
+  </entry>
+  
+</feed>

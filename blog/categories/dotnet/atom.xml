@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Dotnet | My Octopress Blog]]></title>
+  <link href="http://gyurisc.github.io/blog/categories/dotnet/atom.xml" rel="self"/>
+  <link href="http://gyurisc.github.io/"/>
+  <updated>2014-10-22T13:34:00+02:00</updated>
+  <id>http://gyurisc.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Simple.Data and Dynamic Calls Are Awesome]]></title>
+    <link href="http://gyurisc.github.io/blog/2013/06/17/simple-dot-data-and-dynamic-calls-are-simply-awesome/"/>
+    <updated>2013-06-17T11:59:00+02:00</updated>
+    <id>http://gyurisc.github.io/blog/2013/06/17/simple-dot-data-and-dynamic-calls-are-simply-awesome</id>
+    <content type="html"><![CDATA[<p>Couple of weeks ago I started to look into different open source packages on the .NET platform such as <a href="http://nancyfx.org/">Nancy</a> and <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data/">Simple.Data</a>. They all looked very cool, but one paragraph in an article called <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data/">Introducing Simple.Data</a> - explaining how the code snippet below works - caught my attention:</p>
+
+<pre><code class="csharp getting data from db ">var db = Database.Open(); // Connection specified in config.
+var user = db.Users.FindByNameAndPassword(name, password);
+</code></pre>
+
+<p>{% blockquote Mark Rendle <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data">http://blog.markrendle.net/2010/08/05/introducing-simple-data</a> Introducing Simple.Data %}
+That’s pretty neat, right? So, did we have to generate the Database class and a bunch of table classes to make this work?</p>
+
+<p>No.</p>
+
+<p>In this example, the type returned by Database.Open() is dynamic. It doesn’t have a Users property, but when that property is referenced on it, it returns a new instance of a DynamicTable type, again as dynamic. That instance doesn’t actually have a method called FindByNameAndPassword, but when it’s called, it sees “FindBy” at the start of the method, so it pulls apart the rest of the method name, combines it with the arguments, and builds an ADO.NET command which safely encapsulates the name and password values inside parameters. The FindBy<em> methods will only return one record; there are FindAllBy</em> methods which return result sets. This approach is used by the Ruby/Rails ActiveRecord library; Ruby’s metaprogramming nature encourages stuff like this.
+{% endblockquote %}</p>
+
+<p>Just read that sentence once again&hellip;</p>
+
+<p><em>That instance doesn’t actually have a method called FindByNameAndPassword, but when it’s called, it sees “FindBy” at the start of the method, so it pulls apart the rest of the method name, combines it with the arguments, and builds an ADO.NET command which safely encapsulates the name and password values inside parameters.</em></p>
+
+<p>This sounds like crazy awesome magic and I need to understand it!</p>
+
+<h2>How magic works?</h2>
+
+<p>To find out how the magic worked, I downloaded the source code from github and started to poke around the code. The rest of the article explains what I got out of this experiment.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>The sample project I created is sort of the skeleton of what Simple.Data does on the inside. This is not an attempt to reproduce or fully understand the library. I just wanted to understand how one can call a non-existing method on a class and what is happening behind the curtain that enables this at runtime.</p>
+
+<pre><code class="csharp disecting the magic    ">  class Program
+  {
+    static void Main(string[] args)
+    {
+      var dyn = DynamicTest.GetDynamic();
+      var user = dyn.Users.FindByEmail("someone@somewhere.com");
+    }
+  }
+</code></pre>
+
+<p>So, after poking around in the <a href="https://github.com/markrendle/Simple.Data">source code</a> of Simple.Data I realized that the magic happens by applying the <a href="http://msdn.microsoft.com/en-us/library/vstudio/dd264741.aspx">dynamic</a> keyword and DynamicObject.</p>
+
+<pre><code class="csharp DynamicObject skeleton     ">  public class DynamicTest : DynamicObject
+  {
+    public static dynamic GetDynamic()
+    {
+      if (_instance == null)
+      {
+        _instance = new DynamicTest();
+      }
+
+      return _instance;
+    }
+  }
+</code></pre>
+
+<p>I created a class that derives from DynamicObject and a method that returns an instance of this object, but instead of a return type I added the dynamic keyword to the method signature. What this does effectively is that when compiling my simple test code, the compiler will not look for the declaration of a Users property. It knows that this will resolved at runtime.</p>
+
+<p>Once running this code there will be a RuntimeBinderException exception thrown with the the following message:</p>
+
+<pre><code>    Message='object' does not contain a definition for 'Users'
+</code></pre>
+
+<p>Now, we need to somehow create a Users property on the DynamicTest class. For this, we need to override the TryGetMember method of the DynamicObject and implement this behavior.</p>
+
+<p>So, TryGetMember will just create and return an instance of an ObjectReference object. It has a parameter called binder that has information about the member that is called and an out parameter to pass back the result. The created object will be stored with binder.Name as key, so next time the same instance can be returned. This will represent the <strong>.User</strong> part of our dynamic call. But how will we handle the remaining method call?</p>
+
+<pre><code class="csharp TryGetMember implementation ">    public override bool TryGetMember(GetMemberBinder binder, out object result)
+    {
+      result = GetOrAddDynamicReference(binder.Name);
+      return true; 
+    }
+
+    private dynamic GetOrAddDynamicReference(string name)
+    {
+      return _members.GetOrAdd(name, new ObjectReference(name));
+    }
+</code></pre>
+
+<p>ObjectReference is also derived from DynamicObject and it overrides the TryInvokeMember method to handle the remaining method call. Again, it receives a binder that contains information about the member that is being invoked, the parameters that is passed in and it has an out parameter that is used to pass back the result. What this method does is just simply prints out the method that is being invoked and its parameters.</p>
+
+<pre><code class="csharp TryInvokeMember implementation">    public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
+    {
+      if (base.TryInvokeMember(binder, args, out result)) return true;
+
+      try
+      {
+        Console.WriteLine("Called " + 
+                          _name + "." + 
+                          binder.Name + 
+                          "(" + 
+                          args.Aggregate((current, next) =&gt; current + ", " + next) + 
+                          ")");
+
+        result = "result";
+        return true;
+      } catch
+      {
+        throw new InvalidOperationException(string.Format("Method {0} not recognized", binder.Name));
+      }
+
+      throw new InvalidOperationException(string.Format("Method {0} not recognized", binder.Name));
+    }
+</code></pre>
+
+<p>Now, that I better understand how all this works I realized that I am way behind with the new features of C#. I guess, I need to buy a book about the last version of the language, read it and learn a bit more as I am behind. Below is the full sample code that I created:</p>
+
+<pre><code class="csharp full source code for dynamic test">using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DynamicTest
+{
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      var dyn = DynamicTest.GetDynamic();
+      var user = dyn.Users.FindByEmail("someone@somewhere.com");
+    }
+  }
+
+  public class DynamicTest : DynamicObject
+  {
+    private readonly ConcurrentDictionary&lt;string, dynamic&gt; _members = new ConcurrentDictionary&lt;string, dynamic&gt;();
+
+    private static DynamicTest _instance; 
+
+    public static dynamic GetDynamic()
+    {
+      if (_instance == null)
+      {
+        _instance = new DynamicTest();
+      }
+
+      return _instance;
+    }
+
+    public override bool TryGetMember(GetMemberBinder binder, out object result)
+    {
+      result = GetOrAddDynamicReference(binder.Name);
+      return true; 
+    }
+
+    private dynamic GetOrAddDynamicReference(string name)
+    {
+      return _members.GetOrAdd(name, new ObjectReference(name));
+    }
+  }
+
+  public class ObjectReference : DynamicObject
+  {
+    private string _name;
+
+    public ObjectReference(string name)
+    {
+      _name = name;
+    }
+
+    public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
+    {
+      if (base.TryInvokeMember(binder, args, out result)) return true;
+
+      try
+      {
+        Console.WriteLine("Called " + 
+                          _name + "." + 
+                          binder.Name + 
+                          "(" + 
+                          args.Aggregate((current, next) =&gt; current + ", " + next) + 
+                          ")");
+
+        result = "result";
+        return true;
+      } catch
+      {
+        throw new InvalidOperationException(string.Format("Method {0} not recognized", binder.Name));
+      }
+
+      throw new InvalidOperationException(string.Format("Method {0} not recognized", binder.Name));
+    }
+  }
+}
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

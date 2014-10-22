@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Hacks | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/hacks/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:27:00+02:00</updated>
+  <updated>2014-10-22T13:34:00+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -20,7 +20,7 @@
     <id>http://gyurisc.github.io/blog/2012/01/13/my-version-of-the-ikeapad</id>
     <content type="html"><![CDATA[<p>I recently saw the <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad stand</a> on <a href="http://www.ikeahackers.net/">IKEA Hackers</a> and I really liked it. <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad</a> is basically a simple iPad stand constructed from an <a href="http://www.ikea.com/us/en/catalog/products/76696009/">Ekby Valter</a> that costs 3$, that is less cheaper that you would pay for any iPad stand on the market. After reading the article, I decided to create my own version, for this you will need to buy 2 pieces of Ekby Valter and take out the shortest piece of wood from one of the Ekby Valter and use it as a dowel. I guess it is easier to understand if you see it.</p>
 
-<p><img src="/images/WP_0003951-300x225.jpg" title="&lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo;" ></p>
+<p>{% img /images/WP_0003951-300x225.jpg &lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo; %}</p>
 
 <!--more-->
 
@@ -29,17 +29,17 @@
 
 <p>The rest of the images:</p>
 
-<p><img src="/images/WP_000394-150x150.jpg" title="&lsquo;Testing with iPad&rsquo; &lsquo;Testing with iPad&rsquo;" ></p>
+<p>{% img /images/WP_000394-150x150.jpg &lsquo;Testing with iPad&rsquo; &lsquo;Testing with iPad&rsquo; %}</p>
 
-<p><img src="/images/WP_0003951-150x150.jpg" title="&lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo;" ></p>
+<p>{% img /images/WP_0003951-150x150.jpg &lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo; %}</p>
 
-<p><img src="/images/WP_0003981-150x150.jpg" title="&lsquo;Finished iPad stand in the kitchen&rsquo; &lsquo;Finished iPad stand in the kitchen&rsquo;" ></p>
+<p>{% img /images/WP_0003981-150x150.jpg &lsquo;Finished iPad stand in the kitchen&rsquo; &lsquo;Finished iPad stand in the kitchen&rsquo; %}</p>
 
-<p><img src="/images/WP_0003911-150x150.jpg" title="&lsquo;Ekby Valter&rsquo; &lsquo;Ekby Valter&rsquo;" ></p>
+<p>{% img /images/WP_0003911-150x150.jpg &lsquo;Ekby Valter&rsquo; &lsquo;Ekby Valter&rsquo; %}</p>
 
-<p><img src="/images/WP_0003921-150x150.jpg" title="&lsquo;Ekby Valter parts&rsquo; &lsquo;Ekby Valter parts&rsquo;" ></p>
+<p>{% img /images/WP_0003921-150x150.jpg &lsquo;Ekby Valter parts&rsquo; &lsquo;Ekby Valter parts&rsquo; %}</p>
 
-<p><img src="/images/WP_0003941-150x150.jpg" title="&lsquo;iPad stand is ready&rsquo; &lsquo;iPad stand is ready&rsquo;" ></p>
+<p>{% img /images/WP_0003941-150x150.jpg &lsquo;iPad stand is ready&rsquo; &lsquo;iPad stand is ready&rsquo; %}</p>
 ]]></content>
   </entry>
   

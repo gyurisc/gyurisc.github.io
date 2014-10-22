@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Html5 | My Octopress Blog]]></title>
+  <link href="http://gyurisc.github.io/blog/categories/html5/atom.xml" rel="self"/>
+  <link href="http://gyurisc.github.io/"/>
+  <updated>2014-10-22T13:34:00+02:00</updated>
+  <id>http://gyurisc.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Mass Customization of Apps]]></title>
+    <link href="http://gyurisc.github.io/blog/2013/02/14/mass-customization-of-apps/"/>
+    <updated>2013-02-14T16:13:00+01:00</updated>
+    <id>http://gyurisc.github.io/blog/2013/02/14/mass-customization-of-apps</id>
+    <content type="html"><![CDATA[<p>{% blockquote triggerio <a href="http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/">http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/</a> Trend towards the Mass Customization of Apps from Banking to Government to Entertainment %}</p>
+
+<p>But in the past couple of months we’ve noticed another category of customers, and that group is growing fast.</p>
+
+<p>I call the trend the “mass customization” of apps, to borrow the manufacturing term. This group creates app templates designed for a particular industry and then customize those templates for each end customer. The customization could be as simple as different branding but more often includes adding differentiating features also.
+{% endblockquote %}</p>
+
+<p>This article is a total eye-opener for me. With this trend, non-native apps (HTML-CSS-JS have now an edge over native mobile apps. The common source code base. With this common code-base, you can provide customizable apps that can be built and packaged from a web page and deployed much faster. Obviously, you will not build cutting edge racing games or first person shooters in html, but it does not matter. You can build awesome apps to large customers on all platform using the same codebase.</p>
+
+<p>This is totally awesome!</p>
+]]></content>
+  </entry>
+  
+</feed>

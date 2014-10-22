@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Windowsphone | My Octopress Blog]]></title>
   <link href="http://gyurisc.github.io/blog/categories/windowsphone/atom.xml" rel="self"/>
   <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-22T13:27:00+02:00</updated>
+  <updated>2014-10-22T13:34:00+02:00</updated>
   <id>http://gyurisc.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Build a Windows Phone 7 App With Expression Blend]]></title>
+    <link href="http://gyurisc.github.io/blog/2012/07/30/build-a-windows-phone-7-app-with-expression-blend/"/>
+    <updated>2012-07-30T21:31:58+02:00</updated>
+    <id>http://gyurisc.github.io/blog/2012/07/30/build-a-windows-phone-7-app-with-expression-blend</id>
+    <content type="html"><![CDATA[<p>I am proud to announce that my first article got published on mobiletutsplus. Please check it out:</p>
+
+<p><a href="http://mobile.tutsplus.com/tutorials/windows/build-a-windows-phone-7-clock-app/">Build a Windows Phone 7 Clock App</a></p>
+
+<p>The article shows, how to build a simple clock application for windows phone 7 using Expression Blend only. The code is published on <a href="https://github.com/gyurisc/MinimalClock">github</a>. If you have any questions or need help, I am very happy to help!</p>
+
+<p>Enjoy!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[An Easy Way to Create Awesome Looking Windows Phone7 Icons Using Expression Design]]></title>
@@ -31,51 +46,51 @@
 
 <p>First, I go to the <a href="http://thenounproject.com">nounproject</a> website to find some nice looking symbols. This website has hundreeds of symbols and you can download them for free in vector format. The graphics comes with a Creative Commons license, so you&rsquo;re free to do whatever you want with them. Sounds pretty neat, if you ask me!</p>
 
-<p><img src="/images/000.png" title="&lsquo;thenounproject website&rsquo; &lsquo;The Noun Project a website a source for symbols in SVG format&rsquo;" ></p>
+<p>{% img /images/000.png &lsquo;thenounproject website&rsquo; &lsquo;The Noun Project a website a source for symbols in SVG format&rsquo; %}</p>
 
 <p>Once, you found the symbol you like, download and extract it. The symbol is in SVG format. I am using Expression Design for drawing my icons, but Design unfortunately does not support SVG yet. I need a tool that can convert SVG to something that I can import to Expression Design.</p>
 
-<p><img src="/images/001_thumb.png" title="&lsquo;Choose a symbol from thenounproject site.&rsquo; &lsquo;Symbol from thenounproject website.&rsquo;" ></p>
+<p>{% img /images/001_thumb.png &lsquo;Choose a symbol from thenounproject site.&rsquo; &lsquo;Symbol from thenounproject website.&rsquo; %}</p>
 
 <h3>Inkscape</h3>
 
 <p>With Inkscape I can do exactly this. Inkscape can import SVG and can export .PDF and .PDF can be imported to Expression Design.Inkscape is a very cool, free and open source drawing application. You can download it from <a href="http://inkscape.org/">here</a>.</p>
 
-<p><img src="/images/002_thumb.png" title="&lsquo;Inkscape&rsquo; &lsquo;Download and install inkscape&rsquo;" ></p>
+<p>{%img /images/002_thumb.png &lsquo;Inkscape&rsquo; &lsquo;Download and install inkscape&rsquo; %}</p>
 
 <p>Once Inkscape is installed then you can import the .SVG file and save it as .PDF file. After that I change the  .PDF extension to .AI and now I can import into Expression Design.</p>
 
 <p>First, import your svg file to Inkscape for converting to AI format:</p>
 
-<p><img src="/images/003_thumb.png" title="&lsquo;Import your symbol to Inkscape&rsquo; &lsquo;Import your symbol to Inkscape&rsquo;" ></p>
+<p>{%img /images/003_thumb.png &lsquo;Import your symbol to Inkscape&rsquo; &lsquo;Import your symbol to Inkscape&rsquo; %}</p>
 
-<p><img src="/images/004_thumb.png" title="&lsquo;Symbol imported&rsquo; &lsquo;Symbol imported&rsquo;" ></p>
+<p>{%img /images/004_thumb.png &lsquo;Symbol imported&rsquo; &lsquo;Symbol imported&rsquo; %}</p>
 
 <p>Then save the your symbol in PDF format. Make sure that PDF 1.4 is selected as PDF version:</p>
 
-<p><img src="/images/005_thumb.png" title="&lsquo;Export your symbol in PDF format&rsquo; &lsquo;Export your symbol in PDF format&rsquo;" ></p>
+<p>{%img /images/005_thumb.png &lsquo;Export your symbol in PDF format&rsquo; &lsquo;Export your symbol in PDF format&rsquo; %}</p>
 
-<p><img src="/images/007_thumb.png" title="&lsquo;Setting the correct PDF version&rsquo; &lsquo;Setting the correct PDF version to PDF 1.4&rsquo;" ></p>
+<p>{%img /images/007_thumb.png &lsquo;Setting the correct PDF version&rsquo; &lsquo;Setting the correct PDF version to PDF 1.4&rsquo; %}</p>
 
 <h3>Expression Design</h3>
 
 <p>Before importing to Expression Design rename the exported .pdf to  .ai. This way Expression Design can export your artwork as an Adobe Illustrator file.</p>
 
-<p><img src="/images/009_thumb.png" title="&lsquo;Import your artwork to Expression Design&rsquo; &lsquo;Import your artwork to Expression Design&rsquo;" ></p>
+<p>{%img /images/009_thumb.png &lsquo;Import your artwork to Expression Design&rsquo; &lsquo;Import your artwork to Expression Design&rsquo; %}</p>
 
 <p>Here in Expression Design I can re-use my icon design template to create all the different sizes of icons that are needed for my WP7 app and export them to .PNG format to embedd in your WP7 Application project.</p>
 
-<p><img src="/images/010_thumb.png" title="&lsquo;Your artwork now imported to Expression Design&rsquo; &lsquo;Your artwork now imported to Expression Design&rsquo;" ></p>
+<p>{%img /images/010_thumb.png &lsquo;Your artwork now imported to Expression Design&rsquo; &lsquo;Your artwork now imported to Expression Design&rsquo; %}</p>
 
 <p>You can also change the shape as it is vector based to alter the shape!</p>
 
-<p><img src="/images/011_thumb.png" title="&lsquo;Vector shapes in Expression Design&rsquo; &lsquo;Vector shapes in Expression Design&rsquo;" ></p>
+<p>{%img /images/011_thumb.png &lsquo;Vector shapes in Expression Design&rsquo; &lsquo;Vector shapes in Expression Design&rsquo; %}</p>
 
 <h3>Bonus</h3>
 
 <p>If you would like to have this artwork in your silverlight, wpf or your windows phone app, you can also create a xaml file out of it in Expression Blend importing the .ai file and converting it to xaml.</p>
 
-<p><img src="/images/014_thumb.png" title="&lsquo;Artwork imported to Expression Blend&rsquo; &lsquo;Artwork imported to Expression Blend&rsquo;" ></p>
+<p>{%img /images/014_thumb.png &lsquo;Artwork imported to Expression Blend&rsquo; &lsquo;Artwork imported to Expression Blend&rsquo; %}</p>
 
 <p>Happy coding!</p>
 ]]></content>
