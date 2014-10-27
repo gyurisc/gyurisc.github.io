@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://gyurisc.github.io/sitemap.xml 
+Sitemap: http://www.littlebigtomatoes.com/sitemap.xml 

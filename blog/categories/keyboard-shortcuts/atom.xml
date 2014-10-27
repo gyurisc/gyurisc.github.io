@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Keyboard Shortcuts | My Octopress Blog]]></title>
-  <link href="http://gyurisc.github.io/blog/categories/keyboard-shortcuts/atom.xml" rel="self"/>
-  <link href="http://gyurisc.github.io/"/>
-  <updated>2014-10-27T16:58:21+01:00</updated>
-  <id>http://gyurisc.github.io/</id>
+  <title><![CDATA[Category: Keyboard Shortcuts | littlebigtomatoes]]></title>
+  <link href="http://www.littlebigtomatoes.com/blog/categories/keyboard-shortcuts/atom.xml" rel="self"/>
+  <link href="http://www.littlebigtomatoes.com/"/>
+  <updated>2014-10-27T16:59:04+01:00</updated>
+  <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Keyboard Shortcuts for Windows 8]]></title>
-    <link href="http://gyurisc.github.io/2012/12/keyboard-shortcuts-for-windows-8/"/>
+    <link href="http://www.littlebigtomatoes.com/2012/12/keyboard-shortcuts-for-windows-8/"/>
     <updated>2012-12-20T07:54:00+01:00</updated>
-    <id>http://gyurisc.github.io/2012/12/keyboard-shortcuts-for-windows-8</id>
+    <id>http://www.littlebigtomatoes.com/2012/12/keyboard-shortcuts-for-windows-8</id>
     <content type="html"><![CDATA[<p>I released my first app for Windows 8! Now you can download <a href="http://apps.microsoft.com/windows/en-US/app/keyboard-shortcuts/a098e87b-cbeb-49ad-a356-c19b4c025afb">Keyboard Shortcuts App</a> from the Windows Store for Free.</p>
 
 <p>As you might guessed, I am quite a bit of fan of productivity and doing things fast and swift on my computers. One of the main driver of productivity on a desktop computer are keyboard shortcuts. With Windows 8, it is even more so! I believe <a href="http://www.littlebigtomatoes.com/2012/12/keyboard-shortcut-starter-kit-for-windows-8/">keyboard shortcuts</a> on Windows 8 are essential to be productive.</p>
@@ -37,9 +37,9 @@
   
   <entry>
     <title type="html"><![CDATA[Keyboard Shortcut Starter Kit for Windows 8]]></title>
-    <link href="http://gyurisc.github.io/2012/12/keyboard-shortcut-starter-kit-for-windows-8/"/>
+    <link href="http://www.littlebigtomatoes.com/2012/12/keyboard-shortcut-starter-kit-for-windows-8/"/>
     <updated>2012-12-04T08:58:00+01:00</updated>
-    <id>http://gyurisc.github.io/2012/12/keyboard-shortcut-starter-kit-for-windows-8</id>
+    <id>http://www.littlebigtomatoes.com/2012/12/keyboard-shortcut-starter-kit-for-windows-8</id>
     <content type="html"><![CDATA[<p>As you might found out I am huge fan of Microsoft&rsquo;s latest operating system Windows 8. I love the new Start Screen and how fast the metro style apps are. I am waiting for a touch based device that runs Windows 8, but until I have a touch device at hand and can try all the touch features, I am stuck with a standard pre-touch laptop.</p>
 
 <p>Windows 8 is also very nice on a standard PC and what really makes it fly high are the keyboard shortcuts. I highly encourage you to try those and memorize them. Once they become muscle memory, they will make you super-fast and productive.</p>
@@ -68,9 +68,9 @@ The next shortcut is <em>Windows + C</em>, that brings up the charms bar. This o
   
   <entry>
     <title type="html"><![CDATA[Crossing the Rubicon]]></title>
-    <link href="http://gyurisc.github.io/2012/11/crossing-the-rubicon/"/>
+    <link href="http://www.littlebigtomatoes.com/2012/11/crossing-the-rubicon/"/>
     <updated>2012-11-21T10:11:00+01:00</updated>
-    <id>http://gyurisc.github.io/2012/11/crossing-the-rubicon</id>
+    <id>http://www.littlebigtomatoes.com/2012/11/crossing-the-rubicon</id>
     <content type="html"><![CDATA[<p>Once in every few years I have this moment, when I start to use something new and I realize that this thing will stay with me and I cannot go back anymore to the old stuff!</p>
 
 <p>Couple of days ago I had this moment with Windows 8, because of a keyboard shortcut!</p>
