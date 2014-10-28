@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linking | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/linking/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2014-10-27T16:59:04+01:00</updated>
+  <updated>2014-10-28T16:55:47+01:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -12,6 +12,17 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[What Does the Term Porcelain Mean in Git]]></title>
+    <link href="http://www.littlebigtomatoes.com/2014/10/what-does-the-term-porcelain-mean-in-git/"/>
+    <updated>2014-10-28T16:48:31+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2014/10/what-does-the-term-porcelain-mean-in-git</id>
+    <content type="html"><![CDATA[<p><blockquote><p></p></p><p><p><em>Porcelain</em> is the material from which toilets are usually made (and sometimes other fixtures such as washbasins). This is distinct from <em>plumbing</em> (the actual pipes and drains), where the porcelain provides a more user-friendly interface to the plumbing.</p></p><p><p>Git uses this terminology in analogy, to separate the low-level commands that users don&rsquo;t usually need to use directly (the <em>plumbing</em>) from the more user-friendly high level commands (the <em>porcelain</em>).</p><footer><strong>Porcelain <a href="http://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git">http://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git</a> Git Porcelain</strong></footer></blockquote></p>
+
+<p>One of those programmer jokes&hellip;</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Reading About Date and Time]]></title>
@@ -56,19 +67,6 @@
     <content type="html"><![CDATA[<p>Microsoft has the tendency to overdo things. It happened before with .NET around the 2000s. They started to call all of their product ending with .NET. Do you remember Windows Server.NET or Windows CE.NET? Now, they are back with overdoing other stuff such as secrecy, not listening and neglectic developers with Windows Phone and Windows 8. <a href="http://hal2020.com">Hal</a> nails it again:</p>
 
 <p><blockquote><p>Let me contrast three strategic thrusts going on at Microsoft.  Windows, Windows Phone, and Azure.  Windows and Windows Phone are in the “shut up and ship” camp.  Azure is in the ENGAGE camp.  It seems like every week Scott Guthrie is announcing new Azure technology previews or releases.  Everything about Azure is exciting.  Amazon, Salesforce, and a few others defined cloud computing.  Azure is displacing them.  It has the Big Mo.  Let me make this clear, AZURE IS GOING TO WIN the cloud computing infrastructure and platform battle.  Meanwhile Windows and Windows Phone continue to alienate their ecosystems.  It is unclear if Windows Phone will ever amount to a significant third ecosystem.  It is unclear that Windows will be able to halt an overall market share decline against IOS and Android tablets.  Azure developers are excited.  No, it’s beyond excitement.  Windows and Windows Phone developers?  Not so much.  They are, at best, conflicted.  Azure is doing platforms right.  Windows and Windows Phone?  They prefer to “shut up and ship”, even if it risks no one caring what they ship&hellip;. <br/></p><footer><strong>hal2020 <a href="http://hal2020.com/2013/03/05/now-i-get-it-the-consumer-guys-at-microsoft-are-just-plain-wrong/">http://hal2020.com/2013/03/05/now-i-get-it-the-consumer-guys-at-microsoft-are-just-plain-wrong/</a> Now I get it</strong> <cite>The Consumer Guys at Microsoft Are Just Plain Wrong!</cite></footer></blockquote></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Mass Customization of Apps]]></title>
-    <link href="http://www.littlebigtomatoes.com/2013/02/mass-customization-of-apps/"/>
-    <updated>2013-02-14T16:13:00+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2013/02/mass-customization-of-apps</id>
-    <content type="html"><![CDATA[<p><blockquote><p></p></p><p><p>But in the past couple of months we’ve noticed another category of customers, and that group is growing fast.</p></p><p><p>I call the trend the “mass customization” of apps, to borrow the manufacturing term. This group creates app templates designed for a particular industry and then customize those templates for each end customer. The customization could be as simple as different branding but more often includes adding differentiating features also.</p><footer><strong>triggerio <a href="http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/">http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/</a> Trend towards the Mass Customization of Apps from Banking to Government to Entertainment</strong></footer></blockquote></p>
-
-<p>This article is a total eye-opener for me. With this trend, non-native apps (HTML-CSS-JS have now an edge over native mobile apps. The common source code base. With this common code-base, you can provide customizable apps that can be built and packaged from a web page and deployed much faster. Obviously, you will not build cutting edge racing games or first person shooters in html, but it does not matter. You can build awesome apps to large customers on all platform using the same codebase.</p>
-
-<p>This is totally awesome!</p>
 ]]></content>
   </entry>
   

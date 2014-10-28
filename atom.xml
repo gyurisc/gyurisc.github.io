@@ -4,7 +4,7 @@
   <title><![CDATA[littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2014-10-27T16:59:04+01:00</updated>
+  <updated>2014-10-28T16:55:47+01:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -12,6 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[What Does the Term Porcelain Mean in Git]]></title>
+    <link href="http://www.littlebigtomatoes.com/2014/10/what-does-the-term-porcelain-mean-in-git/"/>
+    <updated>2014-10-28T16:48:31+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2014/10/what-does-the-term-porcelain-mean-in-git</id>
+    <content type="html"><![CDATA[<blockquote><p>_Porcelain_ is the material from which toilets are usually made (and sometimes other fixtures such as washbasins). This is distinct from _plumbing_ (the actual pipes and drains), where the porcelain provides a more user-friendly interface to the plumbing.</p><p>Git uses this terminology in analogy, to separate the low-level commands that users don&#8217;t usually need to use directly (the _plumbing_) from the more user-friendly high level commands (the _porcelain_).</p><footer><strong>Porcelain</strong> <cite><a href='http://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git'>Git Porcelain</a></cite></footer></blockquote>
+
+
+<p>One of those programmer jokes&hellip;</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Reading About Date and Time]]></title>
@@ -1554,20 +1566,6 @@ The next shortcut is <em>Windows + C</em>, that brings up the charms bar. This o
 <p><strong>Windows + X</strong> is the last one. This keyboard shortcut is for the power users. It will bring up an advanced menu on the bottom left side of the screen and there will be menus to access all the advanced features of the operating system such Command Prompt Admin, Task Manager, Control Panel, File Explorer. This comes very handy, if you need to access the more advanced functions a lot.</p>
 
 <p>This is my start kit of keyboard shortcuts for Windows8. I hope it will help you to become faster. Enjoy!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Windows App Store Leaves Mac App Store Behind]]></title>
-    <link href="http://www.littlebigtomatoes.com/2012/11/windows-app-store-leaves-mac-app-store-behind/"/>
-    <updated>2012-11-28T15:18:00+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2012/11/windows-app-store-leaves-mac-app-store-behind</id>
-    <content type="html"><![CDATA[<blockquote><p>The daily download volume among the top 300 most popular applications in the Windows Store is already three times higher than the volume among the top 300 most popular applications in the Apple Mac App Store. However, in terms of paid volume only, the Apple Mac App Store is still doing much (5 times) better.</p><footer><strong>Distimo</strong> <cite><a href='http://www.distimo.com/blog/2012_11_publication-discover-the-windows-store/'>Discover the Windows Store</a></cite></footer></blockquote>
-
-
-<p>After one month, Windows Store has 3 times more downloads in the top 300 apps than the app store shipping with the <a href="http://www.apple.com/osx/">world&rsquo;s most advanced desktop operating system</a>. Not too bad, although the Mac App Store still generates 5 times more paid volume than Windows Store.</p>
-
-<p>It&rsquo;s a start!</p>
 ]]></content>
   </entry>
   
