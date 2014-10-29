@@ -4,7 +4,7 @@
   <title><![CDATA[littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2014-10-28T16:55:47+01:00</updated>
+  <updated>2014-10-29T11:47:04+01:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.littlebigtomatoes.com/2014/10/what-does-the-term-porcelain-mean-in-git/"/>
     <updated>2014-10-28T16:48:31+01:00</updated>
     <id>http://www.littlebigtomatoes.com/2014/10/what-does-the-term-porcelain-mean-in-git</id>
-    <content type="html"><![CDATA[<blockquote><p>_Porcelain_ is the material from which toilets are usually made (and sometimes other fixtures such as washbasins). This is distinct from _plumbing_ (the actual pipes and drains), where the porcelain provides a more user-friendly interface to the plumbing.</p><p>Git uses this terminology in analogy, to separate the low-level commands that users don&#8217;t usually need to use directly (the _plumbing_) from the more user-friendly high level commands (the _porcelain_).</p><footer><strong>Porcelain</strong> <cite><a href='http://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git'>Git Porcelain</a></cite></footer></blockquote>
+    <content type="html"><![CDATA[<blockquote><p>&#8220;Porcelain&#8221; is the material from which toilets are usually made (and sometimes other fixtures such as washbasins). This is distinct from &#8220;plumbing&#8221; (the actual pipes and drains), where the porcelain provides a more user-friendly interface to the plumbing.</p><p>Git uses this terminology in analogy, to separate the low-level commands that users don&#8217;t usually need to use directly (the &#8220;plumbing&#8221;) from the more user-friendly high level commands (the &#8220;porcelain&#8221;).</p><footer><strong>Porcelain</strong> <cite><a href='http://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git'>Git Porcelain</a></cite></footer></blockquote>
 
 
 <p>One of those programmer jokes&hellip;</p>
