@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Hacks | littlebigtomatoes]]></title>
+  <link href="http://www.littlebigtomatoes.com/blog/categories/hacks/atom.xml" rel="self"/>
+  <link href="http://www.littlebigtomatoes.com/"/>
+  <updated>2016-05-04T06:29:31+02:00</updated>
+  <id>http://www.littlebigtomatoes.com/</id>
+  <author>
+    <name><![CDATA[Krisztian Gyuris]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[My Version of the IKEAPad]]></title>
+    <link href="http://www.littlebigtomatoes.com/2012/01/my-version-of-the-ikeapad/"/>
+    <updated>2012-01-13T07:50:24+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2012/01/my-version-of-the-ikeapad</id>
+    <content type="html"><![CDATA[<p>I recently saw the <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad stand</a> on <a href="http://www.ikeahackers.net/">IKEA Hackers</a> and I really liked it. <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad</a> is basically a simple iPad stand constructed from an <a href="http://www.ikea.com/us/en/catalog/products/76696009/">Ekby Valter</a> that costs 3$, that is less cheaper that you would pay for any iPad stand on the market. After reading the article, I decided to create my own version, for this you will need to buy 2 pieces of Ekby Valter and take out the shortest piece of wood from one of the Ekby Valter and use it as a dowel. I guess it is easier to understand if you see it.</p>
+
+<p><img src="/images/WP_0003951-300x225.jpg" title="&lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo;" ></p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>The rest of the images:</p>
+
+<p><img src="/images/WP_000394-150x150.jpg" title="&lsquo;Testing with iPad&rsquo; &lsquo;Testing with iPad&rsquo;" ></p>
+
+<p><img src="/images/WP_0003951-150x150.jpg" title="&lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo;" ></p>
+
+<p><img src="/images/WP_0003981-150x150.jpg" title="&lsquo;Finished iPad stand in the kitchen&rsquo; &lsquo;Finished iPad stand in the kitchen&rsquo;" ></p>
+
+<p><img src="/images/WP_0003911-150x150.jpg" title="&lsquo;Ekby Valter&rsquo; &lsquo;Ekby Valter&rsquo;" ></p>
+
+<p><img src="/images/WP_0003921-150x150.jpg" title="&lsquo;Ekby Valter parts&rsquo; &lsquo;Ekby Valter parts&rsquo;" ></p>
+
+<p><img src="/images/WP_0003941-150x150.jpg" title="&lsquo;iPad stand is ready&rsquo; &lsquo;iPad stand is ready&rsquo;" ></p>
+]]></content>
+  </entry>
+  
+</feed>

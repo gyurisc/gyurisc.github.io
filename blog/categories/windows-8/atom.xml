@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Windows 8 | littlebigtomatoes]]></title>
+  <link href="http://www.littlebigtomatoes.com/blog/categories/windows-8/atom.xml" rel="self"/>
+  <link href="http://www.littlebigtomatoes.com/"/>
+  <updated>2016-05-04T06:29:31+02:00</updated>
+  <id>http://www.littlebigtomatoes.com/</id>
+  <author>
+    <name><![CDATA[Krisztian Gyuris]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The 5th Recommendation to Get Better at Designing Windows Phone Apps]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/02/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps/"/>
+    <updated>2013-02-05T17:57:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/02/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps</id>
+    <content type="html"><![CDATA[<p>It seems I am unable to count to 5. In my last blog <a href="http://www.littlebigtomatoes.com/2013/01/5-ways-to-get-better-at-designing-apps-for-windows-phone/">5 ways to get better at designing apps for Windows Phone</a> I promised 5 ways and I delivered only four. This is the follow up, where I try to give one last piece of advice.</p>
+
+<h2>Write apps for yourself</h2>
+
+<p>You need to scratch your own itch. You need to solve your own existing problem, so find something you truly miss from your phone and then solve it! This way you will have an app that make your life better. Also, you will use this app every single day, so bugs and problems with your app surface much quicker and it will be easier to fix them as you are the one, who designed and coded it. But be very careful&hellip;.</p>
+
+<h2>Do not write apps that no one will use&hellip;</h2>
+
+<p>I am guilty as charged. I had this idea of <a href="www.hotbidd.com/apps/emailme">sending emails to myself</a> and wrote the app. It took me three months of hard work and when I finally released it, there were only a few downloads. This is not the end of the world, because I use the app myself several times a day and learned lot of stuff, while designing and coding it! But when I started to promote my app, no-one seemed to understand what problem of theirs that my app will help to solve.</p>
+
+<p>I found a solution to a problem, that seemingly no other person on earth had. Frustrating, but the key lesson I learned is this - similar to designing your app - you should start promoting your app, before you start coding it! Go out and explain the idea behind your app and the problem it tries to solve. Find out that others are having this problem too and pitch your app to them. Embrace the feedback and in the end you will have a much better app. Learn from my mistake and do not create your app in vacuum&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[5 Ways to Get Better at Designing Apps for Windows Phone]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/01/5-ways-to-get-better-at-designing-apps-for-windows-phone/"/>
+    <updated>2013-01-31T21:51:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/01/5-ways-to-get-better-at-designing-apps-for-windows-phone</id>
+    <content type="html"><![CDATA[<p>I am constantly trying to improve the quality of apps that I am publishing on the market for Windows Phone and Windows 8 or to other platforms in the future. In the last couple of days I try to think ways how I can get better at designing and creating apps. My primary device at the moment is a Lumia 800 and my primary desktop OS is Windows 8. These are not the dominant platforms yet, but I am hoping they get more popular over time.</p>
+
+<h2>Buy an iPod Touch</h2>
+
+<p> If you try to sense what is the golden standard of apps on today&rsquo;s prime platforms in terms of speed, design or popularity you really need something that you can try these apps on. Cheapest and best is to buy a used iPod Touch. This way you will feel what are the popular todo apps doing in the productivity category, if you are planning to write one for Windows Phone. Once you have the device, try as many apps as you can. Feel the speed and the attention to details that went into the app. Feel the love that went into the app. This is the quality you should aim for with your apps too!</p>
+
+<p> For extra kudos buy a cheap android phone or tablet or both if you have the money. This is money well spent as you can start writing apps for those devices as well.</p>
+
+<h2>Say no to the cookie cutter approach</h2>
+
+<p> You have an app idea that will rock the world and make you rich. You need to move fast. Launch Visual Studio and quickly create a new project using the pivot app template. Code like crazy. Test, Test, Test and upload to the market place.</p>
+
+<p> Just slow down for a second. This is how you create an app that does nothing to differentiate itself from the tens of thousands of other apps that are already on the marketplace. There must be a better way to differentiate it. Think about using different colors than the system accent color.</p>
+
+<p>I know that the metro design guidelines are saying that we need to honor the user&rsquo;s choice of accent color and theme, but honestly as a user I need to puke when I see one more cookie cutter pivot style app that looks like all the other apps on my phone. I need opinionated apps! I need apps that stands out and they have personality!</p>
+
+<h2>Animation, Animation, Animation</h2>
+
+<p>Same here with the default controls. Pivot was great two years ago and remains very useful today, but now it feels a little tired to me. If you have an idea just to spice up a little the pivot the it is great. If you can come up with new interactions even better.</p>
+
+<p>The other one is the animation between page transitions or other interactions in the apps. Expression Blend is such a wonderful tool and animation is so easy there. I need more of that.</p>
+
+<h2>Best Windows Phone App award</h2>
+
+<p>This one is for Microsoft. They have a cash. They have a yearly developer conference. For the love of god, take a page from Apple book and copy their app awards at WWDC. Each year on your developer conference you need to do app awards too. Give out prizes. Recognize the best designed apps for Windows Phone and Windows 8. Recognize the developers and help community. Give them prominent place on the event site, maybe mentioned them in the keynote on day one! Announce these apps to your developers, so they know what the direction is going forward and what is the quality bar for apps. Raise the bar for everyone! It would do more good than coming up weird technology demos showcasing features of unreleased technology.</p>
+
+<p>Ok, this post turned out to be more of a rant, where my Windows Phone user side addressing the Windows Phone developer side in me, but I think they are points and I am going to follow them!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Keyboard Shortcuts for Windows 8]]></title>
+    <link href="http://www.littlebigtomatoes.com/2012/12/keyboard-shortcuts-for-windows-8/"/>
+    <updated>2012-12-20T07:54:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2012/12/keyboard-shortcuts-for-windows-8</id>
+    <content type="html"><![CDATA[<p>I released my first app for Windows 8! Now you can download <a href="http://apps.microsoft.com/windows/en-US/app/keyboard-shortcuts/a098e87b-cbeb-49ad-a356-c19b4c025afb">Keyboard Shortcuts App</a> from the Windows Store for Free.</p>
+
+<p>As you might guessed, I am quite a bit of fan of productivity and doing things fast and swift on my computers. One of the main driver of productivity on a desktop computer are keyboard shortcuts. With Windows 8, it is even more so! I believe <a href="http://www.littlebigtomatoes.com/2012/12/keyboard-shortcut-starter-kit-for-windows-8/">keyboard shortcuts</a> on Windows 8 are essential to be productive.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>To help myself and hopefully others to memorize these shortcuts I created an app that makes easy to find and learn the shortcuts. Currently, it contains about 100 shortcuts for Windows 8, Calendar and Mail. I am hoping to add more shortcuts and other applications soon.</p>
+
+<p><div class="embed-video-container"><iframe src="http://www.youtube.com/embed/HiyMIWcum_c "></iframe></div></p>
+
+<p>If you have any feedback, issues or you think there is something missing just ping me on twitter. I would be happy to help you!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Keyboard Shortcut Starter Kit for Windows 8]]></title>
+    <link href="http://www.littlebigtomatoes.com/2012/12/keyboard-shortcut-starter-kit-for-windows-8/"/>
+    <updated>2012-12-04T08:58:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2012/12/keyboard-shortcut-starter-kit-for-windows-8</id>
+    <content type="html"><![CDATA[<p>As you might found out I am huge fan of Microsoft&rsquo;s latest operating system Windows 8. I love the new Start Screen and how fast the metro style apps are. I am waiting for a touch based device that runs Windows 8, but until I have a touch device at hand and can try all the touch features, I am stuck with a standard pre-touch laptop.</p>
+
+<p>Windows 8 is also very nice on a standard PC and what really makes it fly high are the keyboard shortcuts. I highly encourage you to try those and memorize them. Once they become muscle memory, they will make you super-fast and productive.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>I would like to present you with a collection of the most useful and essential shortcuts:</p>
+
+<p><strong>Windows</strong> key is the mother of all shortcuts on Windows 8. It will get you to the Start Screen from the current app and back to your previous app, if you press it once more. Once you are on the Start Screen, just start typing and it will search the apps that you have installed. This is the fastest way to start the apps on your system.</p>
+
+<p><strong>Windows + D</strong>, gets you to the classic desktop and back to the app you were using, if you press it once more.
+The next shortcut is <em>Windows + C</em>, that brings up the charms bar. This one lets you access the charms such as search or settings. It will also show the current date and time, the battery and network status on the bottom left side of the screen.</p>
+
+<p><strong>Windows + I</strong> is the shortcut I use the most. This brings up the settings charm and you can switch on and off the airport mode, audio volume and brightness and control panel directly. As a laptop user, I find it very convenient to be able to switch Wi-Fi on/off with two clicks.</p>
+
+<p><strong>Windows + Space</strong> is my all-time favorite. This one lets you to change the input language or cycle them through if you press it many times. The reason while I am so enthusiastic about this one is because I am using its twin sister on OS X <em>Apple + Space</em> to switch input language. For me this is a welcome change, because in the past I often found myself trying the shortcut, when using Windows 7 just to find out that this is a different OS and this will be not working here. This is not the case anymore and I can rely on muscle memory to switch the input language. I am truly happy!</p>
+
+<p><strong>Windows + X</strong> is the last one. This keyboard shortcut is for the power users. It will bring up an advanced menu on the bottom left side of the screen and there will be menus to access all the advanced features of the operating system such Command Prompt Admin, Task Manager, Control Panel, File Explorer. This comes very handy, if you need to access the more advanced functions a lot.</p>
+
+<p>This is my start kit of keyboard shortcuts for Windows8. I hope it will help you to become faster. Enjoy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Windows App Store Leaves Mac App Store Behind]]></title>
+    <link href="http://www.littlebigtomatoes.com/2012/11/windows-app-store-leaves-mac-app-store-behind/"/>
+    <updated>2012-11-28T15:18:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2012/11/windows-app-store-leaves-mac-app-store-behind</id>
+    <content type="html"><![CDATA[<p><blockquote><p>The daily download volume among the top 300 most popular applications in the Windows Store is already three times higher than the volume among the top 300 most popular applications in the Apple Mac App Store. However, in terms of paid volume only, the Apple Mac App Store is still doing much (5 times) better.</p><footer><strong>Distimo <a href="http://www.distimo.com/blog/2012_11_publication-discover-the-windows-store/">http://www.distimo.com/blog/2012_11_publication-discover-the-windows-store/</a> Discover The Windows Store</strong></footer></blockquote></p>
+
+<p>After one month, Windows Store has 3 times more downloads in the top 300 apps than the app store shipping with the <a href="http://www.apple.com/osx/">world&rsquo;s most advanced desktop operating system</a>. Not too bad, although the Mac App Store still generates 5 times more paid volume than Windows Store.</p>
+
+<p>It&rsquo;s a start!</p>
+]]></content>
+  </entry>
+  
+</feed>

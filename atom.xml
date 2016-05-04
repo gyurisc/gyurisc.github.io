@@ -1,0 +1,1589 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[littlebigtomatoes]]></title>
+  <link href="http://www.littlebigtomatoes.com/atom.xml" rel="self"/>
+  <link href="http://www.littlebigtomatoes.com/"/>
+  <updated>2016-05-04T06:29:31+02:00</updated>
+  <id>http://www.littlebigtomatoes.com/</id>
+  <author>
+    <name><![CDATA[Krisztian Gyuris]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Serializing Empty IEnumerable<T> With protobuf.net]]></title>
+    <link href="http://www.littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net/"/>
+    <updated>2015-10-30T17:06:13+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net</id>
+    <content type="html"><![CDATA[<p>I am recently trying to use protobuf.net for serializing objects for network communication in a .net application. Protobuf is a great format for sending data. Protobuf tries to be very frugal to save bandwidth. However, this causes some unexpected side effects when using it with .NET.</p>
+
+<!-- more -->
+
+
+<p>For example, If there is a collection serialized and the collection count was zero, then the serializer is going to write out null and this collection will be deserialized as null on the other end.</p>
+
+<p>This is easy to fix when you have only a few classes that holding your models, but can be a huge problem when you have a very large number of classes that you are trying to serialize and the previously used serializer was always deserializing an empty collection to an empty collection.</p>
+
+<p>To solve this, we need extra wrapper class and within this wrapper class it is possible to detect if the underlying generic type is a IEnumerable&lt;T&gt; and create code to initialize the data member as an empty collection if needed.</p>
+
+<p>The code below demonstrates how to use this technique.</p>
+
+<figure class='code'><figcaption><span>creating empty collection in data wrapper </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">DataWrapper</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="n">T</span> <span class="n">Data</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">DataWrapper</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Type</span> <span class="n">dataType</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Protobuf deserializes empty collections as null in order to combat this we create an empty collection by default</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">dataType</span><span class="p">.</span><span class="n">IsGenericType</span> <span class="p">&amp;&amp;</span> <span class="n">dataType</span><span class="p">.</span><span class="n">GetGenericTypeDefinition</span><span class="p">()</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="n">IEnumerable</span><span class="p">&lt;&gt;))</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Type</span> <span class="n">underlyingType</span> <span class="p">=</span> <span class="n">entityType</span><span class="p">.</span><span class="n">GetGenericArguments</span><span class="p">()[</span><span class="m">0</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="kt">var</span> <span class="n">listType</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">List</span><span class="p">&lt;&gt;);</span>
+</span><span class='line'>            <span class="kt">var</span> <span class="n">concreteType</span> <span class="p">=</span> <span class="n">listType</span><span class="p">.</span><span class="n">MakeGenericType</span><span class="p">(</span><span class="n">underlyingType</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">Data</span> <span class="p">=</span> <span class="p">(</span><span class="n">TEntity</span><span class="p">)</span><span class="n">Activator</span><span class="p">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">concreteType</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">else</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Data</span> <span class="p">=</span> <span class="k">default</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>     <span class="p">}</span>
+</span><span class='line'> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Problem With Wirecutter]]></title>
+    <link href="http://www.littlebigtomatoes.com/2014/11/the-problem-with-wirecutter/"/>
+    <updated>2014-11-28T17:17:42+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2014/11/the-problem-with-wirecutter</id>
+    <content type="html"><![CDATA[<p>I love thewirecutter.com. I like them a lot. They are posting really well researched reviews about stuff I care about a lot. Headphones, smartphones, TVs, NAS. Some of their articles are based on hundreds of hours of research and they are trying out dozens of gadgets to find the best ones. They save me time, energy and money and I trust them…</p>
+
+<p>Whenever I am looking for something to buy or I need to learn about stuff I will go there. Read their article and learn a lot about the actual topic. After I am done with the reading I am ready to buy whatever they recommend me to buy. Only if, I could buy it.</p>
+
+<p>Recently, I was looking for a new smart tv that is cheap, so I read from start to finish <a href="http://thewirecutter.com/reviews/the-best-500-tv/">The Best $500 TV</a> on my favourite site. Their pick is <a href="http://www.amazon.com/gp/product/B00BEAFLYK?tag=thewire06-20&amp;link_code=ur2&amp;creative=9325&amp;camp=211189">Samsung PN51F4500</a>, which seems like an amazing tv, so let’s buy it. Quick google search shows that I cannot buy this tv in the EU.</p>
+
+<p>It turns out I need to decrypt the model number and try to find a similar tv. So PN51F4500 <a href="http://www.samsung.com/us/support/faq/FAQ00057975/76904/LN46B540P8FXZA">means</a> that it is a P=Plasma TV made for N=North America in 51 inch size. The model number also tells me that it is a F=2013 model from the 4500 series. Now I know enough, so I will search for PE51F4500 in the EU or one of the variants. I found the <a href="http://www.samsung.com/de/consumer/tv-audio-video/television/plasma-tv/PE51H4500AWXZG">PE51H4500AW</a> model which I  think is the 2014 year model of the same series.</p>
+
+<p>So the problem is with wirecutter.com is not really a problem for all. It is rather my problem. It is the problem of amazon that they are no delivering to remote places like the eastern part of the EU. It is the stupidity of the TV manufacturers that they give out different model numbers for product that are the same and I have to spend time on decrypting the model number and   then translate it to a model that is available in my country.</p>
+
+<p>At the end, it comes down to a lot of factor why this is a problem and the easiest way to fix this if wire cutter.com would start posting the different model numbers for each market - if there are differences. It would make my life easier…</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[What Does the Term Porcelain Mean in Git]]></title>
+    <link href="http://www.littlebigtomatoes.com/2014/10/what-does-the-term-porcelain-mean-in-git/"/>
+    <updated>2014-10-28T16:48:31+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2014/10/what-does-the-term-porcelain-mean-in-git</id>
+    <content type="html"><![CDATA[<blockquote><p>&#8220;Porcelain&#8221; is the material from which toilets are usually made (and sometimes other fixtures such as washbasins). This is distinct from &#8220;plumbing&#8221; (the actual pipes and drains), where the porcelain provides a more user-friendly interface to the plumbing.</p><p>Git uses this terminology in analogy, to separate the low-level commands that users don&#8217;t usually need to use directly (the &#8220;plumbing&#8221;) from the more user-friendly high level commands (the &#8220;porcelain&#8221;).</p><footer><strong>Porcelain</strong> <cite><a href='http://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git'>Git Porcelain</a></cite></footer></blockquote>
+
+
+<p>One of those programmer jokes&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Reading About Date and Time]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/06/reading-about-date-and-time/"/>
+    <updated>2013-06-27T12:45:00+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/06/reading-about-date-and-time</id>
+    <content type="html"><![CDATA[<blockquote><p>So is Noda Time perfect then?</p><p>Of course not. Noda Time suffers several problems:</p><p>Despite all of the above, I&#8217;m a rank amateur when it comes to the theory of date and time. Leap seconds baffle me. The thought of a Julian-Gregorian calendar with a cutover point makes me want to cry, which is why I haven&#8217;t quite implemented it yet.</p><footer><strong>NodaTime</strong> <cite><a href='http://noda-time.blogspot.hu/2011/08/what-wrong-with-datetime-anyway.html'>What&#8217;s Wrong With DateTime Anyway?</a></cite></footer></blockquote>
+
+
+<p>I am getting more confused about this <strong>simple</strong> thing called date and time minute by minute&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Simple.Data and Dynamic Calls Are Awesome]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/"/>
+    <updated>2013-06-17T11:59:00+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome</id>
+    <content type="html"><![CDATA[<p>Couple of weeks ago I started to look into different open source packages on the .NET platform such as <a href="http://nancyfx.org/">Nancy</a> and <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data/">Simple.Data</a>. They all looked very cool, but one paragraph in an article called <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data/">Introducing Simple.Data</a> - explaining how the code snippet below works - caught my attention:</p>
+
+<figure class='code'><figcaption><span>getting data from db </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">db</span> <span class="p">=</span> <span class="n">Database</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span> <span class="c1">// Connection specified in config.</span>
+</span><span class='line'><span class="kt">var</span> <span class="n">user</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Users</span><span class="p">.</span><span class="n">FindByNameAndPassword</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>That’s pretty neat, right? So, did we have to generate the Database class and a bunch of table classes to make this work?</p><p>No.</p><p>In this example, the type returned by Database.Open() is dynamic. It doesn’t have a Users property, but when that property is referenced on it, it returns a new instance of a DynamicTable type, again as dynamic. That instance doesn’t actually have a method called FindByNameAndPassword, but when it’s called, it sees “FindBy” at the start of the method, so it pulls apart the rest of the method name, combines it with the arguments, and builds an ADO.NET command which safely encapsulates the name and password values inside parameters. The FindBy* methods will only return one record; there are FindAllBy* methods which return result sets. This approach is used by the Ruby/Rails ActiveRecord library; Ruby’s metaprogramming nature encourages stuff like this.</p><footer><strong>Mark Rendle</strong> <cite><a href='http://blog.markrendle.net/2010/08/05/introducing-simple-data'>Introducing Simple.Data</a></cite></footer></blockquote>
+
+
+<p>Just read that sentence once again&hellip;</p>
+
+<p><em>That instance doesn’t actually have a method called FindByNameAndPassword, but when it’s called, it sees “FindBy” at the start of the method, so it pulls apart the rest of the method name, combines it with the arguments, and builds an ADO.NET command which safely encapsulates the name and password values inside parameters.</em></p>
+
+<p>This sounds like crazy awesome magic and I need to understand it!</p>
+
+<h2>How magic works?</h2>
+
+<p>To find out how the magic worked, I downloaded the source code from github and started to poke around the code. The rest of the article explains what I got out of this experiment.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>The sample project I created is sort of the skeleton of what Simple.Data does on the inside. This is not an attempt to reproduce or fully understand the library. I just wanted to understand how one can call a non-existing method on a class and what is happening behind the curtain that enables this at runtime.</p>
+
+<figure class='code'><figcaption><span>disecting the magic    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'>  <span class="k">class</span> <span class="nc">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="kt">var</span> <span class="n">dyn</span> <span class="p">=</span> <span class="n">DynamicTest</span><span class="p">.</span><span class="n">GetDynamic</span><span class="p">();</span>
+</span><span class='line'>      <span class="kt">var</span> <span class="n">user</span> <span class="p">=</span> <span class="n">dyn</span><span class="p">.</span><span class="n">Users</span><span class="p">.</span><span class="n">FindByEmail</span><span class="p">(</span><span class="s">&quot;someone@somewhere.com&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, after poking around in the <a href="https://github.com/markrendle/Simple.Data">source code</a> of Simple.Data I realized that the magic happens by applying the <a href="http://msdn.microsoft.com/en-us/library/vstudio/dd264741.aspx">dynamic</a> keyword and DynamicObject.</p>
+
+<figure class='code'><figcaption><span>DynamicObject skeleton     </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'>  <span class="k">public</span> <span class="k">class</span> <span class="nc">DynamicTest</span> <span class="p">:</span> <span class="n">DynamicObject</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">static</span> <span class="kt">dynamic</span> <span class="nf">GetDynamic</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">_instance</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="n">_instance</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DynamicTest</span><span class="p">();</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">return</span> <span class="n">_instance</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I created a class that derives from DynamicObject and a method that returns an instance of this object, but instead of a return type I added the dynamic keyword to the method signature. What this does effectively is that when compiling my simple test code, the compiler will not look for the declaration of a Users property. It knows that this will resolved at runtime.</p>
+
+<p>Once running this code there will be a RuntimeBinderException exception thrown with the the following message:</p>
+
+<figure class='code'><figcaption><span>DynamicObject skeleton     </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Message</span><span class="p">=</span><span class="err">&#39;</span><span class="kt">object</span><span class="err">&#39;</span> <span class="n">does</span> <span class="n">not</span> <span class="n">contain</span> <span class="n">a</span> <span class="n">definition</span> <span class="k">for</span> <span class="err">&#39;</span><span class="n">Users</span><span class="err">&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, we need to somehow create a Users property on the DynamicTest class. For this, we need to override the TryGetMember method of the DynamicObject and implement this behavior.</p>
+
+<p>So, TryGetMember will just create and return an instance of an ObjectReference object. It has a parameter called binder that has information about the member that is called and an out parameter to pass back the result. The created object will be stored with binder.Name as key, so next time the same instance can be returned. This will represent the <strong>.User</strong> part of our dynamic call. But how will we handle the remaining method call?</p>
+
+<figure class='code'><figcaption><span>TryGetMember implementation </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">TryGetMember</span><span class="p">(</span><span class="n">GetMemberBinder</span> <span class="n">binder</span><span class="p">,</span> <span class="k">out</span> <span class="kt">object</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">result</span> <span class="p">=</span> <span class="n">GetOrAddDynamicReference</span><span class="p">(</span><span class="n">binder</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">private</span> <span class="kt">dynamic</span> <span class="nf">GetOrAddDynamicReference</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">_members</span><span class="p">.</span><span class="n">GetOrAdd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="k">new</span> <span class="n">ObjectReference</span><span class="p">(</span><span class="n">name</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ObjectReference is also derived from DynamicObject and it overrides the TryInvokeMember method to handle the remaining method call. Again, it receives a binder that contains information about the member that is being invoked, the parameters that is passed in and it has an out parameter that is used to pass back the result. What this method does is just simply prints out the method that is being invoked and its parameters.</p>
+
+<figure class='code'><figcaption><span>TryInvokeMember implementation</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">TryInvokeMember</span><span class="p">(</span><span class="n">InvokeMemberBinder</span> <span class="n">binder</span><span class="p">,</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">args</span><span class="p">,</span> <span class="k">out</span> <span class="kt">object</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="k">base</span><span class="p">.</span><span class="n">TryInvokeMember</span><span class="p">(</span><span class="n">binder</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="k">out</span> <span class="n">result</span><span class="p">))</span> <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">try</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Called &quot;</span> <span class="p">+</span>
+</span><span class='line'>                      <span class="n">_name</span> <span class="p">+</span> <span class="s">&quot;.&quot;</span> <span class="p">+</span>
+</span><span class='line'>                      <span class="n">binder</span><span class="p">.</span><span class="n">Name</span> <span class="p">+</span>
+</span><span class='line'>                      <span class="s">&quot;(&quot;</span> <span class="p">+</span>
+</span><span class='line'>                      <span class="n">args</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">((</span><span class="n">current</span><span class="p">,</span> <span class="n">next</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">current</span> <span class="p">+</span> <span class="s">&quot;, &quot;</span> <span class="p">+</span> <span class="n">next</span><span class="p">)</span> <span class="p">+</span>
+</span><span class='line'>                      <span class="s">&quot;)&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">result</span> <span class="p">=</span> <span class="s">&quot;result&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">catch</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvalidOperationException</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;Method {0} not recognized&quot;</span><span class="p">,</span> <span class="n">binder</span><span class="p">.</span><span class="n">Name</span><span class="p">));</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvalidOperationException</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;Method {0} not recognized&quot;</span><span class="p">,</span> <span class="n">binder</span><span class="p">.</span><span class="n">Name</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, that I better understand how all this works I realized that I am way behind with the new features of C#. I guess, I need to buy a book about the last version of the language, read it and learn a bit more as I am behind. Below is the full sample code that I created:</p>
+
+<figure class='code'><figcaption><span>full source code for dynamic test</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Collections.Concurrent</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Dynamic</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">System.Threading.Tasks</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nn">DynamicTest</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="kt">var</span> <span class="n">dyn</span> <span class="p">=</span> <span class="n">DynamicTest</span><span class="p">.</span><span class="n">GetDynamic</span><span class="p">();</span>
+</span><span class='line'>      <span class="kt">var</span> <span class="n">user</span> <span class="p">=</span> <span class="n">dyn</span><span class="p">.</span><span class="n">Users</span><span class="p">.</span><span class="n">FindByEmail</span><span class="p">(</span><span class="s">&quot;someone@somewhere.com&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="k">class</span> <span class="nc">DynamicTest</span> <span class="p">:</span> <span class="n">DynamicObject</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ConcurrentDictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">dynamic</span><span class="p">&gt;</span> <span class="n">_members</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ConcurrentDictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">dynamic</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="k">static</span> <span class="n">DynamicTest</span> <span class="n">_instance</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">static</span> <span class="kt">dynamic</span> <span class="nf">GetDynamic</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">_instance</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="n">_instance</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DynamicTest</span><span class="p">();</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">return</span> <span class="n">_instance</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">TryGetMember</span><span class="p">(</span><span class="n">GetMemberBinder</span> <span class="n">binder</span><span class="p">,</span> <span class="k">out</span> <span class="kt">object</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">result</span> <span class="p">=</span> <span class="n">GetOrAddDynamicReference</span><span class="p">(</span><span class="n">binder</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="kt">dynamic</span> <span class="nf">GetOrAddDynamicReference</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">_members</span><span class="p">.</span><span class="n">GetOrAdd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="k">new</span> <span class="n">ObjectReference</span><span class="p">(</span><span class="n">name</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="k">class</span> <span class="nc">ObjectReference</span> <span class="p">:</span> <span class="n">DynamicObject</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">private</span> <span class="kt">string</span> <span class="n">_name</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">ObjectReference</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">_name</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">TryInvokeMember</span><span class="p">(</span><span class="n">InvokeMemberBinder</span> <span class="n">binder</span><span class="p">,</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">args</span><span class="p">,</span> <span class="k">out</span> <span class="kt">object</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="k">base</span><span class="p">.</span><span class="n">TryInvokeMember</span><span class="p">(</span><span class="n">binder</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="k">out</span> <span class="n">result</span><span class="p">))</span> <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">try</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Called &quot;</span> <span class="p">+</span>
+</span><span class='line'>                          <span class="n">_name</span> <span class="p">+</span> <span class="s">&quot;.&quot;</span> <span class="p">+</span>
+</span><span class='line'>                          <span class="n">binder</span><span class="p">.</span><span class="n">Name</span> <span class="p">+</span>
+</span><span class='line'>                          <span class="s">&quot;(&quot;</span> <span class="p">+</span>
+</span><span class='line'>                          <span class="n">args</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">((</span><span class="n">current</span><span class="p">,</span> <span class="n">next</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">current</span> <span class="p">+</span> <span class="s">&quot;, &quot;</span> <span class="p">+</span> <span class="n">next</span><span class="p">)</span> <span class="p">+</span>
+</span><span class='line'>                          <span class="s">&quot;)&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">result</span> <span class="p">=</span> <span class="s">&quot;result&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span> <span class="k">catch</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvalidOperationException</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;Method {0} not recognized&quot;</span><span class="p">,</span> <span class="n">binder</span><span class="p">.</span><span class="n">Name</span><span class="p">));</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvalidOperationException</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;Method {0} not recognized&quot;</span><span class="p">,</span> <span class="n">binder</span><span class="p">.</span><span class="n">Name</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[All Navy Outside and a Pirate Dying to Be Released Inside]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside/"/>
+    <updated>2013-04-16T14:14:00+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/04/all-navy-outside-and-a-pirate-dying-to-be-released-inside</id>
+    <content type="html"><![CDATA[<blockquote><p>She was then hired as a senior consultant to Digital Equipment Corporation, a position she retained until her death in 1992, aged 85.</p><p>Her primary activity in this capacity was as a goodwill ambassador, lecturing widely on the early days of computers, her career, and on efforts that computer vendors could take to make life easier for their users. She visited a large fraction of Digital&#8217;s engineering facilities, where she generally received a standing ovation at the conclusion of her remarks. During many of her lectures, she illustrated a nanosecond using salvaged obsolete Bell System 25 pair telephone cable, cut it to 11.8 inch (30 cm) lengths, the distance that light travels in one nanosecond, and handed out the individual wires to her listeners. Although no longer a serving officer, she always wore her Navy full dress uniform to these lectures.</p><footer><strong>Wikipedia</strong> <cite><a href='http://en.wikipedia.org/wiki/Grace_Hopper'>Grace Hopper</a></cite></footer></blockquote>
+
+
+<p>Grace Hopper invented the compiler and coined the term debugging. The two things I do in most of my professional life. She must be a truly remarkable person and I owe her my job! :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Stop the Troll]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/04/stop-the-troll/"/>
+    <updated>2013-04-09T06:44:00+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/04/stop-the-troll</id>
+    <content type="html"><![CDATA[<blockquote><p>What does this sound like? Yes, it’s a textbook case of a protection racket. It is organized crime, plain and simple. It is an abuse of the legal system, an abuse of the patent system, and a moral affront.</p><p>In the face of organized crime, civilized people don’t pay up. When you pay up, you’re funding the criminals, which makes you complicit in their next attacks. I know, you’re just trying to write a little app for the iPhone with in-app purchases, and you didn’t ask for this fight to be yours, but if you pay the trolls, giving them money and comfort to go after the next round of indie developers, you’re not just being “pragmatic,” you have actually gone over to the dark side. Sorry. Life is a bit hard sometimes, and sometimes you have to step up and fight fights that you never signed up for.</p><footer><strong>Joel On Software</strong> <cite><a href='http://www.joelonsoftware.com/items/2013/04/02.html'>The Patent Protection Racket</a></cite></footer></blockquote>
+
+
+<p>I think the last sentence is classic and I fully agree with it. Life is a bit hard sometimes, and sometimes you have to step up and fight fights that you never signed up for.</p>
+
+<p>There are some very awfull software patents granted in the past and there are some, who are clearly abusing this system. Let&rsquo;s stop these trolls together!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Exploring Xamarin iOS on Windows]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/03/exploring-xamarin-ios-on-windows/"/>
+    <updated>2013-03-28T08:24:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/03/exploring-xamarin-ios-on-windows</id>
+    <content type="html"><![CDATA[<p>Xamarin not so long ago released the version 2.0 of their product that allows all .NET developers to use C# and .NET libraries to code apps for iOS and Android. Better yet, it allows us to use our bellowed Visual Studio.NET to code for these platforms.</p>
+
+<p>I love to try out new things, so I decide to figure out if it is really possible to create very basic application for iOS and for Android purely from Visual Studio.NET.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>The one thing I need to add is that I am without any knowledge of Objective-C or the iOS platform. I can construct the very basic HelloWorld app in XCode, but this is how far my iOS knowledge reaches. Regarding Android, I have zero knowledge of the platform and how to construct the HelloWorld app for the platform. Nevertheless, I give it a try and document my ups and downs creating these apps in vs.net.</p>
+
+<h3>Creating a new project</h3>
+
+<p>I installed the Xamarin environment and started up Visual Studio.NET 2012. Selected File | New Project and created the project.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_001.png" title="New Project" alt="Creating new project for iOS in Visual Studio"></p>
+
+<p>In order to be able to use Visual Studio.NET with Xamarin, you need the Business version or you will need to start the 30 days trial. I opted for the second option.</p>
+
+<p>But first begin the <a href="http://docs.xamarin.com/guides/cross-platform/getting_started/beginning_a_xamarin_trial">30 days trial</a>.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_002.png" title="Starting the 30 days trial" alt="Starting the 30 days trial"></p>
+
+<p>After creating and logging in with the Xamarin account the 30 days trial starts and Visual Studio .NET restarts. It starts searching on the network for active OS X machines to be used as build machine. I have nothing like that on my network, so let’s close the dialog.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_003.png" title="Searching for build machine" alt="Searching for build machine"></p>
+
+<p>I have no mac machine on the network currently so let’s choose <strong>Close</strong>.</p>
+
+<p>// footnote???
+Minor inconvenience is that you will need a live network connection for Xamarin software to check the license with the server and this can be problematic, if you are doing this while you are commuting without network.</p>
+
+<h3>Dude, where is my design surface?</h3>
+
+<p>I created my HelloWorld project and my limited iOS knowledge tells me that this point I need to open .xib or .nib file and start dragging controls onto the design surface. Looking through the project there are no .xib files to open. Searching through the Add New Item dialog yields no result as well.</p>
+
+<p>Looking through the guide I find the following section:</p>
+
+<blockquote><p>Storyboard and XIB files (used by Apple’s Interface Builder for GUI design) cannot currently be edited in Visual Studio. If you create an application from a Storyboard template (or a template that includes XIB files) then you’ll have to switch to the Mac and open the entire solution in Xamarin Studio. From within Xamarin Studio, double-click on XIBs or Storyboards to open and edit them. This includes adding a new item after the project is created, from the following options:</p><p>Working with Storyboards and XIBs</p><p>Editing storyboard and XIB files must be done on OS X with Interface Builder. The Xamarin.iOS plug-in for Visual Studio does not provide any support for this.</p><footer><strong>Xamarin</strong> <cite><a href='http://docs.xamarin.com/guides/ios/getting_started/introduction_to_xamarin_ios_for_visual_studio'>Introduction to Xamarin iOS for Visual Studio</a></cite></footer></blockquote>
+
+
+<p><a href="http://xamarin.com/guide/">Xamarin Guide</a> explains the alternatives in greater details:</p>
+
+<blockquote><p>Xamarin.iOS for Visual Studio comes with several simplified iOS application templates that eschew XIB and Storyboard files, giving developers the option of building their entire user interface in code.  That approach could be desirable for some developers on Windows who want to avoid Xcode and minimize their reliance on a Mac. Xamarin’s MonoTouch.Dialog library— which provides a simple, declarative API for building iOS user interface layouts in code—might prove especially useful for that particular audience.</p><p>Developers who still want to use XIB or Storyboard files can still use Xcode on Mac OS X in order to modify the layout. Fortunately, the high degree of interoperability between Xamarin Studio and Visual Studio makes that a relatively straightforward process. A developer can do most of their development with Visual Studio on Windows and jump over to Xamarin Studio on a Mac while working on user interface design. The same exact project and solution files can be used in both environments.</p><footer><strong>Xamarin</strong> <cite><a href='http://xamarin.com/guide/'>Xamarin Guide</a></cite></footer></blockquote>
+
+
+<p>So you can get rid of XIB if you like and define your UI entirely using the dialog library or you can use XiB but then you need a Mac too.</p>
+
+<h3>Rebooting to OS X</h3>
+
+<p>I decided to stay with the path I know and restarted my macbook to boot OS X. This way I can use the xib approach for now and once I finished I will be going back to Visual Studio.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_004.png" title="Xamarin Studio on OS X" alt="Looking at Xamarin Studio in OS X"></p>
+
+<p>Opening the project in Xamarin Studio I realized that I have no idea how to integrate a new storyboard to my project, so I opted to create a brand new project that has a xib file included. It is not a very high-tech move, but sometimes it pays to create your project from scratch.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_005.png" title="Creating a new project" alt="Creating a new project"></p>
+
+<h3>Creating the UI in XCode</h3>
+
+<p>Once the new project is created, I can open the xib file in XCode to add my controls and create actions and outlets for these controls. I started with dragging a label and a button onto the design surface.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_006.png" title="Dragging the controls in XCode" alt="Dragging the controls in XCode"></p>
+
+<p>Selecting the code icon in XCode will bring in the source control editor. I now can control-drag – clicking on the control while dragging the control to the source code editor – to create my outlet for the Label and the action for my button.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_007.png" title="Press this button to bring in the source code editor in XCode" alt="Press this button to bring in the source code editor in XCode"></p>
+
+<p>Pressing control and dragging the button to the source code editor will bring up a little window that allows me to set up the action for my button. I changed the connection type to action and name it btnPRessed.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_008.png" title="Creating an action for the button in XCode" alt="Creating an action for the button in XCode"></p>
+
+<p>I do the same control dragging for the labe, but this time the connection type is set to outlet and the name lblText.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_009.png" title="Creating an outlet for the label in XCode" alt="Creating an outlet for the label in XCode"></p>
+
+<p>The last important step is to make sure that you save the .xib file. I forget this most of the time annd the result is that these changes will not be generated in the code behind for the view controlller. Back in Xamarin Studio, I can confirm by looking at the codebehind for the view controller that the outlet and action for my controlls are showing up in the code. Let’s go back to Visual Studio.NET.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_010.png" title="Codebehind for the ViewController in Xamarin Studio shows that the constructs for my controlls are generated" alt="Codebehind for the ViewController in Xamarin Studio"></p>
+
+<h3>Back to Visual Studio</h3>
+
+<p>All I have left is to define the event handler – or action method if you like for my button and set the content of the label. The action is defined as a partial method in the code-behind, so I need to provide the implementation for my method. With this I am finished constructing my very basic application for iOS. All is left to test it on a Mac in an emulator to see if it works.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/xam_vs_011.png" title="Partial method for the button in Visual Studio" alt="Partial method for the button in Visual Studio"></p>
+
+<h3>Conclusion</h3>
+
+<p>Xamarin version 2.0 brings the possibility to develop for iOS from Visual Studio.NET for the first time. This is a very welcome change, but it has its own weakness. One is that for creating the UI you will need a Mac computer or you will need to code your whole UI in code. This can be addressed by creating a tool that allows us developers to do UI creation on Windows. Hopefully this will come in the next version. The other area that for testing and debugging you will not be able to live without a mac computer. Once again having a cheap mac computer on the network solves this problem. I have no experience how convenient the debugging, but I will try this soon.</p>
+
+<p>Overall, I am very happy with the new version and the fact that they allow free use with limitation makes me very happy and probably I will invest my time to learn the technology. Well done, Xamarin!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started With gridster.js]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js/"/>
+    <updated>2013-03-08T17:24:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js</id>
+    <content type="html"><![CDATA[<p>I am looking into to learn more about web client side programming, but whenever I find an interesting project I am overwhelmed with the unknown names of different libraries and technologies mentioned, while reading the project&rsquo;s page. Consider <a href="http://shopify.github.com/dashing/">Dashing</a> for example. They mention Sinatra, <a href="https://github.com/Shopify/dashing/wiki/How-to%3A-Deploy-to-Heroku">Heroku</a>, jQuery.. These are the ones that I have at least a slight idea what they are good for. But the list continues: <a href="https://github.com/sstephenson/sprockets">Sprockets</a>, <a href="http://gridster.net/">Gridster.js</a>, <a href="http://www.html5rocks.com/en/tutorials/eventsource/basics/">Server Sent Events</a> and <a href="http://batmanjs.org/docs/batman.html#batman-view-bindings-keypath-filters">batman bindings</a>.</p>
+
+<p>This is nuts, I do not understand any of these. So I decided to divide and conquer the problem and try to focus on one unknown technology at a time. The aim is not to master the library, but to construct a minimum viable sample that helps to understand what it is good for.</p>
+
+<p>Let&rsquo;s start with <a href="http://gridster.net/">Gridster.js</a>.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/gridster_demo.png" title="Gridster demo page" alt="Gridster demo page"></p>
+
+<p>The project page describes this library as:</p>
+
+<!--more-->
+
+
+<p></p>
+
+<blockquote><p>Gridster is a jQuery plugin that allows building intuitive draggable layouts from elements spanning multiple columns. You can even dynamically add and remove elements from the grid. It is on par with sliced bread, or possibly better. MIT licensed. Suitable for children of all ages. Made by Ducksboard.</p></blockquote>
+
+
+<h3>Making the minimum gridster page</h3>
+
+<p>It seems that the library is good for creating grid layouts, where it is possible to re-arrange, add or remove dynamically the elements of the grid. Fair enough&hellip;</p>
+
+<p>So I created an empty index.html and copied all css and javascript files to the assets folder. I added the following in the index.html:</p>
+
+<figure class='code'><figcaption><span>main grid</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'> <span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;demo&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;gridster&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;ul&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;h1&gt;</span>HELLO<span class="nt">&lt;/h1&gt;&lt;/li&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;2&quot;</span> <span class="na">data-col=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;h1&gt;</span>WORLD<span class="nt">&lt;/h1&gt;&lt;/li&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;3&quot;</span> <span class="na">data-col=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;h1&gt;</span>OR ELSE<span class="nt">&lt;h1&gt;&lt;/li&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;2&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;2&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;2&quot;</span> <span class="na">data-col=</span><span class="s">&quot;2&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;2&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;4&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;2&quot;</span> <span class="na">data-col=</span><span class="s">&quot;4&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;2&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;3&quot;</span> <span class="na">data-col=</span><span class="s">&quot;4&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>               
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;5&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;3&quot;</span> <span class="na">data-col=</span><span class="s">&quot;5&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;6&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;2&quot;</span> <span class="na">data-col=</span><span class="s">&quot;6&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>               
+</span><span class='line'>          <span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The key here is the div with class gridster and the unordered list inside. The grid is represented by the unordered list and each of the list items inside the list are representing one grid cell in our grid.</p>
+
+<figure class='code'><figcaption><span>examining one cell in the grid</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;h1&gt;</span>HELLO<span class="nt">&lt;/h1&gt;&lt;/li&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Looking at a list item in greater detail, you will see that there are attributes describing the cell&rsquo;s position in the table using the data-row and data-col attributes and the size of the cell using the data-sizex, data-sizey attributes.</p>
+
+<p>Next we need to call some javascript in order to initialize our grid. This is done by the following javascript block</p>
+
+<figure class='code'><figcaption><span>initializing the grid</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">gridster</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">gridtster</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.gridster &gt; ul&quot;</span><span class="p">).</span><span class="nx">gridster</span><span class="p">({</span>
+</span><span class='line'>              <span class="nx">widget_margins</span><span class="o">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+</span><span class='line'>              <span class="nx">widget_base_dimensions</span><span class="o">:</span> <span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="mi">140</span><span class="p">],</span>
+</span><span class='line'>              <span class="nx">min_cols</span><span class="o">:</span> <span class="mi">6</span>
+</span><span class='line'>          <span class="p">}).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;gridster&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="err">/script&gt; </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Javascript and jQuery are not in my comfort zone yet, but it seems that the code selects something that has .gridster as a class and have ul underneath and sets the widget margin, base dimensions of the grid and the minimum number of columns to 6.</p>
+
+<p>Below, you will see the full html page and css styles. You can also <a href="http://www.littlebigtomatoes.com/downloads/gridster_sample.zip">download</a> the sample, if you like.</p>
+
+<h3>Full index.html</h3>
+
+<figure class='code'><figcaption><span>full index.html</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;title&gt;</span>gridster test<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;author&quot;</span> <span class="na">content=</span><span class="s">&quot;gyurisc&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;assets/css/jquery.gridster.css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;assets/css/styles.css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;demo&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;gridster&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;ul&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;h1&gt;</span>HELLO<span class="nt">&lt;/h1&gt;&lt;/li&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;2&quot;</span> <span class="na">data-col=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;h1&gt;</span>WORLD<span class="nt">&lt;/h1&gt;&lt;/li&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;3&quot;</span> <span class="na">data-col=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;h1&gt;</span>OR ELSE<span class="nt">&lt;h1&gt;&lt;/l&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;2&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;2&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;2&quot;</span> <span class="na">data-col=</span><span class="s">&quot;2&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;2&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;4&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;2&quot;</span> <span class="na">data-col=</span><span class="s">&quot;4&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;2&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;3&quot;</span> <span class="na">data-col=</span><span class="s">&quot;4&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>           
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;5&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;3&quot;</span> <span class="na">data-col=</span><span class="s">&quot;5&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;1&quot;</span> <span class="na">data-col=</span><span class="s">&quot;6&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+</span><span class='line'>                  <span class="nt">&lt;li</span> <span class="na">data-row=</span><span class="s">&quot;2&quot;</span> <span class="na">data-col=</span><span class="s">&quot;6&quot;</span> <span class="na">data-sizex=</span><span class="s">&quot;1&quot;</span> <span class="na">data-sizey=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>               
+</span><span class='line'>              <span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/section&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;assets/jquery.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;assets/jquery.gridster.js&quot;</span> <span class="na">charster=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">gridster</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>              <span class="nx">gridtster</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.gridster &gt; ul&quot;</span><span class="p">).</span><span class="nx">gridster</span><span class="p">({</span>
+</span><span class='line'>                  <span class="nx">widget_margins</span><span class="o">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+</span><span class='line'>                  <span class="nx">widget_base_dimensions</span><span class="o">:</span> <span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="mi">140</span><span class="p">],</span>
+</span><span class='line'>                  <span class="nx">min_cols</span><span class="o">:</span> <span class="mi">6</span>
+</span><span class='line'>              <span class="p">}).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;gridster&#39;</span><span class="p">);</span>
+</span><span class='line'>          <span class="p">});</span>
+</span><span class='line'>      <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Full styles.css</h3>
+
+<figure class='code'><figcaption><span>styles.css</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">body</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">background-color</span><span class="o">:</span> <span class="m">#EEEEEE</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Helvetica Neue&#39;</span><span class="o">,</span> <span class="n">Arial</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">font</span><span class="o">-</span><span class="n">smoothing</span><span class="o">:</span> <span class="n">antialiased</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">font-size</span><span class="o">:</span> <span class="k">x-small</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">color</span><span class="o">:</span> <span class="m">#666666</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">ul</span><span class="o">,</span> <span class="nt">ol</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">h1</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">margin-bottom</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">font-size</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">font-weight</span><span class="o">:</span> <span class="m">400</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">h3</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">font-size</span><span class="o">:</span> <span class="m">25px</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">font-weight</span><span class="o">:</span> <span class="m">600</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/* Gridster styles */</span>
+</span><span class='line'><span class="nc">.demo</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">margin</span><span class="o">:</span> <span class="m">3em</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">padding</span><span class="o">:</span> <span class="m">7.5em</span> <span class="m">0</span> <span class="m">5.5em</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">background</span><span class="o">:</span> <span class="m">#004756</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nc">.demo</span><span class="nd">:hover</span> <span class="nc">.gridster</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">opacity</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nc">.gridster</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">width</span><span class="o">:</span> <span class="m">940px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">opacity</span><span class="o">:</span> <span class="o">.</span><span class="m">8</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">.6s</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">.6s</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">.6s</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">.6s</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">.6s</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nc">.gridster</span> <span class="nc">.gs_w</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">background</span><span class="o">:</span> <span class="m">#FFF</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">5px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">5px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OverConsumerizing]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/03/overconsumerizing/"/>
+    <updated>2013-03-07T08:11:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/03/overconsumerizing</id>
+    <content type="html"><![CDATA[<p>Microsoft has the tendency to overdo things. It happened before with .NET around the 2000s. They started to call all of their product ending with .NET. Do you remember Windows Server.NET or Windows CE.NET? Now, they are back with overdoing other stuff such as secrecy, not listening and neglectic developers with Windows Phone and Windows 8. <a href="http://hal2020.com">Hal</a> nails it again:</p>
+
+<blockquote><p>Let me contrast three strategic thrusts going on at Microsoft.  Windows, Windows Phone, and Azure.  Windows and Windows Phone are in the “shut up and ship” camp.  Azure is in the ENGAGE camp.  It seems like every week Scott Guthrie is announcing new Azure technology previews or releases.  Everything about Azure is exciting.  Amazon, Salesforce, and a few others defined cloud computing.  Azure is displacing them.  It has the Big Mo.  Let me make this clear, AZURE IS GOING TO WIN the cloud computing infrastructure and platform battle.  Meanwhile Windows and Windows Phone continue to alienate their ecosystems.  It is unclear if Windows Phone will ever amount to a significant third ecosystem.  It is unclear that Windows will be able to halt an overall market share decline against IOS and Android tablets.  Azure developers are excited.  No, it’s beyond excitement.  Windows and Windows Phone developers?  Not so much.  They are, at best, conflicted.  Azure is doing platforms right.  Windows and Windows Phone?  They prefer to “shut up and ship”, even if it risks no one caring what they ship&#8230;.</p><footer><strong>hal2020</strong> <cite><a href='http://hal2020.com/2013/03/05/now-i-get-it-the-consumer-guys-at-microsoft-are-just-plain-wrong/'>Now I Get It, the Consumer Guys at Microsoft Are Just Plain Wrong!</a></cite></footer></blockquote>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git and Visual Studio Are Awesome Together]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/03/git-and-visual-studio-are-awesome-together/"/>
+    <updated>2013-03-01T19:59:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/03/git-and-visual-studio-are-awesome-together</id>
+    <content type="html"><![CDATA[<p>I love Visual Studio and I love git too. What can be even better than this? Visual Studio 2012 integrated with Git. The two together are pure awesomeness and I fell in love with them.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/git_vs_001.png" title="Git SSCP" alt="Git Source Control Provider"></p>
+
+<p>There is a provider that you can install in visual studio 2012 and you will get git integration. It can talk to tfs, if you use git there. IT can create local git repos and even can clone repositories from github or from other git hosting servers.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>To get the source control provider installed, you need to download and install the <a href="http://gitscc.codeplex.com/">Git Source Control Provider</a> package from codeplex. Once you are finished, launch Visual Studio and just open team explorer. You can connect to TFS hosted project or to local git repositories.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/git_vs_002.png" title="Git SSCP" alt="Git Source Control Provider"></p>
+
+<h2>Getting familiar</h2>
+
+<p>You can create a new repo by just providing the folder name.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/git_vs_003.png" title="Git New" alt="Creating a new Git repo"></p>
+
+<p>Once you are done, navigate there using git bash and you will see that it is a proper git repo.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/git_vs_004.png" title="Git Bash" alt="New repository from git bash"></p>
+
+<p>You can add existing local repos as well by providing the path</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/git_vs_005.png" title="Existing Repos" alt="Adding existing git repositories"></p>
+
+<p>Clone existing repos form github</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/git_vs_006.png" title="Cloning Repos" alt="Cloning repos from github"></p>
+
+<h2>Nice touches</h2>
+
+<p>There are several things to like in the visual studio git integration. You can change your git settings from git explorer such as gitignore file, your email, the root folder for your repos, even it can get your images for you, to make the history to look nicer.</p>
+
+<p>There is also a super nice and clean looking diff tool for you to go through the differences in commits.</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/git_vs_007.png" title="Diff tool" alt="Nice and clear diff tool in IDE"></p>
+
+<h2>The Bad</h2>
+
+<p>The one thing I do not like is that there is no way to open the solution from the ide. You need to browse out the solution manually. Obviously, this does not happen when you clone from TFS. Little inconvenience, but still tolerable though.</p>
+
+<p>Now go download it and use it. Cheers!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fixing the SelectedItems Property Binding for the Silverlight Listbox Control]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/"/>
+    <updated>2013-02-21T15:43:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control</id>
+    <content type="html"><![CDATA[<p>I recently had to implement a feature in our silverlight app, where the user can remove multiple items selected in a listbox. The project uses the MVVM pattern, so all logic and state is handle in the ViewModel class. When trying to implement the multiple selection, I needed to add a property to my viewmodel that would be a reflection of the items selected on the view. It turns out the ListBox control does not support binding against the SelectedItems property for some reason.</p>
+
+<p>This article describe, how the problem has been solved.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h3>Solution:</h3>
+
+<p>The full code for the classes is included at the end of the article.<br/>
+The idea here is to able to create a two-way binding that would be able to represent the items selected in the listbox control. The definition for the property that holds the selected items on the viewmodel side would be defined like this:</p>
+
+<figure class='code'><figcaption><span>property definition for the view model </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">private</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">_selectedItems</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">SelectedItems</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_selectedItems</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">set</span> <span class="p">{</span> <span class="n">_selectedItems</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span> <span class="n">RaisePropertyChanged</span><span class="p">(</span><span class="s">&quot;SelectedItems&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>The expected behavior is that whenever the user selects one or more items in the listbox our SelectedItems property would be able to hold selections and notify all parties that are subscribed to the changes of our collections. This is why the ObservableCollection<T> type is picked for this property.</p>
+
+<p>Next on the view side we would like to add a databinding that binds the listbox&rsquo;s selecteditems collection to our view-model SelectedItems property. As the listbox is not allowing to bind to this property, we need to have a new control called SmartListbox.</p>
+
+<p>The binding expression is the most important one here. On the left hand side you can see the SmartSelectedItems property of the SmartListBox. On the right hand side of the binding expression there is the SelectedItems property of our viewmodel. For the rest of the article, I will refer these properties as left side and right side of the binding expression.</p>
+
+<figure class='code'><figcaption><span>SmartListBox </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;my:SmartListBox</span> <span class="na">HorizontalAlignment=</span><span class="s">&quot;Stretch&quot;</span> <span class="na">x:Name=</span><span class="s">&quot;smartListBox&quot;</span>
+</span><span class='line'>                 <span class="na">VerticalAlignment=</span><span class="s">&quot;Stretch&quot;</span> <span class="na">VerticalContentAlignment=</span><span class="s">&quot;Stretch&quot;</span> <span class="na">HorizontalContentAlignment=</span><span class="s">&quot;Stretch&quot;</span>
+</span><span class='line'>                 <span class="na">ItemsSource=</span><span class="s">&quot;{Binding Items, Mode=TwoWay}&quot;</span> <span class="na">SmartSelectedItems=</span><span class="s">&quot;{Binding SelectedItems, Mode=TwoWay}&quot;</span>
+</span><span class='line'>                 <span class="na">SelectionMode=</span><span class="s">&quot;Extended&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>To be able to bind to a property in Xaml word the property needs to be defined as a DependencyProperty. This will be consisting a static and a non-static definition of the property. The static definition describes the property, so the runtime and editor tools will understand what the property type is, what the name of the property is and so on&hellip;</p>
+
+<figure class='code'><figcaption><span>DependencyProperty definition </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">DependencyProperty</span> <span class="n">SmartSelectedItemsProperty</span> <span class="p">=</span>
+</span><span class='line'>  <span class="n">DependencyProperty</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="s">&quot;SmartSelectedItems&quot;</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">INotifyCollectionChanged</span><span class="p">),</span> <span class="k">typeof</span><span class="p">(</span><span class="n">SmartListBox</span><span class="p">),</span> <span class="k">new</span> <span class="n">PropertyMetadata</span><span class="p">(</span><span class="n">OnSmartSelectedItemsPropertyChanged</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="n">INotifyCollectionChanged</span> <span class="n">SmartSelectedItems</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="n">INotifyCollectionChanged</span><span class="p">)</span><span class="n">GetValue</span><span class="p">(</span><span class="n">SmartSelectedItemsProperty</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">set</span> <span class="p">{</span> <span class="n">SetValue</span><span class="p">(</span><span class="n">SmartSelectedItemsProperty</span><span class="p">,</span> <span class="k">value</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>The general idea here is that we have two collections and we need to be able to detect and synchronize the changes between them, so we subscribe to the SmartListbox collection changes and we also subscribe to the changes of the collection that binds to our property.</p>
+
+<p>In the constructor we simply just subscribe to the changes of our control</p>
+
+<figure class='code'><figcaption><span>SmartListBox constructor </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="nf">SmartListBox</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">SelectionChanged</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">SelectionChangedEventHandler</span><span class="p">(</span><span class="n">BaseListBoxSelectionChanged</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When the dependency property is defined we referenced a method called OnSmartSelectedItemsPropertyChanged. The purpose of the method is to handle the subscription to the dependency property. We would like to detect everything that happens to the right side collection in the binding, so we can support two way bindings as well.</p>
+
+<p>You might notice the weirdness of the subscription here - the unsubscribe before subscribe - this is needed because if a view is visited more than binding is evaluated every time and we would end up subscribing to the collection more than once. This is unneeded, so the best is to make sure that we have one subscription only. Kudos for this tip to my colleague Mr. Rajnai for the tip.</p>
+
+<figure class='code'><figcaption><span>Handling collection changes</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">OnSmartSelectedItemsPropertyChanged</span><span class="p">(</span><span class="n">DependencyObject</span> <span class="n">target</span><span class="p">,</span> <span class="n">DependencyPropertyChangedEventArgs</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">var</span> <span class="n">collection</span> <span class="p">=</span> <span class="n">args</span><span class="p">.</span><span class="n">NewValue</span> <span class="k">as</span> <span class="n">INotifyCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">collection</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// unsubscribe, before subscribe to make sure not to have multiple subscription</span>
+</span><span class='line'>    <span class="n">collection</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">-=</span> <span class="p">((</span><span class="n">SmartListBox</span><span class="p">)</span><span class="n">target</span><span class="p">).</span><span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">collection</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">+=</span> <span class="p">((</span><span class="n">SmartListBox</span><span class="p">)</span><span class="n">target</span><span class="p">).</span><span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>The next method is handling the changes in the right hand side of the binding expression. The control unsubscribes from all collection notification, then transfers the selected items from the right hand side collection to the left hand side collection and then subscribes back to the events. The unsubscribe-subscribe is need this because there is no need to trigger any notifications to the collection that is being updated.</p>
+
+<figure class='code'><figcaption><span>Handling selection changes </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">void</span> <span class="nf">SmartSelectedItemsCollectionChanged</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">NotifyCollectionChangedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">//Need to unsubscribe from the events so we don&#39;t override the transfer</span>
+</span><span class='line'>  <span class="n">UnsubscribeFromEvents</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//Move items from the selected items list to the list box selection</span>
+</span><span class='line'>  <span class="n">Transfer</span><span class="p">(</span><span class="n">SmartSelectedItems</span> <span class="k">as</span> <span class="n">IList</span><span class="p">,</span> <span class="k">base</span><span class="p">.</span><span class="n">SelectedItems</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//subscribe to the events again so we know when changes are made</span>
+</span><span class='line'>  <span class="n">SubscribeToEvents</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The following method is responsible to handle the changes when the selected items in the listbox are changing.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">void</span> <span class="nf">BaseListBoxSelectionChanged</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">SelectionChangedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">//Need to unsubscribe from the events so we don&#39;t override the transfer</span>
+</span><span class='line'>  <span class="n">UnsubscribeFromEvents</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//Move items from the selected items list to the list box selection</span>
+</span><span class='line'>  <span class="n">Transfer</span><span class="p">(</span><span class="k">base</span><span class="p">.</span><span class="n">SelectedItems</span><span class="p">,</span> <span class="n">SmartSelectedItems</span> <span class="k">as</span> <span class="n">IList</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//subscribe to the events again so we know when changes are made</span>
+</span><span class='line'>  <span class="n">SubscribeToEvents</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There is one possible risk with the implementation though. The dependency property is defined as INotifyCollectionChanged, but the code works with IList when doing the transfer. It is possible that the control binds against a property in the future that not implementing the IList. What will happen then?</p>
+
+<p>Well, in the worst case when the Transfer method is called the conversion to IList results a null and the method simply returns resulting the binding to be not working. This is not ideal, but it solves the problem I faced.</p>
+
+<p>Obviously, if this control would be sold to third parties the hidden requirement to also implement the IList for the viewmodel property needed to be addressed in some ways.</p>
+
+<p><strong>Disclaimer:</strong> I do not work in vacuum nor inventing everything from scratch. I rely on google searching when coding and to find great solutions from fellow developers. For this particular problem, I found this great article and it served me as a starting point:</p>
+
+<p><a href="http://blog.bdcsoft.com/developer-blog/2011/no-binding-for-you-a-listbox-selecteditems-behavior-solution/">No Binding for you a ListBox SelectedItems behavior solution</a></p>
+
+<h3>Full code</h3>
+
+<figure class='code'><figcaption><span>SmartListBox full class</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'>  <span class="k">public</span> <span class="k">class</span> <span class="nc">SmartListBox</span> <span class="p">:</span> <span class="n">ListBox</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="cp">#region Properties </span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">DependencyProperty</span> <span class="n">SmartSelectedItemsProperty</span> <span class="p">=</span>
+</span><span class='line'>      <span class="n">DependencyProperty</span><span class="p">.</span><span class="n">Register</span><span class="p">(</span><span class="s">&quot;SmartSelectedItems&quot;</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">INotifyCollectionChanged</span><span class="p">),</span> <span class="k">typeof</span><span class="p">(</span><span class="n">SmartListBox</span><span class="p">),</span> <span class="k">new</span> <span class="n">PropertyMetadata</span><span class="p">(</span><span class="n">OnSmartSelectedItemsPropertyChanged</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="n">INotifyCollectionChanged</span> <span class="n">SmartSelectedItems</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="n">INotifyCollectionChanged</span><span class="p">)</span><span class="n">GetValue</span><span class="p">(</span><span class="n">SmartSelectedItemsProperty</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>      <span class="k">set</span> <span class="p">{</span> <span class="n">SetValue</span><span class="p">(</span><span class="n">SmartSelectedItemsProperty</span><span class="p">,</span> <span class="k">value</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cp">#endregion</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">SmartListBox</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">SelectionChanged</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">SelectionChangedEventHandler</span><span class="p">(</span><span class="n">BaseListBoxSelectionChanged</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">OnSmartSelectedItemsPropertyChanged</span><span class="p">(</span><span class="n">DependencyObject</span> <span class="n">target</span><span class="p">,</span> <span class="n">DependencyPropertyChangedEventArgs</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="kt">var</span> <span class="n">collection</span> <span class="p">=</span> <span class="n">args</span><span class="p">.</span><span class="n">NewValue</span> <span class="k">as</span> <span class="n">INotifyCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">collection</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// unsubscribe, before subscribe to make sure not to have multiple subscription</span>
+</span><span class='line'>        <span class="n">collection</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">-=</span> <span class="p">((</span><span class="n">SmartListBox</span><span class="p">)</span><span class="n">target</span><span class="p">).</span><span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">collection</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">+=</span> <span class="p">((</span><span class="n">SmartListBox</span><span class="p">)</span><span class="n">target</span><span class="p">).</span><span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">void</span> <span class="nf">SmartSelectedItemsCollectionChanged</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">NotifyCollectionChangedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="c1">//Need to unsubscribe from the events so we don&#39;t override the transfer</span>
+</span><span class='line'>      <span class="n">UnsubscribeFromEvents</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//Move items from the selected items list to the list box selection</span>
+</span><span class='line'>      <span class="n">Transfer</span><span class="p">(</span><span class="n">SmartSelectedItems</span> <span class="k">as</span> <span class="n">IList</span><span class="p">,</span> <span class="k">base</span><span class="p">.</span><span class="n">SelectedItems</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//subscribe to the events again so we know when changes are made</span>
+</span><span class='line'>      <span class="n">SubscribeToEvents</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">void</span> <span class="nf">BaseListBoxSelectionChanged</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">SelectionChangedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="c1">//Need to unsubscribe from the events so we don&#39;t override the transfer</span>
+</span><span class='line'>      <span class="n">UnsubscribeFromEvents</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//Move items from the selected items list to the list box selection</span>
+</span><span class='line'>      <span class="n">Transfer</span><span class="p">(</span><span class="k">base</span><span class="p">.</span><span class="n">SelectedItems</span><span class="p">,</span> <span class="n">SmartSelectedItems</span> <span class="k">as</span> <span class="n">IList</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//subscribe to the events again so we know when changes are made</span>
+</span><span class='line'>      <span class="n">SubscribeToEvents</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="k">void</span> <span class="nf">SubscribeToEvents</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">SelectionChanged</span> <span class="p">+=</span> <span class="n">BaseListBoxSelectionChanged</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">SmartSelectedItems</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="n">SmartSelectedItems</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">+=</span> <span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="k">void</span> <span class="nf">Transfer</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">IList</span> <span class="n">source</span><span class="p">,</span> <span class="n">IList</span> <span class="n">target</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">source</span> <span class="p">==</span> <span class="k">null</span> <span class="p">||</span> <span class="n">target</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">target</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">o</span> <span class="k">in</span> <span class="n">source</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="n">target</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="k">void</span> <span class="nf">UnsubscribeFromEvents</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">SelectionChanged</span> <span class="p">-=</span> <span class="n">BaseListBoxSelectionChanged</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">SmartSelectedItems</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="n">SmartSelectedItems</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">-=</span> <span class="n">SmartSelectedItemsCollectionChanged</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>ViewModel full class</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'>  <span class="k">public</span> <span class="k">class</span> <span class="nc">SmartListboxViewModel</span> <span class="p">:</span> <span class="n">ViewModelBase</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">SmartListboxViewModel</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">_selectedItems</span><span class="p">.</span><span class="n">CollectionChanged</span> <span class="p">+=</span> <span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="n">SelectionCount</span> <span class="p">=</span> <span class="n">SelectedItems</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="p">};</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cp">#region Properties</span>
+</span><span class='line'>    <span class="k">private</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">_items</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">Items</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_items</span><span class="p">;</span>  <span class="p">}</span>
+</span><span class='line'>      <span class="k">set</span> <span class="p">{</span> <span class="n">_items</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span> <span class="n">RaisePropertyChanged</span><span class="p">(</span><span class="s">&quot;Items&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">_selectedItems</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">SelectedItems</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_selectedItems</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>      <span class="k">set</span> <span class="p">{</span> <span class="n">_selectedItems</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span> <span class="n">RaisePropertyChanged</span><span class="p">(</span><span class="s">&quot;SelectedItems&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">private</span> <span class="kt">int</span> <span class="n">_selectionCount</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">SelectionCount</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_selectionCount</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>      <span class="k">set</span> <span class="p">{</span> <span class="n">_selectionCount</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span> <span class="n">RaisePropertyChanged</span><span class="p">(</span><span class="s">&quot;SelectionCount&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cp">#endregion</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mass Customization of Apps]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/02/mass-customization-of-apps/"/>
+    <updated>2013-02-14T16:13:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/02/mass-customization-of-apps</id>
+    <content type="html"><![CDATA[<blockquote><p>But in the past couple of months we’ve noticed another category of customers, and that group is growing fast.</p><p>I call the trend the “mass customization” of apps, to borrow the manufacturing term. This group creates app templates designed for a particular industry and then customize those templates for each end customer. The customization could be as simple as different branding but more often includes adding differentiating features also.</p><footer><strong>triggerio</strong> <cite><a href='http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/'>Trend Towards the Mass Customization of Apps From Banking to Government to Entertainment</a></cite></footer></blockquote>
+
+
+<p>This article is a total eye-opener for me. With this trend, non-native apps (HTML-CSS-JS have now an edge over native mobile apps. The common source code base. With this common code-base, you can provide customizable apps that can be built and packaged from a web page and deployed much faster. Obviously, you will not build cutting edge racing games or first person shooters in html, but it does not matter. You can build awesome apps to large customers on all platform using the same codebase.</p>
+
+<p>This is totally awesome!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The 5th Recommendation to Get Better at Designing Windows Phone Apps]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/02/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps/"/>
+    <updated>2013-02-05T17:57:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/02/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps</id>
+    <content type="html"><![CDATA[<p>It seems I am unable to count to 5. In my last blog <a href="http://www.littlebigtomatoes.com/2013/01/5-ways-to-get-better-at-designing-apps-for-windows-phone/">5 ways to get better at designing apps for Windows Phone</a> I promised 5 ways and I delivered only four. This is the follow up, where I try to give one last piece of advice.</p>
+
+<h2>Write apps for yourself</h2>
+
+<p>You need to scratch your own itch. You need to solve your own existing problem, so find something you truly miss from your phone and then solve it! This way you will have an app that make your life better. Also, you will use this app every single day, so bugs and problems with your app surface much quicker and it will be easier to fix them as you are the one, who designed and coded it. But be very careful&hellip;.</p>
+
+<h2>Do not write apps that no one will use&hellip;</h2>
+
+<p>I am guilty as charged. I had this idea of <a href="www.hotbidd.com/apps/emailme">sending emails to myself</a> and wrote the app. It took me three months of hard work and when I finally released it, there were only a few downloads. This is not the end of the world, because I use the app myself several times a day and learned lot of stuff, while designing and coding it! But when I started to promote my app, no-one seemed to understand what problem of theirs that my app will help to solve.</p>
+
+<p>I found a solution to a problem, that seemingly no other person on earth had. Frustrating, but the key lesson I learned is this - similar to designing your app - you should start promoting your app, before you start coding it! Go out and explain the idea behind your app and the problem it tries to solve. Find out that others are having this problem too and pitch your app to them. Embrace the feedback and in the end you will have a much better app. Learn from my mistake and do not create your app in vacuum&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[5 Ways to Get Better at Designing Apps for Windows Phone]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/01/5-ways-to-get-better-at-designing-apps-for-windows-phone/"/>
+    <updated>2013-01-31T21:51:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/01/5-ways-to-get-better-at-designing-apps-for-windows-phone</id>
+    <content type="html"><![CDATA[<p>I am constantly trying to improve the quality of apps that I am publishing on the market for Windows Phone and Windows 8 or to other platforms in the future. In the last couple of days I try to think ways how I can get better at designing and creating apps. My primary device at the moment is a Lumia 800 and my primary desktop OS is Windows 8. These are not the dominant platforms yet, but I am hoping they get more popular over time.</p>
+
+<h2>Buy an iPod Touch</h2>
+
+<p> If you try to sense what is the golden standard of apps on today&rsquo;s prime platforms in terms of speed, design or popularity you really need something that you can try these apps on. Cheapest and best is to buy a used iPod Touch. This way you will feel what are the popular todo apps doing in the productivity category, if you are planning to write one for Windows Phone. Once you have the device, try as many apps as you can. Feel the speed and the attention to details that went into the app. Feel the love that went into the app. This is the quality you should aim for with your apps too!</p>
+
+<p> For extra kudos buy a cheap android phone or tablet or both if you have the money. This is money well spent as you can start writing apps for those devices as well.</p>
+
+<h2>Say no to the cookie cutter approach</h2>
+
+<p> You have an app idea that will rock the world and make you rich. You need to move fast. Launch Visual Studio and quickly create a new project using the pivot app template. Code like crazy. Test, Test, Test and upload to the market place.</p>
+
+<p> Just slow down for a second. This is how you create an app that does nothing to differentiate itself from the tens of thousands of other apps that are already on the marketplace. There must be a better way to differentiate it. Think about using different colors than the system accent color.</p>
+
+<p>I know that the metro design guidelines are saying that we need to honor the user&rsquo;s choice of accent color and theme, but honestly as a user I need to puke when I see one more cookie cutter pivot style app that looks like all the other apps on my phone. I need opinionated apps! I need apps that stands out and they have personality!</p>
+
+<h2>Animation, Animation, Animation</h2>
+
+<p>Same here with the default controls. Pivot was great two years ago and remains very useful today, but now it feels a little tired to me. If you have an idea just to spice up a little the pivot the it is great. If you can come up with new interactions even better.</p>
+
+<p>The other one is the animation between page transitions or other interactions in the apps. Expression Blend is such a wonderful tool and animation is so easy there. I need more of that.</p>
+
+<h2>Best Windows Phone App award</h2>
+
+<p>This one is for Microsoft. They have a cash. They have a yearly developer conference. For the love of god, take a page from Apple book and copy their app awards at WWDC. Each year on your developer conference you need to do app awards too. Give out prizes. Recognize the best designed apps for Windows Phone and Windows 8. Recognize the developers and help community. Give them prominent place on the event site, maybe mentioned them in the keynote on day one! Announce these apps to your developers, so they know what the direction is going forward and what is the quality bar for apps. Raise the bar for everyone! It would do more good than coming up weird technology demos showcasing features of unreleased technology.</p>
+
+<p>Ok, this post turned out to be more of a rant, where my Windows Phone user side addressing the Windows Phone developer side in me, but I think they are points and I am going to follow them!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Branching Out]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/01/branching-out/"/>
+    <updated>2013-01-26T14:41:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/01/branching-out</id>
+    <content type="html"><![CDATA[<blockquote><p>On iPad in particular, we have the mother of all opportunities here, because the Windows market is much, much larger than the Mac market is. And I think it is clear that it’s already cannibalizing some, and I think there’s a tremendous amount of more opportunity there and as you know I’ve said for two or three years now that I believe the tablet market will be larger than the PC market at some point and I still believe that. And you can see by the growth in tablets and the pressure on PCs that those lines are beginning to converge.</p><footer><strong>Macworld -</strong> <cite><a href='http://www.macworld.com/article/2026141/in-his-own-words-tim-cook-on-apple-earnings-and-more.html'>In His Own Words: Tim Cook on Apple Earnings and More</a></cite></footer></blockquote>
+
+
+<p>I am a programmer by design and I bet my professional career and thus my family well-being on the Windows platform roughly 10 years ago. At the time, it looked like a very safe and conservative bet. But times are changing indeed! In a year or two there will be two large competing cumpiting platform that at least as strong as Windows and they will be much larger combined.</p>
+
+<p>I think it is time to branch off and start learning new stuff. I guess I just found my theme for 2013!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Is Android Catching Up to iOS?]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/01/is-android-catching-up-to-ios/"/>
+    <updated>2013-01-18T08:32:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/01/is-android-catching-up-to-ios</id>
+    <content type="html"><![CDATA[<blockquote><p>And believe me or not, but after having configured my Nexus 4 just the way I always wanted – providing me with the fastest access to my most frequently used apps along with the most important information on a single screen – whenever I grab my iPhone for testing purposes, iOS feels pretty old, outdated and less user friendly. For me, there currently is no way of going back. Once you get used to all of these capabilities, it’s hard to live without them.</p><footer><strong>Ralf Rottmann -</strong> <cite><a href='http://www.24100.net/2013/01/an-iphone-lovers-confession-i-switched-to-the-nexus-4-completely/'>An iPhone Lover&#8217;s Confession: I Switched to the Nexus 4. Completely.</a></cite></footer></blockquote>
+
+
+<p>I left the Android platform as a user about a year ago and I left with bad memories. This is an excellent write up about the current state of Android and made me want to go back and experience it once more. It also seems that the correct way to experience android via the reference devices made by Google.</p>
+
+<p>And <a href="http://mycolorscreen.com/popular/">those screens</a> are just gorgeous!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Reverse Todo Process]]></title>
+    <link href="http://www.littlebigtomatoes.com/2012/12/reverse-todo-process/"/>
+    <updated>2012-12-31T08:52:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2012/12/reverse-todo-process</id>
+    <content type="html"><![CDATA[<p>In my <a href="http://www.littlebigtomatoes.com/2012/12/todo-or-todont/">previous article</a>, I wrote about the my motivations using the Anti Todo list and how it took out tons of stress of my daily life. This way of doing things works well for me and here is how I implemented it.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/20121218_anti_todo.png" title="Anti Todo" alt="Anti Todo list in Sublime Text 2"></p>
+
+<p>The idea here is to have this list everywhere and to be easily accessible and synchronized all the time. For synchronization I am using the <a href="http://www.dropbox.com">Dropbox</a> service. In the root of my dropbox folder I created a file called anti.todo The easiest way of do something like this from your bash command line:</p>
+
+<pre><code>touch anti.todo 
+</code></pre>
+
+<p>With this, the synchronization part of my solution is taken care of. For creation of the items you will need to have Sublime Text 2 installed on your machine, which is a terrific text editor. You will need the <a href="https://github.com/aziz/PlainTasks">PlainTasks</a> package to be installed as well. This package will be responsible for displaying the list. You can learn how to use the <a href="http://youtu.be/VQMU0PDfXyA">PlainTasks</a> package.</p>
+
+<p>Once it is all set, you can open the anti.todo file with Sublime Text 2 and start adding your achivements to the list like this:</p>
+
+<ul>
+<li>Add todays date with a colon at the end. Underneath, you will collect the list you achieved for today.</li>
+<li>If you have done something then press ⌘+enter (ctrl+enter on Windows) to add achievement for today.</li>
+<li>After adding the new achievement, press ⌘+D (ctrl+d on Windows) to mark your achievement as done</li>
+<li>Also you can use tags using @ sign, like this @tag</li>
+<li>Once you are done for today just save the file.</li>
+<li>Rinse and repeat.</li>
+</ul>
+
+
+<p>Another alternative I can recommend on thhe Mac for creating this list is <a href="http://www.hogbaysoftware.com/products/taskpaper">TaskPaper</a> for the Mac, or try <a href="http://widefido.com/products/todopaper/">TodoPaper</a> on Windows.</p>
+
+<p>If you find this usefull and start using yourself, please let me know how it works out for you!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Keyboard Shortcuts for Windows 8]]></title>
+    <link href="http://www.littlebigtomatoes.com/2012/12/keyboard-shortcuts-for-windows-8/"/>
+    <updated>2012-12-20T07:54:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2012/12/keyboard-shortcuts-for-windows-8</id>
+    <content type="html"><![CDATA[<p>I released my first app for Windows 8! Now you can download <a href="http://apps.microsoft.com/windows/en-US/app/keyboard-shortcuts/a098e87b-cbeb-49ad-a356-c19b4c025afb">Keyboard Shortcuts App</a> from the Windows Store for Free.</p>
+
+<p>As you might guessed, I am quite a bit of fan of productivity and doing things fast and swift on my computers. One of the main driver of productivity on a desktop computer are keyboard shortcuts. With Windows 8, it is even more so! I believe <a href="http://www.littlebigtomatoes.com/2012/12/keyboard-shortcut-starter-kit-for-windows-8/">keyboard shortcuts</a> on Windows 8 are essential to be productive.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>To help myself and hopefully others to memorize these shortcuts I created an app that makes easy to find and learn the shortcuts. Currently, it contains about 100 shortcuts for Windows 8, Calendar and Mail. I am hoping to add more shortcuts and other applications soon.</p>
+
+<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/HiyMIWcum_c "></iframe></div>
+
+
+<p>If you have any feedback, issues or you think there is something missing just ping me on twitter. I would be happy to help you!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Will Windows Phone 8 and Lumia Come Around Finally?]]></title>
+    <link href="http://www.littlebigtomatoes.com/2012/12/will-windows-phone-8-and-lumia-come-around-finally/"/>
+    <updated>2012-12-11T16:42:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2012/12/will-windows-phone-8-and-lumia-come-around-finally</id>
+    <content type="html"><![CDATA[<blockquote><p>Microsoft and Nokia&#8217;s marketing blitz is really paying off. Over Thanksgiving weekend, there were several instances where regular people off the street commented or approached me about the phone. The first time was at a diner in Union Square. The waitress recognized the phone and asked to take it to the back to show her co-worker who is obsessed with Windows 8.</p><p>Then, on Thanksgiving itself &#8211; as I was taking photos of my food (the Warren-Robertson household is not traditional, as we go out to eat on Thanksgiving) &#8211; other patrons in the restaurant recognized the Lumia and there were points and stares and murmurs about the device.</p><p>I never expected that. At all.</p><footer><strong>Mashable</strong> <cite><a href='http://mashable.com/2012/11/27/living-with-lumia-wrap-up/'>Living With Lumia: The Final Verdict on Windows Phone 8</a></cite></footer></blockquote>
+
+
+<p>There is something in the air!</p>
+]]></content>
+  </entry>
+  
+</feed>

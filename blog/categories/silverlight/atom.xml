@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Silverlight | littlebigtomatoes]]></title>
+  <link href="http://www.littlebigtomatoes.com/blog/categories/silverlight/atom.xml" rel="self"/>
+  <link href="http://www.littlebigtomatoes.com/"/>
+  <updated>2016-05-04T06:29:31+02:00</updated>
+  <id>http://www.littlebigtomatoes.com/</id>
+  <author>
+    <name><![CDATA[Krisztian Gyuris]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Fixing the SelectedItems Property Binding for the Silverlight Listbox Control]]></title>
+    <link href="http://www.littlebigtomatoes.com/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control/"/>
+    <updated>2013-02-21T15:43:00+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2013/02/fixing-the-selecteditems-property-binding-for-the-silverlight-listbox-control</id>
+    <content type="html"><![CDATA[<p>I recently had to implement a feature in our silverlight app, where the user can remove multiple items selected in a listbox. The project uses the MVVM pattern, so all logic and state is handle in the ViewModel class. When trying to implement the multiple selection, I needed to add a property to my viewmodel that would be a reflection of the items selected on the view. It turns out the ListBox control does not support binding against the SelectedItems property for some reason.</p>
+
+<p>This article describe, how the problem has been solved.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h3>Solution:</h3>
+
+<p>The full code for the classes is included at the end of the article.<br/>
+The idea here is to able to create a two-way binding that would be able to represent the items selected in the listbox control. The definition for the property that holds the selected items on the viewmodel side would be defined like this:</p>
+
+<pre><code class="csharp property definition for the view model ">    private ObservableCollection&lt;string&gt; _selectedItems = new ObservableCollection&lt;string&gt;();
+
+    public ObservableCollection&lt;string&gt; SelectedItems
+    {
+      get { return _selectedItems; }
+      set { _selectedItems = value; RaisePropertyChanged("SelectedItems"); }
+    }
+</code></pre>
+
+<p>The expected behavior is that whenever the user selects one or more items in the listbox our SelectedItems property would be able to hold selections and notify all parties that are subscribed to the changes of our collections. This is why the ObservableCollection<T> type is picked for this property.</p>
+
+<p>Next on the view side we would like to add a databinding that binds the listbox&rsquo;s selecteditems collection to our view-model SelectedItems property. As the listbox is not allowing to bind to this property, we need to have a new control called SmartListbox.</p>
+
+<p>The binding expression is the most important one here. On the left hand side you can see the SmartSelectedItems property of the SmartListBox. On the right hand side of the binding expression there is the SelectedItems property of our viewmodel. For the rest of the article, I will refer these properties as left side and right side of the binding expression.</p>
+
+<pre><code class="xml SmartListBox ">    &lt;my:SmartListBox HorizontalAlignment="Stretch" x:Name="smartListBox" 
+                     VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" 
+                     ItemsSource="{Binding Items, Mode=TwoWay}" SmartSelectedItems="{Binding SelectedItems, Mode=TwoWay}"
+                     SelectionMode="Extended" /&gt;
+</code></pre>
+
+<p>To be able to bind to a property in Xaml word the property needs to be defined as a DependencyProperty. This will be consisting a static and a non-static definition of the property. The static definition describes the property, so the runtime and editor tools will understand what the property type is, what the name of the property is and so on&hellip;</p>
+
+<pre><code class="csharp DependencyProperty definition ">    public static readonly DependencyProperty SmartSelectedItemsProperty =
+      DependencyProperty.Register("SmartSelectedItems", typeof(INotifyCollectionChanged), typeof(SmartListBox), new PropertyMetadata(OnSmartSelectedItemsPropertyChanged));
+
+    public INotifyCollectionChanged SmartSelectedItems
+    {
+      get { return (INotifyCollectionChanged)GetValue(SmartSelectedItemsProperty); }
+      set { SetValue(SmartSelectedItemsProperty, value); }
+    }
+</code></pre>
+
+<p>The general idea here is that we have two collections and we need to be able to detect and synchronize the changes between them, so we subscribe to the SmartListbox collection changes and we also subscribe to the changes of the collection that binds to our property.</p>
+
+<p>In the constructor we simply just subscribe to the changes of our control</p>
+
+<pre><code class="csharp SmartListBox constructor ">    public SmartListBox()
+    {
+      SelectionChanged += new SelectionChangedEventHandler(BaseListBoxSelectionChanged);
+    }
+</code></pre>
+
+<p>When the dependency property is defined we referenced a method called OnSmartSelectedItemsPropertyChanged. The purpose of the method is to handle the subscription to the dependency property. We would like to detect everything that happens to the right side collection in the binding, so we can support two way bindings as well.</p>
+
+<p>You might notice the weirdness of the subscription here - the unsubscribe before subscribe - this is needed because if a view is visited more than binding is evaluated every time and we would end up subscribing to the collection more than once. This is unneeded, so the best is to make sure that we have one subscription only. Kudos for this tip to my colleague Mr. Rajnai for the tip.</p>
+
+<pre><code class="csharp Handling collection changes">    private static void OnSmartSelectedItemsPropertyChanged(DependencyObject target, DependencyPropertyChangedEventArgs args)
+    {
+      var collection = args.NewValue as INotifyCollectionChanged;
+      if (collection != null)
+      {
+        // unsubscribe, before subscribe to make sure not to have multiple subscription
+        collection.CollectionChanged -= ((SmartListBox)target).SmartSelectedItemsCollectionChanged;
+        collection.CollectionChanged += ((SmartListBox)target).SmartSelectedItemsCollectionChanged;
+      }
+    }
+</code></pre>
+
+<p>The next method is handling the changes in the right hand side of the binding expression. The control unsubscribes from all collection notification, then transfers the selected items from the right hand side collection to the left hand side collection and then subscribes back to the events. The unsubscribe-subscribe is need this because there is no need to trigger any notifications to the collection that is being updated.</p>
+
+<pre><code class="csharp Handling selection changes ">    void SmartSelectedItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+      //Need to unsubscribe from the events so we don't override the transfer
+      UnsubscribeFromEvents();
+
+      //Move items from the selected items list to the list box selection
+      Transfer(SmartSelectedItems as IList, base.SelectedItems);
+
+      //subscribe to the events again so we know when changes are made
+      SubscribeToEvents();
+    }
+</code></pre>
+
+<p>The following method is responsible to handle the changes when the selected items in the listbox are changing.</p>
+
+<pre><code class="csharp ">    void BaseListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      //Need to unsubscribe from the events so we don't override the transfer
+      UnsubscribeFromEvents();
+
+      //Move items from the selected items list to the list box selection
+      Transfer(base.SelectedItems, SmartSelectedItems as IList);
+
+      //subscribe to the events again so we know when changes are made
+      SubscribeToEvents();
+    }
+</code></pre>
+
+<p>There is one possible risk with the implementation though. The dependency property is defined as INotifyCollectionChanged, but the code works with IList when doing the transfer. It is possible that the control binds against a property in the future that not implementing the IList. What will happen then?</p>
+
+<p>Well, in the worst case when the Transfer method is called the conversion to IList results a null and the method simply returns resulting the binding to be not working. This is not ideal, but it solves the problem I faced.</p>
+
+<p>Obviously, if this control would be sold to third parties the hidden requirement to also implement the IList for the viewmodel property needed to be addressed in some ways.</p>
+
+<p><strong>Disclaimer:</strong> I do not work in vacuum nor inventing everything from scratch. I rely on google searching when coding and to find great solutions from fellow developers. For this particular problem, I found this great article and it served me as a starting point:</p>
+
+<p><a href="http://blog.bdcsoft.com/developer-blog/2011/no-binding-for-you-a-listbox-selecteditems-behavior-solution/">No Binding for you a ListBox SelectedItems behavior solution</a></p>
+
+<h3>Full code</h3>
+
+<pre><code class="csharp SmartListBox full class">  public class SmartListBox : ListBox
+  {
+    #region Properties 
+
+    public static readonly DependencyProperty SmartSelectedItemsProperty =
+      DependencyProperty.Register("SmartSelectedItems", typeof(INotifyCollectionChanged), typeof(SmartListBox), new PropertyMetadata(OnSmartSelectedItemsPropertyChanged));
+
+    public INotifyCollectionChanged SmartSelectedItems
+    {
+      get { return (INotifyCollectionChanged)GetValue(SmartSelectedItemsProperty); }
+      set { SetValue(SmartSelectedItemsProperty, value); }
+    }
+
+    #endregion
+
+    public SmartListBox()
+    {
+      SelectionChanged += new SelectionChangedEventHandler(BaseListBoxSelectionChanged);
+    }
+
+    private static void OnSmartSelectedItemsPropertyChanged(DependencyObject target, DependencyPropertyChangedEventArgs args)
+    {
+      var collection = args.NewValue as INotifyCollectionChanged;
+      if (collection != null)
+      {
+        // unsubscribe, before subscribe to make sure not to have multiple subscription
+        collection.CollectionChanged -= ((SmartListBox)target).SmartSelectedItemsCollectionChanged;
+        collection.CollectionChanged += ((SmartListBox)target).SmartSelectedItemsCollectionChanged;
+      }
+    }
+
+    void SmartSelectedItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+      //Need to unsubscribe from the events so we don't override the transfer
+      UnsubscribeFromEvents();
+
+      //Move items from the selected items list to the list box selection
+      Transfer(SmartSelectedItems as IList, base.SelectedItems);
+
+      //subscribe to the events again so we know when changes are made
+      SubscribeToEvents();
+    }
+
+    void BaseListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      //Need to unsubscribe from the events so we don't override the transfer
+      UnsubscribeFromEvents();
+
+      //Move items from the selected items list to the list box selection
+      Transfer(base.SelectedItems, SmartSelectedItems as IList);
+
+      //subscribe to the events again so we know when changes are made
+      SubscribeToEvents();
+    }
+
+    private void SubscribeToEvents()
+    {
+      SelectionChanged += BaseListBoxSelectionChanged;
+
+      if (SmartSelectedItems != null)
+      {
+        SmartSelectedItems.CollectionChanged += SmartSelectedItemsCollectionChanged;
+      }
+    }
+
+    private void Transfer(System.Collections.IList source, IList target)
+    {
+      if (source == null || target == null)
+      {
+        return;
+      }
+
+      target.Clear();
+
+      foreach (var o in source)
+      {
+        target.Add(o);
+      }
+    }
+
+    private void UnsubscribeFromEvents()
+    {
+      SelectionChanged -= BaseListBoxSelectionChanged;
+
+      if (SmartSelectedItems != null)
+      {
+        SmartSelectedItems.CollectionChanged -= SmartSelectedItemsCollectionChanged;
+      }
+    }
+  }
+</code></pre>
+
+<pre><code class="csharp ViewModel full class">  public class SmartListboxViewModel : ViewModelBase
+  {
+    public SmartListboxViewModel()
+    {
+      _selectedItems.CollectionChanged += (sender, args) =&gt; { SelectionCount = SelectedItems.Count; };
+    }
+
+    #region Properties
+    private ObservableCollection&lt;string&gt; _items = new ObservableCollection&lt;string&gt;();
+
+    public ObservableCollection&lt;string&gt; Items
+    {
+      get { return _items;  }
+      set { _items = value; RaisePropertyChanged("Items"); }
+    }
+
+    private ObservableCollection&lt;string&gt; _selectedItems = new ObservableCollection&lt;string&gt;();
+
+    public ObservableCollection&lt;string&gt; SelectedItems
+    {
+      get { return _selectedItems; }
+      set { _selectedItems = value; RaisePropertyChanged("SelectedItems"); }
+    }
+
+    private int _selectionCount;
+
+    public int SelectionCount
+    {
+      get { return _selectionCount; }
+      set { _selectionCount = value; RaisePropertyChanged("SelectionCount"); }
+    }
+
+    #endregion
+  }
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
