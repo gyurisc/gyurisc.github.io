@@ -4,7 +4,11 @@
   <title><![CDATA[Category: Dotnet | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/dotnet/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
+<<<<<<< HEAD
   <updated>2016-05-04T06:29:31+02:00</updated>
+=======
+  <updated>2014-11-28T17:19:17+01:00</updated>
+>>>>>>> f19004c47c06f25d3805c7b80309c648893d5a1e
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -14,6 +18,7 @@
 
   
   <entry>
+<<<<<<< HEAD
     <title type="html"><![CDATA[Serializing Empty IEnumerable<T> With protobuf.net]]></title>
     <link href="http://www.littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net/"/>
     <updated>2015-10-30T17:06:13+01:00</updated>
@@ -59,6 +64,8 @@
   </entry>
   
   <entry>
+=======
+>>>>>>> f19004c47c06f25d3805c7b80309c648893d5a1e
     <title type="html"><![CDATA[Simple.Data and Dynamic Calls Are Awesome]]></title>
     <link href="http://www.littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/"/>
     <updated>2013-06-17T11:59:00+02:00</updated>
