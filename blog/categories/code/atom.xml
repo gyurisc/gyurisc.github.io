@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Code | littlebigtomatoes]]></title>
-  <link href="http://www.littlebigtomatoes.com/blog/categories/code/atom.xml" rel="self"/>
-  <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-05-04T06:29:31+02:00</updated>
-  <id>http://www.littlebigtomatoes.com/</id>
+  <link href="http://littlebigtomatoes.com/blog/categories/code/atom.xml" rel="self"/>
+  <link href="http://littlebigtomatoes.com/"/>
+  <updated>2016-05-04T06:51:08+02:00</updated>
+  <id>http://littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Serializing Empty IEnumerable<T> With protobuf.net]]></title>
-    <link href="http://www.littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net/"/>
+    <link href="http://littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net/"/>
     <updated>2015-10-30T17:06:13+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net</id>
+    <id>http://littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net</id>
     <content type="html"><![CDATA[<p>I am recently trying to use protobuf.net for serializing objects for network communication in a .net application. Protobuf is a great format for sending data. Protobuf tries to be very frugal to save bandwidth. However, this causes some unexpected side effects when using it with .NET.</p>
 
 <!-- more -->
@@ -60,9 +60,9 @@
   
   <entry>
     <title type="html"><![CDATA[Simple.Data and Dynamic Calls Are Awesome]]></title>
-    <link href="http://www.littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/"/>
+    <link href="http://littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/"/>
     <updated>2013-06-17T11:59:00+02:00</updated>
-    <id>http://www.littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome</id>
+    <id>http://littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome</id>
     <content type="html"><![CDATA[<p>Couple of weeks ago I started to look into different open source packages on the .NET platform such as <a href="http://nancyfx.org/">Nancy</a> and <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data/">Simple.Data</a>. They all looked very cool, but one paragraph in an article called <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data/">Introducing Simple.Data</a> - explaining how the code snippet below works - caught my attention:</p>
 
 <pre><code class="csharp getting data from db ">var db = Database.Open(); // Connection specified in config.
@@ -251,9 +251,9 @@ namespace DynamicTest
   
   <entry>
     <title type="html"><![CDATA[Exploring Xamarin iOS on Windows]]></title>
-    <link href="http://www.littlebigtomatoes.com/2013/03/exploring-xamarin-ios-on-windows/"/>
+    <link href="http://littlebigtomatoes.com/2013/03/exploring-xamarin-ios-on-windows/"/>
     <updated>2013-03-28T08:24:00+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2013/03/exploring-xamarin-ios-on-windows</id>
+    <id>http://littlebigtomatoes.com/2013/03/exploring-xamarin-ios-on-windows</id>
     <content type="html"><![CDATA[<p>Xamarin not so long ago released the version 2.0 of their product that allows all .NET developers to use C# and .NET libraries to code apps for iOS and Android. Better yet, it allows us to use our bellowed Visual Studio.NET to code for these platforms.</p>
 
 <p>I love to try out new things, so I decide to figure out if it is really possible to create very basic application for iOS and for Android purely from Visual Studio.NET.</p>
@@ -348,9 +348,9 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
   
   <entry>
     <title type="html"><![CDATA[Getting Started With gridster.js]]></title>
-    <link href="http://www.littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js/"/>
+    <link href="http://littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js/"/>
     <updated>2013-03-08T17:24:00+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js</id>
+    <id>http://littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js</id>
     <content type="html"><![CDATA[<p>I am looking into to learn more about web client side programming, but whenever I find an interesting project I am overwhelmed with the unknown names of different libraries and technologies mentioned, while reading the project&rsquo;s page. Consider <a href="http://shopify.github.com/dashing/">Dashing</a> for example. They mention Sinatra, <a href="https://github.com/Shopify/dashing/wiki/How-to%3A-Deploy-to-Heroku">Heroku</a>, jQuery.. These are the ones that I have at least a slight idea what they are good for. But the list continues: <a href="https://github.com/sstephenson/sprockets">Sprockets</a>, <a href="http://gridster.net/">Gridster.js</a>, <a href="http://www.html5rocks.com/en/tutorials/eventsource/basics/">Server Sent Events</a> and <a href="http://batmanjs.org/docs/batman.html#batman-view-bindings-keypath-filters">batman bindings</a>.</p>
 
 <p>This is nuts, I do not understand any of these. So I decided to divide and conquer the problem and try to focus on one unknown technology at a time. The aim is not to master the library, but to construct a minimum viable sample that helps to understand what it is good for.</p>
@@ -529,9 +529,9 @@ h3 {
   
   <entry>
     <title type="html"><![CDATA[Git and Visual Studio Are Awesome Together]]></title>
-    <link href="http://www.littlebigtomatoes.com/2013/03/git-and-visual-studio-are-awesome-together/"/>
+    <link href="http://littlebigtomatoes.com/2013/03/git-and-visual-studio-are-awesome-together/"/>
     <updated>2013-03-01T19:59:00+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2013/03/git-and-visual-studio-are-awesome-together</id>
+    <id>http://littlebigtomatoes.com/2013/03/git-and-visual-studio-are-awesome-together</id>
     <content type="html"><![CDATA[<p>I love Visual Studio and I love git too. What can be even better than this? Visual Studio 2012 integrated with Git. The two together are pure awesomeness and I fell in love with them.</p>
 
 <p><img src="/images/git_vs_001.png" title="&lsquo;Git SSCP&rsquo; &lsquo;Git Source Control Provider&rsquo;" ></p>

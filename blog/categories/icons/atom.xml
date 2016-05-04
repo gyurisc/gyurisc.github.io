@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Icons | littlebigtomatoes]]></title>
-  <link href="http://www.littlebigtomatoes.com/blog/categories/icons/atom.xml" rel="self"/>
-  <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-05-04T06:29:31+02:00</updated>
-  <id>http://www.littlebigtomatoes.com/</id>
+  <link href="http://littlebigtomatoes.com/blog/categories/icons/atom.xml" rel="self"/>
+  <link href="http://littlebigtomatoes.com/"/>
+  <updated>2016-05-04T06:51:08+02:00</updated>
+  <id>http://littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[An Easy Way to Create Awesome Looking Windows Phone7 Icons Using Expression Design]]></title>
-    <link href="http://www.littlebigtomatoes.com/2012/03/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design/"/>
+    <link href="http://littlebigtomatoes.com/2012/03/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design/"/>
     <updated>2012-03-21T18:18:08+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2012/03/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design</id>
+    <id>http://littlebigtomatoes.com/2012/03/an-easy-way-to-create-awesome-looking-windows-phone7-icons-using-expression-design</id>
     <content type="html"><![CDATA[<p>I am always having problems when it comes to creating icons for my Wp7 apps.I am a coder and not a designer, so drawing something nice looking is really really out of my comfort zone.</p>
 
 <p>Previously I spent hours trying to draw symbols myself, but I never really liked the outcome. But lately, I found a quick and effective way to create nice looking icons for my Windows Phone 7 apps. Here it goes:</p>
