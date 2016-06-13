@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Typescript | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/typescript/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-06-13T21:36:33+02:00</updated>
+  <updated>2016-06-13T21:37:20+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -29,7 +29,7 @@
 
 <p><img src="/images/InstallTypescriptPaste_001.gif" title="&lsquo;Install TypeScriptSyntaxPaste plugin&rsquo; &lsquo;Animated git showing how to install TypeScriptSyntaxPage plugin in Visual Studio.NET 2015&rsquo;" ></p>
 
-<h2>Installing</h2>
+<h2>Installing it</h2>
 
 <ul>
 <li>Go to Tools | Extensions in Visual Studio .NET 2015.</li>
