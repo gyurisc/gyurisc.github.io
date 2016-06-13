@@ -20,7 +20,7 @@ First you will need to install this plugin called [TypescriptSyntaxPaste](https:
   
 {%img /images/InstallTypescriptPaste_001.gif 'Install TypeScriptSyntaxPaste plugin' 'Animated git showing how to install TypeScriptSyntaxPage plugin in Visual Studio.NET 2015' %}
 
-The install steps are: 
+## Installing it
 
  - Go to Tools | Extensions in Visual Studio .NET 2015. 
  - Select Visual Studio Gallery under the Online category. 
@@ -29,7 +29,9 @@ The install steps are:
  - Then click Install. 
  - Restart Visual Studio. 
 
-Then this is how you use it: 
+## Using it 
+
+After installing the plugin this is how you use it: 
 
 {%img /images/UseTypeScriptPaste_002.gif 'Using TypeScriptSyntaxPaste plugin' 'Animated git showing how to use TypeScriptSyntaxPage plugin in Visual Studio.NET 2015' %}
 
