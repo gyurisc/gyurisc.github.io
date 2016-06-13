@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Code | littlebigtomatoes]]></title>
-  <link href="http://littlebigtomatoes.com/blog/categories/code/atom.xml" rel="self"/>
-  <link href="http://littlebigtomatoes.com/"/>
-  <updated>2016-05-04T06:51:08+02:00</updated>
-  <id>http://littlebigtomatoes.com/</id>
+  <link href="http://www.littlebigtomatoes.com/blog/categories/code/atom.xml" rel="self"/>
+  <link href="http://www.littlebigtomatoes.com/"/>
+  <updated>2016-06-13T21:34:11+02:00</updated>
+  <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
     
@@ -14,10 +14,54 @@
 
   
   <entry>
+    <title type="html"><![CDATA[How to Generate Typescript Classes From C# Like a Pro]]></title>
+    <link href="http://www.littlebigtomatoes.com/2016/06/how-to-generate-typescript-classes-from-c-number-like-a-pro/"/>
+    <updated>2016-06-13T13:29:09+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2016/06/how-to-generate-typescript-classes-from-c-number-like-a-pro</id>
+    <content type="html"><![CDATA[<p>I will teach you how to create Typescript classes from your existing C# classes effortlessly like a pro within 30 seconds.</p>
+
+<!-- more -->
+
+
+<p>Sometimes, you will need to create typescript classes where the class already exists in C#. This is super boring and tedious, but here is a cool plugin to help you.</p>
+
+<p>First you will need to install this plugin called <a href="https://visualstudiogallery.msdn.microsoft.com/eb0887f8-3ac1-434a-b50b-f0112f1572f7">TypescriptSyntaxPaste</a> in Visual Studio.NET 2015.</p>
+
+<p><img src="/images/InstallTypescriptPaste_001.gif" title="&lsquo;Install TypeScriptSyntaxPaste plugin&rsquo; &lsquo;Animated git showing how to install TypeScriptSyntaxPage plugin in Visual Studio.NET 2015&rsquo;" ></p>
+
+<p>The install steps are:</p>
+
+<ul>
+<li>Go to Tools | Extensions in Visual Studio .NET 2015.</li>
+<li>Select Visual Studio Gallery under the Online category.</li>
+<li>Search for TypescriptSyntaxPaste in the search folder.</li>
+<li>Find the plugin in the results pane and click on Download.</li>
+<li>Then click Install.</li>
+<li>Restart Visual Studio.</li>
+</ul>
+
+
+<p>Then this is how you use it:</p>
+
+<p><img src="/images/UseTypeScriptPaste_002.gif" title="&lsquo;Using TypeScriptSyntaxPaste plugin&rsquo; &lsquo;Animated git showing how to use TypeScriptSyntaxPage plugin in Visual Studio.NET 2015&rsquo;" ></p>
+
+<ul>
+<li>Select your C# class and press Ctrl-C to copy.</li>
+<li>Open a Typescript file (.ts or .tsx extension will work).</li>
+<li>Paste the code.</li>
+<li>Observe the results.</li>
+</ul>
+
+
+<p>Enjoy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Serializing Empty IEnumerable<T> With protobuf.net]]></title>
-    <link href="http://littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net/"/>
+    <link href="http://www.littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net/"/>
     <updated>2015-10-30T17:06:13+01:00</updated>
-    <id>http://littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net</id>
+    <id>http://www.littlebigtomatoes.com/2015/10/serializing-empty-ienumerable-with-protobuf-dot-net</id>
     <content type="html"><![CDATA[<p>I am recently trying to use protobuf.net for serializing objects for network communication in a .net application. Protobuf is a great format for sending data. Protobuf tries to be very frugal to save bandwidth. However, this causes some unexpected side effects when using it with .NET.</p>
 
 <!-- more -->
@@ -60,9 +104,9 @@
   
   <entry>
     <title type="html"><![CDATA[Simple.Data and Dynamic Calls Are Awesome]]></title>
-    <link href="http://littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/"/>
+    <link href="http://www.littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome/"/>
     <updated>2013-06-17T11:59:00+02:00</updated>
-    <id>http://littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome</id>
+    <id>http://www.littlebigtomatoes.com/2013/06/simple-dot-data-and-dynamic-calls-are-simply-awesome</id>
     <content type="html"><![CDATA[<p>Couple of weeks ago I started to look into different open source packages on the .NET platform such as <a href="http://nancyfx.org/">Nancy</a> and <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data/">Simple.Data</a>. They all looked very cool, but one paragraph in an article called <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data/">Introducing Simple.Data</a> - explaining how the code snippet below works - caught my attention:</p>
 
 <pre><code class="csharp getting data from db ">var db = Database.Open(); // Connection specified in config.
@@ -251,9 +295,9 @@ namespace DynamicTest
   
   <entry>
     <title type="html"><![CDATA[Exploring Xamarin iOS on Windows]]></title>
-    <link href="http://littlebigtomatoes.com/2013/03/exploring-xamarin-ios-on-windows/"/>
+    <link href="http://www.littlebigtomatoes.com/2013/03/exploring-xamarin-ios-on-windows/"/>
     <updated>2013-03-28T08:24:00+01:00</updated>
-    <id>http://littlebigtomatoes.com/2013/03/exploring-xamarin-ios-on-windows</id>
+    <id>http://www.littlebigtomatoes.com/2013/03/exploring-xamarin-ios-on-windows</id>
     <content type="html"><![CDATA[<p>Xamarin not so long ago released the version 2.0 of their product that allows all .NET developers to use C# and .NET libraries to code apps for iOS and Android. Better yet, it allows us to use our bellowed Visual Studio.NET to code for these platforms.</p>
 
 <p>I love to try out new things, so I decide to figure out if it is really possible to create very basic application for iOS and for Android purely from Visual Studio.NET.</p>
@@ -348,9 +392,9 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
   
   <entry>
     <title type="html"><![CDATA[Getting Started With gridster.js]]></title>
-    <link href="http://littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js/"/>
+    <link href="http://www.littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js/"/>
     <updated>2013-03-08T17:24:00+01:00</updated>
-    <id>http://littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js</id>
+    <id>http://www.littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js</id>
     <content type="html"><![CDATA[<p>I am looking into to learn more about web client side programming, but whenever I find an interesting project I am overwhelmed with the unknown names of different libraries and technologies mentioned, while reading the project&rsquo;s page. Consider <a href="http://shopify.github.com/dashing/">Dashing</a> for example. They mention Sinatra, <a href="https://github.com/Shopify/dashing/wiki/How-to%3A-Deploy-to-Heroku">Heroku</a>, jQuery.. These are the ones that I have at least a slight idea what they are good for. But the list continues: <a href="https://github.com/sstephenson/sprockets">Sprockets</a>, <a href="http://gridster.net/">Gridster.js</a>, <a href="http://www.html5rocks.com/en/tutorials/eventsource/basics/">Server Sent Events</a> and <a href="http://batmanjs.org/docs/batman.html#batman-view-bindings-keypath-filters">batman bindings</a>.</p>
 
 <p>This is nuts, I do not understand any of these. So I decided to divide and conquer the problem and try to focus on one unknown technology at a time. The aim is not to master the library, but to construct a minimum viable sample that helps to understand what it is good for.</p>
@@ -524,60 +568,6 @@ h3 {
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Git and Visual Studio Are Awesome Together]]></title>
-    <link href="http://littlebigtomatoes.com/2013/03/git-and-visual-studio-are-awesome-together/"/>
-    <updated>2013-03-01T19:59:00+01:00</updated>
-    <id>http://littlebigtomatoes.com/2013/03/git-and-visual-studio-are-awesome-together</id>
-    <content type="html"><![CDATA[<p>I love Visual Studio and I love git too. What can be even better than this? Visual Studio 2012 integrated with Git. The two together are pure awesomeness and I fell in love with them.</p>
-
-<p><img src="/images/git_vs_001.png" title="&lsquo;Git SSCP&rsquo; &lsquo;Git Source Control Provider&rsquo;" ></p>
-
-<p>There is a provider that you can install in visual studio 2012 and you will get git integration. It can talk to tfs, if you use git there. IT can create local git repos and even can clone repositories from github or from other git hosting servers.</p>
-
-<!--more-->
-
-
-<p></p>
-
-<p>To get the source control provider installed, you need to download and install the <a href="http://gitscc.codeplex.com/">Git Source Control Provider</a> package from codeplex. Once you are finished, launch Visual Studio and just open team explorer. You can connect to TFS hosted project or to local git repositories.</p>
-
-<p><img src="/images/git_vs_002.png" title="&lsquo;Git SSCP&rsquo; &lsquo;Git Source Control Provider&rsquo;" ></p>
-
-<h2>Getting familiar</h2>
-
-<p>You can create a new repo by just providing the folder name.</p>
-
-<p><img src="/images/git_vs_003.png" title="&lsquo;Git New&rsquo; &lsquo;Creating a new Git repo&rsquo;" ></p>
-
-<p>Once you are done, navigate there using git bash and you will see that it is a proper git repo.</p>
-
-<p><img src="/images/git_vs_004.png" title="&lsquo;Git Bash&rsquo; &lsquo;New repository from git bash&rsquo;" ></p>
-
-<p>You can add existing local repos as well by providing the path</p>
-
-<p><img src="/images/git_vs_005.png" title="&lsquo;Existing Repos&rsquo; &lsquo;Adding existing git repositories&rsquo;" ></p>
-
-<p>Clone existing repos form github</p>
-
-<p><img src="/images/git_vs_006.png" title="&lsquo;Cloning Repos&rsquo; &lsquo;Cloning repos from github&rsquo;" ></p>
-
-<h2>Nice touches</h2>
-
-<p>There are several things to like in the visual studio git integration. You can change your git settings from git explorer such as gitignore file, your email, the root folder for your repos, even it can get your images for you, to make the history to look nicer.</p>
-
-<p>There is also a super nice and clean looking diff tool for you to go through the differences in commits.</p>
-
-<p><img src="/images/git_vs_007.png" title="&lsquo;Diff tool&rsquo; &lsquo;Nice and clear diff tool in IDE&rsquo;" ></p>
-
-<h2>The Bad</h2>
-
-<p>The one thing I do not like is that there is no way to open the solution from the ide. You need to browse out the solution manually. Obviously, this does not happen when you clone from TFS. Little inconvenience, but still tolerable though.</p>
-
-<p>Now go download it and use it. Cheers!</p>
 ]]></content>
   </entry>
   
