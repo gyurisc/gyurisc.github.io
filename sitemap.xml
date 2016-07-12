@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.littlebigtomatoes.com/2016/07/scraping-stackoverflow-careers-for-fun-and-profit/</loc>
+    <lastmod>2016-07-12T07:55:13+02:00</lastmod>
+  </url>
+  <url>
     <loc>http://www.littlebigtomatoes.com/2016/06/how-to-generate-typescript-classes-from-c-number-like-a-pro/</loc>
     <lastmod>2016-06-13T13:29:09+02:00</lastmod>
   </url>
@@ -272,6 +276,15 @@
     <loc>http://www.littlebigtomatoes.com/blog/categories/typescript/</loc>
   </url>
   <url>
+    <loc>http://www.littlebigtomatoes.com/blog/categories/scrapy/</loc>
+  </url>
+  <url>
+    <loc>http://www.littlebigtomatoes.com/blog/categories/stackoverflow/</loc>
+  </url>
+  <url>
+    <loc>http://www.littlebigtomatoes.com/blog/categories/python/</loc>
+  </url>
+  <url>
     <loc>http://www.littlebigtomatoes.com/page2/</loc>
   </url>
   <url>
@@ -279,5 +292,8 @@
   </url>
   <url>
     <loc>http://www.littlebigtomatoes.com/page4/</loc>
+  </url>
+  <url>
+    <loc>http://www.littlebigtomatoes.com/page5/</loc>
   </url>
 </urlset>
