@@ -7,8 +7,6 @@ categories:
  - scrapy 
  - stackoverflow  
  - python 
- - css 
- - xpath 
 ---
 When you want to learn something new the best way to do is to come up with a problem that can be useful to you or maybe others and then solve it. Not so long ago I decided that I want to start learning data related tech. So I came up with the idea that I would create a solution that gathers the data from [Stackoverflow Jobs](http://stackoverflow.com/jobs). Do some manipulation on it  and then present it in a nice format. This is the first step of the journey. 
 
@@ -239,11 +237,6 @@ Here, we have an xpath expression for each field that we are interested in. For 
 
 The other stuff we need to come up with the expressions is the knowledge of css and lot’s of trial and error. Let’s see a few expressions: 
 
-``` python title and url 
- item['title'] = job.xpath('div[contains(@class,"-title")]/h1/a/text()').extract()[0]
- item['url'] = job.xpath('div[contains(@class,"-title")]/h1/a/@href').extract()[0]
-```
-
 ### XPath and CSS munging 
 
 The other stuff we need to come up with the expressions is the knowledge of css and lot’s of trial and error. Let’s see a few expressions: 
@@ -251,17 +244,21 @@ The other stuff we need to come up with the expressions is the knowledge of css 
 ``` python title and url 
  item['title'] = job.xpath('div[contains(@class,"-title")]/h1/a/text()').extract()[0]
  item['url'] = job.xpath('div[contains(@class,"-title")]/h1/a/@href').extract()[0]
+```
+
 Here, we are searching with a div that has the _title_ as a css class and then we need the link _a_ under the _h1_ heading. The text from this link will be store in the _title_ field and the actual link in the _url_ field. 
 
 ``` python extracting tags
  item['tags'] = job.xpath('div[contains(@class,"tags")]/p/a/text()').extract()
-```
+
+``` 
 
 Here, we are looking for a div with a class _tags_ and all the text from the links underneath the paragraph.
 
 ``` python extracting the employer
  item['employer'] = job.xpath('ul[contains(@class, "metadata") and contains(@class, "primary")]/li[contains(@class, "employer")]/text()').extract()[0].strip()
-```
+
+``` 
 
 Here, we are looking for an unordered list _ul_ with both a class _metadata_ and _primary_ and underneath we are looking for a list item with _employer_ class. We then extract the first item from the returned list and call _strip()_ to get rid of the whitespace characters. 
 
@@ -270,8 +267,8 @@ There is one last field that needs to be extracted called _salary_. This is a bi
 ``` python extracting salary 
 if job.xpath('div[contains(@class,"-title”)]/span[contains(@class,"salary")]/text()').extract():
     item['salary'] = job.xpath('div[contains(@class,"-title")]/span[contains(@class,"salary")]/text()').extract()[0].strip()
-```
 
+``` 
 First, we need to check, if we have an html span tag with class _salary_ our title, if we have then we just extract it and then strip out of the white spaces from the result. 
 
 Here is how the full parse method should look like: 
