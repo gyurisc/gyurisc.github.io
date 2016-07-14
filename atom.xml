@@ -4,7 +4,7 @@
   <title><![CDATA[littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-07-12T08:05:25+02:00</updated>
+  <updated>2016-07-14T22:02:56+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -18,9 +18,9 @@
     <link href="http://www.littlebigtomatoes.com/2016/07/scraping-stackoverflow-careers-for-fun-and-profit/"/>
     <updated>2016-07-12T07:55:13+02:00</updated>
     <id>http://www.littlebigtomatoes.com/2016/07/scraping-stackoverflow-careers-for-fun-and-profit</id>
-    <content type="html"><![CDATA[<p>When you want to learn something new the best way to do is to come up with a problem that can be useful to you or maybe others and then solve it. Not so long ago I decided that I want to start learning data related tech. So I came up with the idea that I would create a solution that gathers the data from <a href="http://stackoverflow.com/jobs">Stackoverflow Jobs</a>. Do some manipulation on it  and then present it in a nice format. This is the first step of the journey.</p>
+    <content type="html"><![CDATA[<p>When you want to learn something new the best way to do is to come up with a problem that can be useful to you or maybe to others and then solve it. Not so long ago I decided that I want to start learning something data related. So I came up with the idea that I would create a solution that gathers the data from <a href="http://stackoverflow.com/jobs">Stackoverflow Jobs</a>. Do some manipulation on it  and then present it in a nice format. This is the first step of the journey.</p>
 
-<p>To present something, I need data. To get the data I need to write a script that gathers it from the web. I decided to use python and <a href="http://scrapy.org">Scrapy framework</a>.</p>
+<p>To present something, I need data. To get the data, I need to write a script that gathers data from the web. I decided to use python and <a href="http://scrapy.org">Scrapy framework</a>.</p>
 
 <!--more-->
 
@@ -29,9 +29,11 @@
 
 <h3>Gearing up…</h3>
 
-<p>First, some disclaimers. I am new to python, to scrape. I had zero knowledge of this topics. Any constructive and helpful comments are more than welcome. I am here to learn as well.</p>
+<p>First, some disclaimers. I am new to python and to scrapy as well. I had zero knowledge any of these topics before. I am learning this stuff as I write these posts. Any constructive and helpful comments are more than welcome.</p>
 
-<p>After installing python and <a href="http://scrapy.org">Scrapy</a>, the first thing is to create the web-scraper project by typing the following  command(s) in your console</p>
+<p>The code for this project can be found in <a href="https://github.com/gyurisc/stackjobs">stackjobs repo on github</a>.</p>
+
+<p>After installing Python and <a href="http://scrapy.org">Scrapy</a>, the first thing is to create the web-scraper project by typing the following  command(s) in your console:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -42,11 +44,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>With these commands the following has been achieved. First we create a new project called stack jobs. The script created a folder structure with files in it. Then we entered the folder and created a spider called StackjobSpider using the genspider command. This created a spider that can only crawl stackoverflow.com.</p>
+<p>With these commands the following has been achieved. First we created a new project called stackjobs. The script created a folder structure with files in it. Then we entered the folder and created a spider called Stackjob using the genspider command. This created a spider that can crawl stackoverflow.com.</p>
 
 <p>Looking at the spiders folder, we can see the source file for Stackjob spider:</p>
 
-<figure class='code'><figcaption><span>initial spider </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>spider created </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -77,7 +79,7 @@
 
 <p></p>
 
-<p>You can running this by executing the following command:</p>
+<p>You can run the spider this by executing the following command:</p>
 
 <figure class='code'><figcaption><span>running the spider </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>scrapy crawl Stackjob
@@ -101,71 +103,9 @@
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>2016-07-11 22:22:30 <span class="o">[</span>scrapy<span class="o">]</span> INFO: Scrapy 1.1.0 started <span class="o">(</span>bot: stackjobs<span class="o">)</span>
 </span><span class='line'>2016-07-11 22:22:30 <span class="o">[</span>scrapy<span class="o">]</span> INFO: Overridden settings: <span class="o">{</span><span class="s1">&#39;NEWSPIDER_MODULE&#39;</span>: <span class="s1">&#39;stackjobs.spiders&#39;</span>, <span class="s1">&#39;SPIDER_MODULES&#39;</span>: <span class="o">[</span><span class="s1">&#39;stackjobs.spiders&#39;</span><span class="o">]</span>, <span class="s1">&#39;ROBOTSTXT_OBEY&#39;</span>: True, <span class="s1">&#39;BOT_NAME&#39;</span>: <span class="s1">&#39;stackjobs&#39;</span><span class="o">}</span>
-</span><span class='line'>2016-07-11 22:22:30 <span class="o">[</span>scrapy<span class="o">]</span> INFO: Enabled extensions:
-</span><span class='line'><span class="o">[</span><span class="s1">&#39;scrapy.extensions.logstats.LogStats&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.extensions.telnet.TelnetConsole&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.extensions.corestats.CoreStats&#39;</span><span class="o">]</span>
-</span><span class='line'>2016-07-11 22:22:30 <span class="o">[</span>scrapy<span class="o">]</span> INFO: Enabled downloader middlewares:
-</span><span class='line'><span class="o">[</span><span class="s1">&#39;scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.useragent.UserAgentMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.retry.RetryMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.redirect.RedirectMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.cookies.CookiesMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.chunked.ChunkedTransferMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.downloadermiddlewares.stats.DownloaderStats&#39;</span><span class="o">]</span>
-</span><span class='line'>2016-07-11 22:22:30 <span class="o">[</span>scrapy<span class="o">]</span> INFO: Enabled spider middlewares:
-</span><span class='line'><span class="o">[</span><span class="s1">&#39;scrapy.spidermiddlewares.httperror.HttpErrorMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.spidermiddlewares.offsite.OffsiteMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.spidermiddlewares.referer.RefererMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.spidermiddlewares.urllength.UrlLengthMiddleware&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;scrapy.spidermiddlewares.depth.DepthMiddleware&#39;</span><span class="o">]</span>
+</span><span class='line'>…
 </span><span class='line'>2016-07-11 22:22:30 <span class="o">[</span>scrapy<span class="o">]</span> INFO: Enabled item pipelines:
 </span><span class='line'><span class="o">[]</span>
 </span><span class='line'>2016-07-11 22:22:30 <span class="o">[</span>scrapy<span class="o">]</span> INFO: Spider opened
@@ -177,29 +117,11 @@
 </span><span class='line'>2016-07-11 22:22:31 <span class="o">[</span>scrapy<span class="o">]</span> DEBUG: Crawled <span class="o">(</span>200<span class="o">)</span> &lt;GET http://stackoverflow.com/robots.txt&gt; <span class="o">(</span>referer: None<span class="o">)</span>
 </span><span class='line'>2016-07-11 22:22:31 <span class="o">[</span>scrapy<span class="o">]</span> DEBUG: Crawled <span class="o">(</span>200<span class="o">)</span> &lt;GET http://stackoverflow.com/&gt; <span class="o">(</span>referer: None<span class="o">)</span>
 </span><span class='line'>2016-07-11 22:22:31 <span class="o">[</span>scrapy<span class="o">]</span> INFO: Closing spider <span class="o">(</span>finished<span class="o">)</span>
-</span><span class='line'>2016-07-11 22:22:31 <span class="o">[</span>scrapy<span class="o">]</span> INFO: Dumping Scrapy stats:
-</span><span class='line'><span class="o">{</span><span class="s1">&#39;downloader/request_bytes&#39;</span>: 1317,
-</span><span class='line'> <span class="s1">&#39;downloader/request_count&#39;</span>: 5,
-</span><span class='line'> <span class="s1">&#39;downloader/request_method_count/GET&#39;</span>: 5,
-</span><span class='line'> <span class="s1">&#39;downloader/response_bytes&#39;</span>: 43377,
-</span><span class='line'> <span class="s1">&#39;downloader/response_count&#39;</span>: 5,
-</span><span class='line'> <span class="s1">&#39;downloader/response_status_count/200&#39;</span>: 3,
-</span><span class='line'> <span class="s1">&#39;downloader/response_status_count/301&#39;</span>: 2,
-</span><span class='line'> <span class="s1">&#39;finish_reason&#39;</span>: <span class="s1">&#39;finished&#39;</span>,
-</span><span class='line'> <span class="s1">&#39;finish_time&#39;</span>: datetime.datetime<span class="o">(</span>2016, 7, 11, 20, 22, 31, 575630<span class="o">)</span>,
-</span><span class='line'> <span class="s1">&#39;log_count/DEBUG&#39;</span>: 6,
-</span><span class='line'> <span class="s1">&#39;log_count/INFO&#39;</span>: 7,
-</span><span class='line'> <span class="s1">&#39;response_received_count&#39;</span>: 3,
-</span><span class='line'> <span class="s1">&#39;scheduler/dequeued&#39;</span>: 2,
-</span><span class='line'> <span class="s1">&#39;scheduler/dequeued/memory&#39;</span>: 2,
-</span><span class='line'> <span class="s1">&#39;scheduler/enqueued&#39;</span>: 2,
-</span><span class='line'> <span class="s1">&#39;scheduler/enqueued/memory&#39;</span>: 2,
-</span><span class='line'> <span class="s1">&#39;start_time&#39;</span>: datetime.datetime<span class="o">(</span>2016, 7, 11, 20, 22, 30, 508215<span class="o">)}</span>
 </span><span class='line'>2016-07-11 22:22:31 <span class="o">[</span>scrapy<span class="o">]</span> INFO: Spider closed <span class="o">(</span>finished<span class="o">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This basically tells us that our spider ran and downloaded the stackoverflow.com main page. We are interested only the Stackoverflow job listing, so let’s modify the Stackjob spider, so it crawls only those relevant pages for us. Let’s modify the start_urls in our spider class and add a few pages:</p>
+<p>This basically tells us that our spider ran and downloaded zero pages exactly. We are interested in the Stackoverflow job listing, so let’s modify the Stackjob spider by adding start urls that are relevant for us:</p>
 
 <figure class='code'><figcaption><span>adding start urls </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -257,7 +179,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Then add some code to the <em>parse</em> method. This code will loop through all the jobs on the page and will create a <em>StackjobItem</em> for each job found. Then it will add today’s date to the newly created item.</p>
+<p>Then add some code to the <em>parse</em> method. This code will loop through all the jobs on the page found by our path expression and will create a <em>StackjobItem</em> for each job found. Then it will add today’s date to the newly created item.</p>
 
 <figure class='code'><figcaption><span>adding parsing logic </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -292,7 +214,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>When running this code, you will receive a couple of messages complaining about StackjobItem not being defined. This is expected as we still need to define this class. Open up <em>items.py</em> and rename the class <em>StackjobsItem</em> to <em>StackjobItem</em>. This is the class what we will use to store the extracted data for each job. For this you will need to define a few fields. The final class will look like this:</p>
+<p>When running this code, you will receive a couple of messages complaining about StackjobItem not being defined. This is expected as we still need to define this class. Open up <em>items.py</em> and rename the class <em>StackjobsItem</em> class to <em>StackjobItem</em>. This is the class what we will use to store the extracted data for each job. For this you will need to define a few fields. The final class will look like this:</p>
 
 <figure class='code'><figcaption><span>StackjobItem with fields</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -370,7 +292,7 @@
 <p>For getting information out of the items found on the page, we will be using xpath expressions. Earlier, we added one to our parse method. This selector is responsible to find all the jobs on our page. It basically tells scrapy to return all elements that are a div and has both a <em>-job</em> and <em>-item</em> css class.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'> <span class="n">jobs</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;//div[contains(@class, &quot;-item&quot;) and contains(@class, &quot;-job&quot;)]&#39;</span><span class="p">)</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">jobs</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;//div[contains(@class, &quot;-item&quot;) and contains(@class, &quot;-job&quot;)]&#39;</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -386,20 +308,20 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">item</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;tags&quot;)]/p/a/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">item</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;p[contains(@class,&quot;text&quot;) and contains(@class, &quot;description&quot;)]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">item</span><span class="p">[</span><span class="s">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;ul[contains(@class, &quot;metadata&quot;) and contains(@class, &quot;primary&quot;)]/li[contains(@class, &quot;location&quot;)]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">item</span><span class="p">[</span><span class="s">&#39;employer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;ul[contains(@class, &quot;metadata&quot;) and contains(@class, &quot;primary&quot;)]/li[contains(@class, &quot;employer&quot;)]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">item</span><span class="p">[</span><span class="s">&#39;jobid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;@data-jobid&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">item</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;-title&quot;)]/h1/a/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">item</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;-title&quot;)]/h1/a/@href&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="n">item</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;p[contains(@class,&quot;text&quot;) and contains(@class, &quot;description&quot;)]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="n">item</span><span class="p">[</span><span class="s">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;ul[contains(@class, &quot;metadata&quot;) and contains(@class, &quot;primary&quot;)]/li[contains(@class, &quot;location&quot;)]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span class='line'><span class="n">item</span><span class="p">[</span><span class="s">&#39;employer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;ul[contains(@class, &quot;metadata&quot;) and contains(@class, &quot;primary&quot;)]/li[contains(@class, &quot;employer&quot;)]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span class='line'><span class="n">item</span><span class="p">[</span><span class="s">&#39;jobid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;@data-jobid&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="n">item</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;-title&quot;)]/h1/a/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="n">item</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;-title&quot;)]/h1/a/@href&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p></p>
 
-<p>Here, we have an xpath expression for each field that we are interested in. For coming up with the xpath expression I was using Google Chrome and the wonderful <a href="https://www.codeschool.com/courses/discover-devtools">DevTools</a> in it. You can bring this up by opening a web-page and right-cocking on any element and select <em>Inspect</em> from the menu.</p>
+<p>Here, we have an xpath expression for each field that we are interested in. For coming up with the xpath expression I was using Google Chrome and its wonderful <a href="https://www.codeschool.com/courses/discover-devtools">DevTools</a>. You can bring this up by opening a web-page and right-clicking on any element and select <em>Inspect</em> from the menu.</p>
 
-<p>The other stuff we need to come up with the expressions is the knowledge of css and lot’s of trial and error. Let’s see a few expressions:</p>
+<p>The other stuff we need to come up with the expressions is the knowledge of css and lot’s of trial and error.</p>
 
 <h3>XPath and CSS munging</h3>
 
@@ -407,15 +329,15 @@
 
 <figure class='code'><figcaption><span>title and url </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'> <span class="n">item</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;-title&quot;)]/h1/a/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-</span><span class='line'> <span class="n">item</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;-title&quot;)]/h1/a/@href&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">item</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;-title&quot;)]/h1/a/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="n">item</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;-title&quot;)]/h1/a/@href&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>Here, we are searching with a div that has the <em>title</em> as a css class and then we need the link <em>a</em> under the <em>h1</em> heading. The text from this link will be store in the <em>title</em> field and the actual link in the <em>url</em> field.</p>
 
 <figure class='code'><figcaption><span>extracting tags</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'> <span class="n">item</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;tags&quot;)]/p/a/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">item</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;tags&quot;)]/p/a/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -434,15 +356,16 @@
 
 <p>There is one last field that needs to be extracted called <em>salary</em>. This is a bit tricky, because it is not always present.</p>
 
-<figure class='code'><figcaption><span>extracting salary </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>First, we need to check, if we have an html span tag with class <em>salary</em> our title, if we have then we just extract it and then strip out of the white spaces from the result.</p>
+
+<figure class='code'><figcaption><span>checking if salary is present and extracting it </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;-title”)]/span[contains(@class,&quot;salary&quot;)]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">():</span>
 </span><span class='line'>    <span class="n">item</span><span class="p">[</span><span class="s">&#39;salary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;div[contains(@class,&quot;-title&quot;)]/span[contains(@class,&quot;salary&quot;)]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>
-First, we need to check, if we have an html span tag with class <em>salary</em> our title, if we have then we just extract it and then strip out of the white spaces from the result.</p>
+<p></p>
 
 <p>Here is how the full parse method should look like:</p>
 
@@ -518,7 +441,11 @@ First, we need to check, if we have an html span tag with class <em>salary</em> 
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p>The code for this project can be found in <a href="https://github.com/gyurisc/stackjobs">stackjobs repo on github</a>.</p>
+
 <p>This is exciting. In the next part, I will show how to store the results in a mongoldb database.</p>
+
+<p><strong>Update 2017-06-13</strong>: Fixing small typos, editing and shortening console output.</p>
 ]]></content>
   </entry>
   
