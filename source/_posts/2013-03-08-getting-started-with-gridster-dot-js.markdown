@@ -65,7 +65,7 @@ Next we need to call some javascript in order to initialize our grid. This is do
 			var gridster;
 
 			$(function() {
-				gridtster = $(".gridster > ul").gridster({
+				gridster = $(".gridster > ul").gridster({
 					widget_margins: [10, 10], 
 					widget_base_dimensions: [140, 140],
 					min_cols: 6
@@ -77,6 +77,8 @@ Next we need to call some javascript in order to initialize our grid. This is do
 Javascript and jQuery are not in my comfort zone yet, but it seems that the code selects something that has .gridster as a class and have ul underneath and sets the widget margin, base dimensions of the grid and the minimum number of columns to 6. 
  
 Below, you will see the full html page and css styles. You can also [download](/downloads/gridster_sample.zip) the sample, if you like. 
+
+**Update 2017-06-23**: Fixing typos in code.
 
 ### Full index.html
 
@@ -114,7 +116,7 @@ Below, you will see the full html page and css styles. You can also [download](/
 			var gridster;
 
 			$(function() {
-				gridtster = $(".gridster > ul").gridster({
+				gridster = $(".gridster > ul").gridster({
 					widget_margins: [10, 10], 
 					widget_base_dimensions: [140, 140],
 					min_cols: 6
