@@ -4,7 +4,7 @@
   <title><![CDATA[littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-07-14T22:02:56+02:00</updated>
+  <updated>2016-07-23T23:17:25+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -1162,7 +1162,7 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
 </span><span class='line'>      <span class="kd">var</span> <span class="nx">gridster</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">gridtster</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.gridster &gt; ul&quot;</span><span class="p">).</span><span class="nx">gridster</span><span class="p">({</span>
+</span><span class='line'>          <span class="nx">gridster</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.gridster &gt; ul&quot;</span><span class="p">).</span><span class="nx">gridster</span><span class="p">({</span>
 </span><span class='line'>              <span class="nx">widget_margins</span><span class="o">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
 </span><span class='line'>              <span class="nx">widget_base_dimensions</span><span class="o">:</span> <span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="mi">140</span><span class="p">],</span>
 </span><span class='line'>              <span class="nx">min_cols</span><span class="o">:</span> <span class="mi">6</span>
@@ -1177,6 +1177,8 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
 <p>Javascript and jQuery are not in my comfort zone yet, but it seems that the code selects something that has .gridster as a class and have ul underneath and sets the widget margin, base dimensions of the grid and the minimum number of columns to 6.</p>
 
 <p>Below, you will see the full html page and css styles. You can also <a href="http://www.littlebigtomatoes.com/downloads/gridster_sample.zip">download</a> the sample, if you like.</p>
+
+<p><strong>Update 2017-06-23</strong>: Fixing typos in code.</p>
 
 <h3>Full index.html</h3>
 
@@ -1255,7 +1257,7 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
 </span><span class='line'>          <span class="kd">var</span> <span class="nx">gridster</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>              <span class="nx">gridtster</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.gridster &gt; ul&quot;</span><span class="p">).</span><span class="nx">gridster</span><span class="p">({</span>
+</span><span class='line'>              <span class="nx">gridster</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.gridster &gt; ul&quot;</span><span class="p">).</span><span class="nx">gridster</span><span class="p">({</span>
 </span><span class='line'>                  <span class="nx">widget_margins</span><span class="o">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
 </span><span class='line'>                  <span class="nx">widget_base_dimensions</span><span class="o">:</span> <span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="mi">140</span><span class="p">],</span>
 </span><span class='line'>                  <span class="nx">min_cols</span><span class="o">:</span> <span class="mi">6</span>

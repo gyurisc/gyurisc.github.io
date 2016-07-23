@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Code | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-07-14T22:02:56+02:00</updated>
+  <updated>2016-07-23T23:17:25+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -453,7 +453,7 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
             var gridster;
 
             $(function() {
-                gridtster = $(".gridster &gt; ul").gridster({
+                gridster = $(".gridster &gt; ul").gridster({
                     widget_margins: [10, 10], 
                     widget_base_dimensions: [140, 140],
                     min_cols: 6
@@ -465,6 +465,8 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
 <p>Javascript and jQuery are not in my comfort zone yet, but it seems that the code selects something that has .gridster as a class and have ul underneath and sets the widget margin, base dimensions of the grid and the minimum number of columns to 6.</p>
 
 <p>Below, you will see the full html page and css styles. You can also <a href="/downloads/gridster_sample.zip">download</a> the sample, if you like.</p>
+
+<p><strong>Update 2017-06-23</strong>: Fixing typos in code.</p>
 
 <h3>Full index.html</h3>
 
@@ -501,7 +503,7 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
             var gridster;
 
             $(function() {
-                gridtster = $(".gridster &gt; ul").gridster({
+                gridster = $(".gridster &gt; ul").gridster({
                     widget_margins: [10, 10], 
                     widget_base_dimensions: [140, 140],
                     min_cols: 6
