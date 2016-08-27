@@ -15,7 +15,7 @@ So let’s look how easy to build a minimal example using with [handsontable](ht
 
 {%img /images/handsontable_minimal.png ‘Handsontable Demo’ ‘Handsontable demo page' %}
 
-<!— more !—> 
+<!--more--> 
 
 The main web-page describes this library as: 
 
