@@ -27,7 +27,7 @@ Handsontable is a composite spreadsheet component for apps and websites. It is w
 
 First of all, click to [download the source code](/downloads/handsontable_sample.zip) for the minimal handsontable sample. 
 
-The first file to be created is the index.html 
+The first file to be created is the **index.html** 
 
 ``` html handsontable index.html
 	<html>
@@ -46,13 +46,13 @@ The first file to be created is the index.html
 </html> 
 ```
 
-Nothing too complicated here. There is a only standard html page. The table will be rendered in the first called table __div__ after the body. 
+Nothing too complicated here. This is only a standard html page. The table will be rendered in the first called table __div__ after the body. 
 
 ``` html handsontable div
 	 <div id="table"></div>
 ```
 
-In the header part, the css for handsontable is referenced and in the bottom part of the body we referenced the script file needed for our table. I choose to include these files in the assets folder in the zip file, but it is possible to reference these files directly from handsontable.com as well by replacing the links like this: 
+In the header part, the css for handsontable is referenced and in the bottom part of the body, we referenced the script file needed for our table. I choose to include these files in the assets folder in the zip file, but it is possible to reference these files directly from handsontable.com as well by replacing the links like this: 
 
 For CSS use: 
 
@@ -66,9 +66,9 @@ For the script:
 	<script src="http://docs.handsontable.com/pro/bower_components/handsontable-pro/dist/handsontable.full.min.js"></script>
 ```
 
-The important part comes after in a separate script tag. We are going to get the data for the table and initialise how the table should look like. 
+The important part comes next in a separate script tag. We are going to get the data for the table and initialise how the table should look like. 
 
-``` javascript initializing our table 
+``` javascript initialising our table 
    <script type="text/javascript">
         var data = [
                     {company: "Apple Inc.", ticker: "AAPL", price: "108.03", low52: "89.47", high52: "123.82", pe: "12.62", yield: "0.57"},
@@ -90,7 +90,7 @@ The important part comes after in a separate script tag. We are going to get the
         </script>
 ```  
 
-First, we create a structure called data and fill it with our stock data that we would like to display in our table.
+First, we create our data structure that we would like to display in our table.
 
 Then, we get the placeholder div and call  the init function of the Handsontable library. In the init function, we pass the placeholder div and some other parameters like our data and the names of our columns. 
 
@@ -101,20 +101,20 @@ This is really it. Could not be simpler, right?
 I would like to add the capability to be able to sort by column names. This is very easy, just pass two more parameters in the init function 
 
 ``` javascript Enabling column ordering 
-		columnSorting: true,
-		sortIndicator: true,
+	columnSorting: true,
+	sortIndicator: true,
 ```
 
-Then I just would like to be able to resize the columns of my table. Again, very easy: 
+Next, I would like to be able to resize the columns of my table. Again, this is very easy: 
 
 ``` javascript Resizing columns
-   	manualRowResize: true,
-    manualColumnResize: true
+	manualRowResize: true,
+	manualColumnResize: true
 ```
  
 ### Summary 
 
-Handsontable seems like a very powerful library to build spreadsheet functionalities to your web application. It comes in two favours. The [Pro](https://docs.handsontable.com/pro/1.5.1/tutorial-introduction.html) version will cost you money, but has really nice features, such as column filtering. The simple version is open-source and as far as I understand you can use it however you see fit. 
+Handsontable seems like a very powerful library to build spreadsheet functionalities to your web application. It comes in two favours. The [Pro](https://docs.handsontable.com/pro/1.5.1/tutorial-introduction.html) version will cost you money, but has really nice features, such as column filtering. The free version is open-source and as far as I understand you can use it however you see fit. 
 
 ### Links
 
