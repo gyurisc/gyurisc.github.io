@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Code | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-08-27T22:08:29+02:00</updated>
+  <updated>2016-08-27T22:11:15+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -107,14 +107,14 @@
 
 <p>I would like to add the capability to be able to sort by column names. This is very easy, just pass two more parameters in the init function</p>
 
-<pre><code class="javascript Enabling column ordering ">columnSorting: true,
-sortIndicator: true,
+<pre><code class="javascript Enabling column ordering ">    columnSorting: true,
+    sortIndicator: true,
 </code></pre>
 
 <p>Next, I would like to be able to resize the columns of my table. Again, this is very easy:</p>
 
-<pre><code class="javascript Resizing columns">manualRowResize: true,
-manualColumnResize: true
+<pre><code class="javascript Resizing columns">    manualRowResize: true,
+    manualColumnResize: true
 </code></pre>
 
 <h3>Summary</h3>
