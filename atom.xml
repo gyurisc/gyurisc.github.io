@@ -4,7 +4,7 @@
   <title><![CDATA[littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-08-27T21:55:47+02:00</updated>
+  <updated>2016-08-27T21:58:24+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -26,7 +26,10 @@
 
 <p><img src="http://www.littlebigtomatoes.com/images/handsontable_minimal.png" title="‘Handsontable Demo’ ‘Handsontable demo page'" ></p>
 
-<p>&lt;!— more !—></p>
+<!--more-->
+
+
+<p></p>
 
 <p>The main web-page describes this library as:</p>
 
