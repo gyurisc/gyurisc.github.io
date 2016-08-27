@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.littlebigtomatoes.com/2016/08/getting-started-with-handsontable/</loc>
+    <lastmod>2016-08-26T13:01:03+02:00</lastmod>
+  </url>
+  <url>
     <loc>http://www.littlebigtomatoes.com/2016/08/scraping-stackoverflow-careers-for-fun-and-profit-part-2/</loc>
     <lastmod>2016-08-06T21:20:17+02:00</lastmod>
   </url>

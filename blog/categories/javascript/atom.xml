@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-08-06T21:48:00+02:00</updated>
+  <updated>2016-08-27T21:55:47+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -12,6 +12,170 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started With Handsontable]]></title>
+    <link href="http://www.littlebigtomatoes.com/2016/08/getting-started-with-handsontable/"/>
+    <updated>2016-08-26T13:01:03+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2016/08/getting-started-with-handsontable</id>
+    <content type="html"><![CDATA[<p>I am looking for a way to be able to display and manipulate tabular data on a webpage. For this, I decided to evaluate a few javascript based libraries and see how they can be used.</p>
+
+<p>The first such library is called <a href="https://handsontable.com/">handsontable</a>. Handsontable is a Javascript/HTML5 Spreadsheet library for developers. It seems that Handsontable is more for building Excel like user interfaces than just simple data grid control.</p>
+
+<p>So let’s look how easy to build a minimal example using with <a href="https://handsontable.com/">handsontable</a>…</p>
+
+<p><img src="/images/handsontable_minimal.png" title="‘Handsontable Demo’ ‘Handsontable demo page'" ></p>
+
+<p>&lt;!— more !—></p>
+
+<p>The main web-page describes this library as:</p>
+
+<p><blockquote><p>Handsontable is a composite spreadsheet component for apps and websites. It is written in JavaScript and not constrained by any external framework. Handsontable can be easily modified or extended with custom plugins. It also binds to any source using the JSON format and is capable of handling a large amount of data. You can easily do all CRUD operations and provide end-users with an Excel-like experience.</p></blockquote></p>
+
+<h3>Creating the minimal Handsontable page</h3>
+
+<p>First of all, click to <a href="/downloads/handsontable_sample.zip">download the source code</a> for the minimal handsontable sample.</p>
+
+<p>The first file to be created is the index.html</p>
+
+<pre><code class="html handsontable index.html">    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"/&gt;
+        &lt;meta name="apple-mobile-web-app-capable" content="yes" /&gt;
+        &lt;meta name="apple-touch-fullscreen" content="yes" /&gt;
+        &lt;title&gt;Handsontable Minimum Sample&lt;/title&gt;
+        &lt;link rel="stylesheet" type="text/css" href="assets/css/handsontable.full.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id="table"&gt;&lt;/div&gt;
+        &lt;script type="text/javascript" src="assets/handsontable.full.js"&gt;&lt;/script&gt;
+                &lt;!-- Placeholder to Initialize Handsontable --&gt;
+    &lt;/body&gt;    
+&lt;/html&gt; 
+</code></pre>
+
+<p>Nothing too complicated here. There is a only standard html page. The table will be rendered in the first called table <strong>div</strong> after the body.</p>
+
+<pre><code class="html handsontable div">     &lt;div id="table"&gt;&lt;/div&gt;
+</code></pre>
+
+<p>In the header part, the css for handsontable is referenced and in the bottom part of the body we referenced the script file needed for our table. I choose to include these files in the assets folder in the zip file, but it is possible to reference these files directly from handsontable.com as well by replacing the links like this:</p>
+
+<p>For CSS use:</p>
+
+<pre><code class="html handsontable css reference ">    &lt;link rel="stylesheet" type="text/css" href="http://docs.handsontable.com/pro/bower_components/handsontable-pro/dist/handsontable.full.min.css"&gt;
+</code></pre>
+
+<p>For the script:</p>
+
+<pre><code class="html handsontable javascript reference ">    &lt;script src="http://docs.handsontable.com/pro/bower_components/handsontable-pro/dist/handsontable.full.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>The important part comes after in a separate script tag. We are going to get the data for the table and initialise how the table should look like.</p>
+
+<pre><code class="javascript initializing our table ">   &lt;script type="text/javascript"&gt;
+        var data = [
+                    {company: "Apple Inc.", ticker: "AAPL", price: "108.03", low52: "89.47", high52: "123.82", pe: "12.62", yield: "0.57"},
+                    {company: "Amazon.com, Inc.", ticker: "AMZN", price: "757.25", low52: "466.25", high52: "773.75", pe: "188.83", yield: "-"},
+                    {company: "Tesla Motors Inc", ticker: "TSLA", price: "222.62", low52: "141.05", high52: "271.57", pe: "-", yield: "-"},
+                    {company: "Microsoft Corporation", ticker: "MSFT", price: "57.95", low52: "40.39", high52: "58.50", pe: "27.57", yield: "0.36"},
+                    ]; 
+
+            var table = document.getElementById('table');
+            var hTable = new Handsontable(table, {
+                data: data,              
+                rowHeaders: true, 
+                colHeaders: ['Company', 'Ticker', 'Price', '52 Low', '52 High', 'P/E', 'Dividend Yield'], 
+                colWidths: 120, 
+                rowHeights: 23, 
+                autoRowSize: false, 
+                autoColSize: true,  
+            });
+        &lt;/script&gt;
+</code></pre>
+
+<p>First, we create a structure called data and fill it with our stock data that we would like to display in our table.</p>
+
+<p>Then, we get the placeholder div and call  the init function of the Handsontable library. In the init function, we pass the placeholder div and some other parameters like our data and the names of our columns.</p>
+
+<p>This is really it. Could not be simpler, right?</p>
+
+<h3>Some extras</h3>
+
+<p>I would like to add the capability to be able to sort by column names. This is very easy, just pass two more parameters in the init function</p>
+
+<pre><code class="javascript Enabling column ordering ">        columnSorting: true,
+        sortIndicator: true,
+</code></pre>
+
+<p>Then I just would like to be able to resize the columns of my table. Again, very easy:</p>
+
+<pre><code class="javascript Resizing columns">    manualRowResize: true,
+    manualColumnResize: true
+</code></pre>
+
+<h3>Summary</h3>
+
+<p>Handsontable seems like a very powerful library to build spreadsheet functionalities to your web application. It comes in two favours. The <a href="https://docs.handsontable.com/pro/1.5.1/tutorial-introduction.html">Pro</a> version will cost you money, but has really nice features, such as column filtering. The simple version is open-source and as far as I understand you can use it however you see fit.</p>
+
+<h3>Links</h3>
+
+<p>This article will also server as a note for my future self, so here are the relevant links for this library:</p>
+
+<ul>
+<li><a href="https://docs.handsontable.com/pro/1.5.1/tutorial-introduction.html">Handsontable Documentation</a></li>
+<li><a href="https://github.com/handsontable/handsontable">Handsontable on Github</a>.</li>
+</ul>
+
+
+<h3>Full index.html</h3>
+
+<pre><code class="html full index.html ">&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"/&gt;
+        &lt;meta name="apple-mobile-web-app-capable" content="yes" /&gt;
+        &lt;meta name="apple-touch-fullscreen" content="yes" /&gt;
+        &lt;title&gt;Handsontable Minimum Sample&lt;/title&gt;
+        &lt;link rel="stylesheet" type="text/css" href="assets/css/handsontable.full.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id="table"&gt;&lt;/div&gt;
+        &lt;script type="text/javascript" src="assets/handsontable.full.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript"&gt;
+        var data = [
+                    {company: "Apple Inc.", ticker: "AAPL", price: "108.03", low52: "89.47", high52: "123.82", pe: "12.62", yield: "0.57"},
+                    {company: "Amazon.com, Inc.", ticker: "AMZN", price: "757.25", low52: "466.25", high52: "773.75", pe: "188.83", yield: "-"},
+                    {company: "Tesla Motors Inc", ticker: "TSLA", price: "222.62", low52: "141.05", high52: "271.57", pe: "-", yield: "-"},
+                    {company: "Microsoft Corporation", ticker: "MSFT", price: "57.95", low52: "40.39", high52: "58.50", pe: "27.57", yield: "0.36"},
+                    ]; 
+
+        var cols = [{ data: 'company', type: 'text', width: 140}, 
+                    { data: 'ticker', type: 'text'}, 
+                    { data: 'price', type: 'numeric'}, 
+                    { data: 'low52', type: 'numeric'},
+                    { data: 'high52', type: 'numeric'},
+                    { data: 'pe', type: 'numeric'},
+                    { data: 'yield', type: 'numeric', format: '0.00'}];               
+
+            var table = document.getElementById('table');
+            var hTable = new Handsontable(table, {
+                data: data,
+                columns: cols, 
+                rowHeaders: true, 
+                colHeaders: ['Company', 'Ticker', 'Price', '52 Low', '52 High', 'P/E', 'Dividend Yield'], 
+                colWidths: 120, 
+                rowHeights: 23, 
+                columnSorting: true,
+                sortIndicator: true,
+                autoRowSize: false, 
+                autoColSize: true,  
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;    
+&lt;/html&gt;
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How to Generate Typescript Classes From C# Like a Pro]]></title>

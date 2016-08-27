@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Code | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-08-06T21:48:00+02:00</updated>
+  <updated>2016-08-27T21:55:47+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -12,6 +12,170 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started With Handsontable]]></title>
+    <link href="http://www.littlebigtomatoes.com/2016/08/getting-started-with-handsontable/"/>
+    <updated>2016-08-26T13:01:03+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2016/08/getting-started-with-handsontable</id>
+    <content type="html"><![CDATA[<p>I am looking for a way to be able to display and manipulate tabular data on a webpage. For this, I decided to evaluate a few javascript based libraries and see how they can be used.</p>
+
+<p>The first such library is called <a href="https://handsontable.com/">handsontable</a>. Handsontable is a Javascript/HTML5 Spreadsheet library for developers. It seems that Handsontable is more for building Excel like user interfaces than just simple data grid control.</p>
+
+<p>So let’s look how easy to build a minimal example using with <a href="https://handsontable.com/">handsontable</a>…</p>
+
+<p><img src="/images/handsontable_minimal.png" title="‘Handsontable Demo’ ‘Handsontable demo page'" ></p>
+
+<p>&lt;!— more !—></p>
+
+<p>The main web-page describes this library as:</p>
+
+<p><blockquote><p>Handsontable is a composite spreadsheet component for apps and websites. It is written in JavaScript and not constrained by any external framework. Handsontable can be easily modified or extended with custom plugins. It also binds to any source using the JSON format and is capable of handling a large amount of data. You can easily do all CRUD operations and provide end-users with an Excel-like experience.</p></blockquote></p>
+
+<h3>Creating the minimal Handsontable page</h3>
+
+<p>First of all, click to <a href="/downloads/handsontable_sample.zip">download the source code</a> for the minimal handsontable sample.</p>
+
+<p>The first file to be created is the index.html</p>
+
+<pre><code class="html handsontable index.html">    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"/&gt;
+        &lt;meta name="apple-mobile-web-app-capable" content="yes" /&gt;
+        &lt;meta name="apple-touch-fullscreen" content="yes" /&gt;
+        &lt;title&gt;Handsontable Minimum Sample&lt;/title&gt;
+        &lt;link rel="stylesheet" type="text/css" href="assets/css/handsontable.full.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id="table"&gt;&lt;/div&gt;
+        &lt;script type="text/javascript" src="assets/handsontable.full.js"&gt;&lt;/script&gt;
+                &lt;!-- Placeholder to Initialize Handsontable --&gt;
+    &lt;/body&gt;    
+&lt;/html&gt; 
+</code></pre>
+
+<p>Nothing too complicated here. There is a only standard html page. The table will be rendered in the first called table <strong>div</strong> after the body.</p>
+
+<pre><code class="html handsontable div">     &lt;div id="table"&gt;&lt;/div&gt;
+</code></pre>
+
+<p>In the header part, the css for handsontable is referenced and in the bottom part of the body we referenced the script file needed for our table. I choose to include these files in the assets folder in the zip file, but it is possible to reference these files directly from handsontable.com as well by replacing the links like this:</p>
+
+<p>For CSS use:</p>
+
+<pre><code class="html handsontable css reference ">    &lt;link rel="stylesheet" type="text/css" href="http://docs.handsontable.com/pro/bower_components/handsontable-pro/dist/handsontable.full.min.css"&gt;
+</code></pre>
+
+<p>For the script:</p>
+
+<pre><code class="html handsontable javascript reference ">    &lt;script src="http://docs.handsontable.com/pro/bower_components/handsontable-pro/dist/handsontable.full.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>The important part comes after in a separate script tag. We are going to get the data for the table and initialise how the table should look like.</p>
+
+<pre><code class="javascript initializing our table ">   &lt;script type="text/javascript"&gt;
+        var data = [
+                    {company: "Apple Inc.", ticker: "AAPL", price: "108.03", low52: "89.47", high52: "123.82", pe: "12.62", yield: "0.57"},
+                    {company: "Amazon.com, Inc.", ticker: "AMZN", price: "757.25", low52: "466.25", high52: "773.75", pe: "188.83", yield: "-"},
+                    {company: "Tesla Motors Inc", ticker: "TSLA", price: "222.62", low52: "141.05", high52: "271.57", pe: "-", yield: "-"},
+                    {company: "Microsoft Corporation", ticker: "MSFT", price: "57.95", low52: "40.39", high52: "58.50", pe: "27.57", yield: "0.36"},
+                    ]; 
+
+            var table = document.getElementById('table');
+            var hTable = new Handsontable(table, {
+                data: data,              
+                rowHeaders: true, 
+                colHeaders: ['Company', 'Ticker', 'Price', '52 Low', '52 High', 'P/E', 'Dividend Yield'], 
+                colWidths: 120, 
+                rowHeights: 23, 
+                autoRowSize: false, 
+                autoColSize: true,  
+            });
+        &lt;/script&gt;
+</code></pre>
+
+<p>First, we create a structure called data and fill it with our stock data that we would like to display in our table.</p>
+
+<p>Then, we get the placeholder div and call  the init function of the Handsontable library. In the init function, we pass the placeholder div and some other parameters like our data and the names of our columns.</p>
+
+<p>This is really it. Could not be simpler, right?</p>
+
+<h3>Some extras</h3>
+
+<p>I would like to add the capability to be able to sort by column names. This is very easy, just pass two more parameters in the init function</p>
+
+<pre><code class="javascript Enabling column ordering ">        columnSorting: true,
+        sortIndicator: true,
+</code></pre>
+
+<p>Then I just would like to be able to resize the columns of my table. Again, very easy:</p>
+
+<pre><code class="javascript Resizing columns">    manualRowResize: true,
+    manualColumnResize: true
+</code></pre>
+
+<h3>Summary</h3>
+
+<p>Handsontable seems like a very powerful library to build spreadsheet functionalities to your web application. It comes in two favours. The <a href="https://docs.handsontable.com/pro/1.5.1/tutorial-introduction.html">Pro</a> version will cost you money, but has really nice features, such as column filtering. The simple version is open-source and as far as I understand you can use it however you see fit.</p>
+
+<h3>Links</h3>
+
+<p>This article will also server as a note for my future self, so here are the relevant links for this library:</p>
+
+<ul>
+<li><a href="https://docs.handsontable.com/pro/1.5.1/tutorial-introduction.html">Handsontable Documentation</a></li>
+<li><a href="https://github.com/handsontable/handsontable">Handsontable on Github</a>.</li>
+</ul>
+
+
+<h3>Full index.html</h3>
+
+<pre><code class="html full index.html ">&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"/&gt;
+        &lt;meta name="apple-mobile-web-app-capable" content="yes" /&gt;
+        &lt;meta name="apple-touch-fullscreen" content="yes" /&gt;
+        &lt;title&gt;Handsontable Minimum Sample&lt;/title&gt;
+        &lt;link rel="stylesheet" type="text/css" href="assets/css/handsontable.full.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id="table"&gt;&lt;/div&gt;
+        &lt;script type="text/javascript" src="assets/handsontable.full.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript"&gt;
+        var data = [
+                    {company: "Apple Inc.", ticker: "AAPL", price: "108.03", low52: "89.47", high52: "123.82", pe: "12.62", yield: "0.57"},
+                    {company: "Amazon.com, Inc.", ticker: "AMZN", price: "757.25", low52: "466.25", high52: "773.75", pe: "188.83", yield: "-"},
+                    {company: "Tesla Motors Inc", ticker: "TSLA", price: "222.62", low52: "141.05", high52: "271.57", pe: "-", yield: "-"},
+                    {company: "Microsoft Corporation", ticker: "MSFT", price: "57.95", low52: "40.39", high52: "58.50", pe: "27.57", yield: "0.36"},
+                    ]; 
+
+        var cols = [{ data: 'company', type: 'text', width: 140}, 
+                    { data: 'ticker', type: 'text'}, 
+                    { data: 'price', type: 'numeric'}, 
+                    { data: 'low52', type: 'numeric'},
+                    { data: 'high52', type: 'numeric'},
+                    { data: 'pe', type: 'numeric'},
+                    { data: 'yield', type: 'numeric', format: '0.00'}];               
+
+            var table = document.getElementById('table');
+            var hTable = new Handsontable(table, {
+                data: data,
+                columns: cols, 
+                rowHeaders: true, 
+                colHeaders: ['Company', 'Ticker', 'Price', '52 Low', '52 High', 'P/E', 'Dividend Yield'], 
+                colWidths: 120, 
+                rowHeights: 23, 
+                columnSorting: true,
+                sortIndicator: true,
+                autoRowSize: false, 
+                autoColSize: true,  
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;    
+&lt;/html&gt;
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How to Generate Typescript Classes From C# Like a Pro]]></title>
@@ -389,189 +553,6 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
 <p>Xamarin version 2.0 brings the possibility to develop for iOS from Visual Studio.NET for the first time. This is a very welcome change, but it has its own weakness. One is that for creating the UI you will need a Mac computer or you will need to code your whole UI in code. This can be addressed by creating a tool that allows us developers to do UI creation on Windows. Hopefully this will come in the next version. The other area that for testing and debugging you will not be able to live without a mac computer. Once again having a cheap mac computer on the network solves this problem. I have no experience how convenient the debugging, but I will try this soon.</p>
 
 <p>Overall, I am very happy with the new version and the fact that they allow free use with limitation makes me very happy and probably I will invest my time to learn the technology. Well done, Xamarin!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Getting Started With gridster.js]]></title>
-    <link href="http://www.littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js/"/>
-    <updated>2013-03-08T17:24:00+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2013/03/getting-started-with-gridster-dot-js</id>
-    <content type="html"><![CDATA[<p>I am looking into to learn more about web client side programming, but whenever I find an interesting project I am overwhelmed with the unknown names of different libraries and technologies mentioned, while reading the project&rsquo;s page. Consider <a href="http://shopify.github.com/dashing/">Dashing</a> for example. They mention Sinatra, <a href="https://github.com/Shopify/dashing/wiki/How-to%3A-Deploy-to-Heroku">Heroku</a>, jQuery.. These are the ones that I have at least a slight idea what they are good for. But the list continues: <a href="https://github.com/sstephenson/sprockets">Sprockets</a>, <a href="http://gridster.net/">Gridster.js</a>, <a href="http://www.html5rocks.com/en/tutorials/eventsource/basics/">Server Sent Events</a> and <a href="http://batmanjs.org/docs/batman.html#batman-view-bindings-keypath-filters">batman bindings</a>.</p>
-
-<p>This is nuts, I do not understand any of these. So I decided to divide and conquer the problem and try to focus on one unknown technology at a time. The aim is not to master the library, but to construct a minimum viable sample that helps to understand what it is good for.</p>
-
-<p>Let&rsquo;s start with <a href="http://gridster.net/">Gridster.js</a>.</p>
-
-<p><img src="/images/gridster_demo.png" title="&lsquo;Gridster demo page&rsquo; &lsquo;Gridster demo page&rsquo;" ></p>
-
-<p>The project page describes this library as:</p>
-
-<!--more-->
-
-
-<p></p>
-
-<p><blockquote><p>Gridster is a jQuery plugin that allows building intuitive draggable layouts from elements spanning multiple columns. You can even dynamically add and remove elements from the grid. It is on par with sliced bread, or possibly better. MIT licensed. Suitable for children of all ages. Made by Ducksboard.</p></blockquote></p>
-
-<h3>Making the minimum gridster page</h3>
-
-<p>It seems that the library is good for creating grid layouts, where it is possible to re-arrange, add or remove dynamically the elements of the grid. Fair enough&hellip;</p>
-
-<p>So I created an empty index.html and copied all css and javascript files to the assets folder. I added the following in the index.html:</p>
-
-<pre><code class="html main grid">        &lt;section class="demo"&gt;
-            &lt;div class="gridster"&gt;
-                &lt;ul&gt;
-                    &lt;li data-row="1" data-col="1" data-sizex="1" data-sizey="1"&gt;&lt;h1&gt;HELLO&lt;/h1&gt;&lt;/li&gt;
-                    &lt;li data-row="2" data-col="1" data-sizex="1" data-sizey="1"&gt;&lt;h1&gt;WORLD&lt;/h1&gt;&lt;/li&gt;
-                    &lt;li data-row="3" data-col="1" data-sizex="1" data-sizey="1"&gt;&lt;h1&gt;OR ELSE&lt;h1&gt;&lt;/li&gt;
-                    &lt;li data-row="1" data-col="2" data-sizex="2" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="2" data-col="2" data-sizex="2" data-sizey="2"&gt;&lt;/li&gt;
-                    &lt;li data-row="1" data-col="4" data-sizex="1" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="2" data-col="4" data-sizex="2" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="3" data-col="4" data-sizex="1" data-sizey="1"&gt;&lt;/li&gt;               
-                    &lt;li data-row="1" data-col="5" data-sizex="1" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="3" data-col="5" data-sizex="1" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="1" data-col="6" data-sizex="1" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="2" data-col="6" data-sizex="1" data-sizey="2"&gt;&lt;/li&gt;               
-                &lt;/ul&gt;
-            &lt;/div&gt;
-        &lt;/section&gt; 
-</code></pre>
-
-<p>The key here is the div with class gridster and the unordered list inside. The grid is represented by the unordered list and each of the list items inside the list are representing one grid cell in our grid.</p>
-
-<pre><code class="html examining one cell in the grid">    &lt;li data-row="1" data-col="1" data-sizex="1" data-sizey="1"&gt;&lt;h1&gt;HELLO&lt;/h1&gt;&lt;/li&gt;
-</code></pre>
-
-<p>Looking at a list item in greater detail, you will see that there are attributes describing the cell&rsquo;s position in the table using the data-row and data-col attributes and the size of the cell using the data-sizex, data-sizey attributes.</p>
-
-<p>Next we need to call some javascript in order to initialize our grid. This is done by the following javascript block</p>
-
-<pre><code class="javascript initializing the grid">    &lt;script type="text/javascript"&gt;
-            var gridster;
-
-            $(function() {
-                gridster = $(".gridster &gt; ul").gridster({
-                    widget_margins: [10, 10], 
-                    widget_base_dimensions: [140, 140],
-                    min_cols: 6
-                }).data('gridster');
-            });
-        &lt;/script&gt; 
-</code></pre>
-
-<p>Javascript and jQuery are not in my comfort zone yet, but it seems that the code selects something that has .gridster as a class and have ul underneath and sets the widget margin, base dimensions of the grid and the minimum number of columns to 6.</p>
-
-<p>Below, you will see the full html page and css styles. You can also <a href="/downloads/gridster_sample.zip">download</a> the sample, if you like.</p>
-
-<p><strong>Update 2017-06-23</strong>: Fixing typos in code.</p>
-
-<h3>Full index.html</h3>
-
-<pre><code class="html full index.html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;gridster test&lt;/title&gt;
-        &lt;meta name="author" content="gyurisc"&gt;
-        &lt;link rel="stylesheet" type="text/css" href="assets/css/jquery.gridster.css"&gt;
-        &lt;link rel="stylesheet" type="text/css" href="assets/css/styles.css"&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;section class="demo"&gt;
-            &lt;div class="gridster"&gt;
-                &lt;ul&gt;
-                    &lt;li data-row="1" data-col="1" data-sizex="1" data-sizey="1"&gt;&lt;h1&gt;HELLO&lt;/h1&gt;&lt;/li&gt;
-                    &lt;li data-row="2" data-col="1" data-sizex="1" data-sizey="1"&gt;&lt;h1&gt;WORLD&lt;/h1&gt;&lt;/li&gt;
-                    &lt;li data-row="3" data-col="1" data-sizex="1" data-sizey="1"&gt;&lt;h1&gt;OR ELSE&lt;h1&gt;&lt;/l&gt;
-                    &lt;li data-row="1" data-col="2" data-sizex="2" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="2" data-col="2" data-sizex="2" data-sizey="2"&gt;&lt;/li&gt;
-                    &lt;li data-row="1" data-col="4" data-sizex="1" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="2" data-col="4" data-sizex="2" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="3" data-col="4" data-sizex="1" data-sizey="1"&gt;&lt;/li&gt;           
-                    &lt;li data-row="1" data-col="5" data-sizex="1" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="3" data-col="5" data-sizex="1" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="1" data-col="6" data-sizex="1" data-sizey="1"&gt;&lt;/li&gt;
-                    &lt;li data-row="2" data-col="6" data-sizex="1" data-sizey="2"&gt;&lt;/li&gt;               
-                &lt;/ul&gt;
-            &lt;/div&gt;
-        &lt;/section&gt;
-        &lt;script type="text/javascript" src="assets/jquery.js"&gt;&lt;/script&gt;
-        &lt;script type="text/javascript" src="assets/jquery.gridster.js" charster="utf-8"&gt;&lt;/script&gt;
-        &lt;script type="text/javascript"&gt;
-            var gridster;
-
-            $(function() {
-                gridster = $(".gridster &gt; ul").gridster({
-                    widget_margins: [10, 10], 
-                    widget_base_dimensions: [140, 140],
-                    min_cols: 6
-                }).data('gridster');
-            });
-        &lt;/script&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-<h3>Full styles.css</h3>
-
-<pre><code class="css styles.css">body {
-    background-color: #EEEEEE;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    font-size: x-small;
-    color: #666666;
-}
-
-ul, ol {
-    list-style: none;
-}
-
-h1 {
-  margin-bottom: 12px;
-  text-align: center;
-  font-size: 30px;
-  font-weight: 400; 
-}
-
-h3 {
-  font-size: 25px;
-  font-weight: 600;
-  color: white; 
-}
-
-/* Gridster styles */
-.demo {
-    margin: 3em 0;
-    padding: 7.5em 0 5.5em;
-    background: #004756;
-}
-
-.demo:hover .gridster {
-    opacity: 1;
-}
-
-.gridster {
-    width: 940px;
-    margin: 0 auto;
-
-    opacity: .8;
-
-    -webkit-transition: opacity .6s;
-    -moz-transition: opacity .6s;
-    -o-transition: opacity .6s;
-    -ms-transition: opacity .6s;
-    transition: opacity .6s;
-}
-
-.gridster .gs_w {
-    background: #FFF;
-    cursor: pointer;
-    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-}
-</code></pre>
 ]]></content>
   </entry>
   

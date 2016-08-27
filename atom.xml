@@ -4,7 +4,7 @@
   <title><![CDATA[littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-08-06T21:48:00+02:00</updated>
+  <updated>2016-08-27T21:55:47+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -12,6 +12,264 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started With Handsontable]]></title>
+    <link href="http://www.littlebigtomatoes.com/2016/08/getting-started-with-handsontable/"/>
+    <updated>2016-08-26T13:01:03+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2016/08/getting-started-with-handsontable</id>
+    <content type="html"><![CDATA[<p>I am looking for a way to be able to display and manipulate tabular data on a webpage. For this, I decided to evaluate a few javascript based libraries and see how they can be used.</p>
+
+<p>The first such library is called <a href="https://handsontable.com/">handsontable</a>. Handsontable is a Javascript/HTML5 Spreadsheet library for developers. It seems that Handsontable is more for building Excel like user interfaces than just simple data grid control.</p>
+
+<p>So let’s look how easy to build a minimal example using with <a href="https://handsontable.com/">handsontable</a>…</p>
+
+<p><img src="http://www.littlebigtomatoes.com/images/handsontable_minimal.png" title="‘Handsontable Demo’ ‘Handsontable demo page'" ></p>
+
+<p>&lt;!— more !—></p>
+
+<p>The main web-page describes this library as:</p>
+
+<blockquote><p>Handsontable is a composite spreadsheet component for apps and websites. It is written in JavaScript and not constrained by any external framework. Handsontable can be easily modified or extended with custom plugins. It also binds to any source using the JSON format and is capable of handling a large amount of data. You can easily do all CRUD operations and provide end-users with an Excel-like experience.</p></blockquote>
+
+
+<h3>Creating the minimal Handsontable page</h3>
+
+<p>First of all, click to <a href="http://www.littlebigtomatoes.com/downloads/handsontable_sample.zip">download the source code</a> for the minimal handsontable sample.</p>
+
+<p>The first file to be created is the index.html</p>
+
+<figure class='code'><figcaption><span>handsontable index.html</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-touch-fullscreen&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;title&gt;</span>Handsontable Minimum Sample<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;assets/css/handsontable.full.css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;table&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;assets/handsontable.full.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>          <span class="c">&lt;!-- Placeholder to Initialize Handsontable --&gt;</span>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Nothing too complicated here. There is a only standard html page. The table will be rendered in the first called table <strong>div</strong> after the body.</p>
+
+<figure class='code'><figcaption><span>handsontable div</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;table&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the header part, the css for handsontable is referenced and in the bottom part of the body we referenced the script file needed for our table. I choose to include these files in the assets folder in the zip file, but it is possible to reference these files directly from handsontable.com as well by replacing the links like this:</p>
+
+<p>For CSS use:</p>
+
+<figure class='code'><figcaption><span>handsontable css reference </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;http://docs.handsontable.com/pro/bower_components/handsontable-pro/dist/handsontable.full.min.css&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For the script:</p>
+
+<figure class='code'><figcaption><span>handsontable javascript reference </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://docs.handsontable.com/pro/bower_components/handsontable-pro/dist/handsontable.full.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The important part comes after in a separate script tag. We are going to get the data for the table and initialise how the table should look like.</p>
+
+<figure class='code'><figcaption><span>initializing our table </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>                    <span class="p">{</span><span class="nx">company</span><span class="o">:</span> <span class="s2">&quot;Apple Inc.&quot;</span><span class="p">,</span> <span class="nx">ticker</span><span class="o">:</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="s2">&quot;108.03&quot;</span><span class="p">,</span> <span class="nx">low52</span><span class="o">:</span> <span class="s2">&quot;89.47&quot;</span><span class="p">,</span> <span class="nx">high52</span><span class="o">:</span> <span class="s2">&quot;123.82&quot;</span><span class="p">,</span> <span class="nx">pe</span><span class="o">:</span> <span class="s2">&quot;12.62&quot;</span><span class="p">,</span> <span class="k">yield</span><span class="o">:</span> <span class="s2">&quot;0.57&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span><span class="nx">company</span><span class="o">:</span> <span class="s2">&quot;Amazon.com, Inc.&quot;</span><span class="p">,</span> <span class="nx">ticker</span><span class="o">:</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="s2">&quot;757.25&quot;</span><span class="p">,</span> <span class="nx">low52</span><span class="o">:</span> <span class="s2">&quot;466.25&quot;</span><span class="p">,</span> <span class="nx">high52</span><span class="o">:</span> <span class="s2">&quot;773.75&quot;</span><span class="p">,</span> <span class="nx">pe</span><span class="o">:</span> <span class="s2">&quot;188.83&quot;</span><span class="p">,</span> <span class="k">yield</span><span class="o">:</span> <span class="s2">&quot;-&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span><span class="nx">company</span><span class="o">:</span> <span class="s2">&quot;Tesla Motors Inc&quot;</span><span class="p">,</span> <span class="nx">ticker</span><span class="o">:</span> <span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="s2">&quot;222.62&quot;</span><span class="p">,</span> <span class="nx">low52</span><span class="o">:</span> <span class="s2">&quot;141.05&quot;</span><span class="p">,</span> <span class="nx">high52</span><span class="o">:</span> <span class="s2">&quot;271.57&quot;</span><span class="p">,</span> <span class="nx">pe</span><span class="o">:</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="k">yield</span><span class="o">:</span> <span class="s2">&quot;-&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span><span class="nx">company</span><span class="o">:</span> <span class="s2">&quot;Microsoft Corporation&quot;</span><span class="p">,</span> <span class="nx">ticker</span><span class="o">:</span> <span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="s2">&quot;57.95&quot;</span><span class="p">,</span> <span class="nx">low52</span><span class="o">:</span> <span class="s2">&quot;40.39&quot;</span><span class="p">,</span> <span class="nx">high52</span><span class="o">:</span> <span class="s2">&quot;58.50&quot;</span><span class="p">,</span> <span class="nx">pe</span><span class="o">:</span> <span class="s2">&quot;27.57&quot;</span><span class="p">,</span> <span class="k">yield</span><span class="o">:</span> <span class="s2">&quot;0.36&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">table</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">hTable</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Handsontable</span><span class="p">(</span><span class="nx">table</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">data</span><span class="o">:</span> <span class="nx">data</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">rowHeaders</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">colHeaders</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Company&#39;</span><span class="p">,</span> <span class="s1">&#39;Ticker&#39;</span><span class="p">,</span> <span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="s1">&#39;52 Low&#39;</span><span class="p">,</span> <span class="s1">&#39;52 High&#39;</span><span class="p">,</span> <span class="s1">&#39;P/E&#39;</span><span class="p">,</span> <span class="s1">&#39;Dividend Yield&#39;</span><span class="p">],</span>
+</span><span class='line'>                <span class="nx">colWidths</span><span class="o">:</span> <span class="mi">120</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">rowHeights</span><span class="o">:</span> <span class="mi">23</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">autoRowSize</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">autoColSize</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">});</span>
+</span><span class='line'>        <span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>First, we create a structure called data and fill it with our stock data that we would like to display in our table.</p>
+
+<p>Then, we get the placeholder div and call  the init function of the Handsontable library. In the init function, we pass the placeholder div and some other parameters like our data and the names of our columns.</p>
+
+<p>This is really it. Could not be simpler, right?</p>
+
+<h3>Some extras</h3>
+
+<p>I would like to add the capability to be able to sort by column names. This is very easy, just pass two more parameters in the init function</p>
+
+<figure class='code'><figcaption><span>Enabling column ordering </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="nx">columnSorting</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">sortIndicator</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then I just would like to be able to resize the columns of my table. Again, very easy:</p>
+
+<figure class='code'><figcaption><span>Resizing columns</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>       <span class="nx">manualRowResize</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">manualColumnResize</span><span class="o">:</span> <span class="kc">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Summary</h3>
+
+<p>Handsontable seems like a very powerful library to build spreadsheet functionalities to your web application. It comes in two favours. The <a href="https://docs.handsontable.com/pro/1.5.1/tutorial-introduction.html">Pro</a> version will cost you money, but has really nice features, such as column filtering. The simple version is open-source and as far as I understand you can use it however you see fit.</p>
+
+<h3>Links</h3>
+
+<p>This article will also server as a note for my future self, so here are the relevant links for this library:</p>
+
+<ul>
+<li><a href="https://docs.handsontable.com/pro/1.5.1/tutorial-introduction.html">Handsontable Documentation</a></li>
+<li><a href="https://github.com/handsontable/handsontable">Handsontable on Github</a>.</li>
+</ul>
+
+
+<h3>Full index.html</h3>
+
+<figure class='code'><figcaption><span>full index.html </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-touch-fullscreen&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;title&gt;</span>Handsontable Minimum Sample<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;assets/css/handsontable.full.css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;table&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;assets/handsontable.full.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>                    <span class="p">{</span><span class="nx">company</span><span class="o">:</span> <span class="s2">&quot;Apple Inc.&quot;</span><span class="p">,</span> <span class="nx">ticker</span><span class="o">:</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="s2">&quot;108.03&quot;</span><span class="p">,</span> <span class="nx">low52</span><span class="o">:</span> <span class="s2">&quot;89.47&quot;</span><span class="p">,</span> <span class="nx">high52</span><span class="o">:</span> <span class="s2">&quot;123.82&quot;</span><span class="p">,</span> <span class="nx">pe</span><span class="o">:</span> <span class="s2">&quot;12.62&quot;</span><span class="p">,</span> <span class="k">yield</span><span class="o">:</span> <span class="s2">&quot;0.57&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span><span class="nx">company</span><span class="o">:</span> <span class="s2">&quot;Amazon.com, Inc.&quot;</span><span class="p">,</span> <span class="nx">ticker</span><span class="o">:</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="s2">&quot;757.25&quot;</span><span class="p">,</span> <span class="nx">low52</span><span class="o">:</span> <span class="s2">&quot;466.25&quot;</span><span class="p">,</span> <span class="nx">high52</span><span class="o">:</span> <span class="s2">&quot;773.75&quot;</span><span class="p">,</span> <span class="nx">pe</span><span class="o">:</span> <span class="s2">&quot;188.83&quot;</span><span class="p">,</span> <span class="k">yield</span><span class="o">:</span> <span class="s2">&quot;-&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span><span class="nx">company</span><span class="o">:</span> <span class="s2">&quot;Tesla Motors Inc&quot;</span><span class="p">,</span> <span class="nx">ticker</span><span class="o">:</span> <span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="s2">&quot;222.62&quot;</span><span class="p">,</span> <span class="nx">low52</span><span class="o">:</span> <span class="s2">&quot;141.05&quot;</span><span class="p">,</span> <span class="nx">high52</span><span class="o">:</span> <span class="s2">&quot;271.57&quot;</span><span class="p">,</span> <span class="nx">pe</span><span class="o">:</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="k">yield</span><span class="o">:</span> <span class="s2">&quot;-&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span><span class="nx">company</span><span class="o">:</span> <span class="s2">&quot;Microsoft Corporation&quot;</span><span class="p">,</span> <span class="nx">ticker</span><span class="o">:</span> <span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="s2">&quot;57.95&quot;</span><span class="p">,</span> <span class="nx">low52</span><span class="o">:</span> <span class="s2">&quot;40.39&quot;</span><span class="p">,</span> <span class="nx">high52</span><span class="o">:</span> <span class="s2">&quot;58.50&quot;</span><span class="p">,</span> <span class="nx">pe</span><span class="o">:</span> <span class="s2">&quot;27.57&quot;</span><span class="p">,</span> <span class="k">yield</span><span class="o">:</span> <span class="s2">&quot;0.36&quot;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">cols</span> <span class="o">=</span> <span class="p">[{</span> <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">140</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;ticker&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;numeric&#39;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;low52&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;numeric&#39;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;high52&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;numeric&#39;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;pe&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;numeric&#39;</span><span class="p">},</span>
+</span><span class='line'>                    <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;yield&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;numeric&#39;</span><span class="p">,</span> <span class="nx">format</span><span class="o">:</span> <span class="s1">&#39;0.00&#39;</span><span class="p">}];</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">table</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">hTable</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Handsontable</span><span class="p">(</span><span class="nx">table</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">data</span><span class="o">:</span> <span class="nx">data</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">columns</span><span class="o">:</span> <span class="nx">cols</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">rowHeaders</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">colHeaders</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Company&#39;</span><span class="p">,</span> <span class="s1">&#39;Ticker&#39;</span><span class="p">,</span> <span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="s1">&#39;52 Low&#39;</span><span class="p">,</span> <span class="s1">&#39;52 High&#39;</span><span class="p">,</span> <span class="s1">&#39;P/E&#39;</span><span class="p">,</span> <span class="s1">&#39;Dividend Yield&#39;</span><span class="p">],</span>
+</span><span class='line'>                <span class="nx">colWidths</span><span class="o">:</span> <span class="mi">120</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">rowHeights</span><span class="o">:</span> <span class="mi">23</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">columnSorting</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">sortIndicator</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">autoRowSize</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span><span class='line'>                <span class="nx">autoColSize</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">});</span>
+</span><span class='line'>        <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Scraping Stackoverflow Careers for Fun and Profit - Part 2]]></title>
@@ -2221,20 +2479,6 @@ The idea here is to able to create a two-way binding that would be able to repre
 <p>I am a programmer by design and I bet my professional career and thus my family well-being on the Windows platform roughly 10 years ago. At the time, it looked like a very safe and conservative bet. But times are changing indeed! In a year or two there will be two large competing cumpiting platform that at least as strong as Windows and they will be much larger combined.</p>
 
 <p>I think it is time to branch off and start learning new stuff. I guess I just found my theme for 2013!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Is Android Catching Up to iOS?]]></title>
-    <link href="http://www.littlebigtomatoes.com/2013/01/is-android-catching-up-to-ios/"/>
-    <updated>2013-01-18T08:32:00+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2013/01/is-android-catching-up-to-ios</id>
-    <content type="html"><![CDATA[<blockquote><p>And believe me or not, but after having configured my Nexus 4 just the way I always wanted – providing me with the fastest access to my most frequently used apps along with the most important information on a single screen – whenever I grab my iPhone for testing purposes, iOS feels pretty old, outdated and less user friendly. For me, there currently is no way of going back. Once you get used to all of these capabilities, it’s hard to live without them.</p><footer><strong>Ralf Rottmann -</strong> <cite><a href='http://www.24100.net/2013/01/an-iphone-lovers-confession-i-switched-to-the-nexus-4-completely/'>An iPhone Lover&#8217;s Confession: I Switched to the Nexus 4. Completely.</a></cite></footer></blockquote>
-
-
-<p>I left the Android platform as a user about a year ago and I left with bad memories. This is an excellent write up about the current state of Android and made me want to go back and experience it once more. It also seems that the correct way to experience android via the reference devices made by Google.</p>
-
-<p>And <a href="http://mycolorscreen.com/popular/">those screens</a> are just gorgeous!</p>
 ]]></content>
   </entry>
   
