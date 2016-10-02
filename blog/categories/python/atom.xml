@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-08-27T22:11:15+02:00</updated>
+  <updated>2016-10-02T21:25:42+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -12,6 +12,187 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Playing With Pandas]]></title>
+    <link href="http://www.littlebigtomatoes.com/2016/09/playing-with-pandas/"/>
+    <updated>2016-09-26T11:58:11+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2016/09/playing-with-pandas</id>
+    <content type="html"><![CDATA[<p>This is the third part of the articles I am writing about my little project I am working on. In part1, I created a web scraper to get the data I needed. In part 2, I added support to save the collected data to a mongodb database. Now in this part, I will look into how to clean up and add new features (columns) to the collected data to make it more suitable for analysis.</p>
+
+<p>My primary motivation here is to learn new technologies as I progress, so my baby steps may not be the state of art in this particular area and all tips and tricks or corrections are welcome.</p>
+
+<p>For this project I am using python and each day I love it more and more. There are some cool libraries for python such as pandas that will be used. There are some col tools such as python notebooks that will be also used.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>For starts, make sure that you have jupiter notebook installed on your machine and then start <a href="http://jupyter.org/">Jupyter Notebooks</a> from the git repo folder.</p>
+
+<pre><code class="bash installing and starting jupiter notebook ">pip install jupiter
+cd /path/to/stackjobs
+jupiter notebooks
+</code></pre>
+
+<p>With this command, we started the iPython (Jupyter) notebooks and a new browser will be opened. Click on the <a href="https://github.com/gyurisc/stackjobs/blob/master/Enhancing%20and%20Extending%20data%20with%20Pandas%20.ipynb">Enhancing and Extending data with Pandas</a> notebook to see and run the code that this article with describe. Also the <a href="https://github.com/gyurisc/stackjobs/blob/master/enhance_data_with_pandas.py">enhance_data_with_pandas.py</a> file contains the same code, so it can be run without iptyhon notebook.</p>
+
+<h2>Exploring data with pandas</h2>
+
+<p>First of all we need to import some libraries and make some changes to how the data is printed out.</p>
+
+<p>The changes in the display options e.g display.max_columns and display.max_rows are need in order for me to see the whole data when printed in the notebook and not just a few lines. Feel free to comment it out…</p>
+
+<pre><code class="python importing libraries and setting options and then reading the data">import pandas as pd 
+import numpy as np
+
+# Let's change how printing the series works. I need to see all elements in the Series 
+# source: http://stackoverflow.com/questions/19124601/is-there-a-way-to-pretty-print-the-entire-pandas-series-dataframe
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
+
+jobs = pd.read_csv('data/stackoverflow_jobs.csv')
+</code></pre>
+
+<p>Next, there are three calls to see what kind of data we loaded into our <em>jobs</em> data frame. We print out the columns, the types of the columns and some generic numerical data describing the dataset loaded. In the last one, the most important is the count that is telling us how many rows of data we loaded.</p>
+
+<pre><code class="python ">jobs.columns # just show the columns 
+jobs.dtypes
+jobs.describe() # show me the row count
+</code></pre>
+
+<p>We can also print out the first and last few lines of the data, to have a look what we have using the <em>tail()</em> and <em>head()</em> method calls.</p>
+
+<pre><code class="python display the head and tail of the data">jobs.head()
+jobs.tail()
+</code></pre>
+
+<h2>Working with Salary</h2>
+
+<p>In our jobs data, we have the <em>salary</em> column that may or may not contains the salary is offered by the company for a particular position. When we have missing values in that column that can cause issues for further processing, so let’s replace the NA values with empty strings.</p>
+
+<pre><code class="python Replacing NA values with empty strings in the salary column">jobs.salary = jobs.salary.fillna('')
+</code></pre>
+
+<p>Next, we will extract the information, if the given position offers equity or not and store it in a new column called <em>equity</em>.</p>
+
+<pre><code class="python Extracting equity">jobs['equity'] = jobs['salary'].str.contains('Provides Equity')
+</code></pre>
+
+<p>Next, we will move the salary data to a new series object and remove the <em>Provides Equity</em> in order to make it easier to extract the other values. The reason for this is that I would like to leave the other columns as they were originally and do the needed modifications in the new columns or in some temp variables.</p>
+
+<pre><code class="python ">salary = jobs.salary.map(lambda x: x.replace("Provides Equity","").replace("/","").strip())
+</code></pre>
+
+<p>When we removed the <em>Provides Equity</em> from the salary information our data is either an empty string or contains the currency information and the low high figure of the salary information. For example:</p>
+
+<pre><code>€50,000 - 71,000
+£35,000 - 65,000
+$65,000 - 125,000
+</code></pre>
+
+<p>This information will be extracted using regular expression and captured in different columns. For the rows with empty values, it is recommended to provide a default value. Empty string for the currency and zero for the low-high figure.</p>
+
+<p>Then we map back the new information to the jobs data frame.</p>
+
+<pre><code class="python extracting and capturing currency and low-high figure. "># salary = jobs.salary
+salary = jobs.salary.map(lambda x: x.replace("Provides Equity","").replace("/","").strip())
+
+sal = salary.str.extract('(?P&lt;currency&gt;[^\d]*)(?P&lt;number_low&gt;[\d,]+) - (?P&lt;number_high&gt;[\d,]+$)')
+
+sal.number_low = sal.number_low.fillna(0)
+sal.number_high = sal.number_high.fillna(0)
+sal.currency = sal.currency.fillna('')
+
+# mapping the new columns back to the original data frame 
+jobs['currency'] = sal.currency
+jobs['salary_low'] = sal.number_low
+jobs['salary_high'] = sal.number_high
+</code></pre>
+
+<h2>Fixing up Location</h2>
+
+<p>We will also need better location information, so we can do analysis by countries and cities. For this we need to extract country, state and city out of location column.
+But first let&rsquo;s remove the na values from location column. Then use a lambda to split the comma separated location value into individual fields.
+Finally, rename the columns to city, location_1 and location_2. The reason for this is that the content of location can be different for different countries.</p>
+
+<pre><code>London,UK
+New York,NY
+</code></pre>
+
+<p>In the first expression the second member is a country and in the second expression it is a state, so we need to handle these differently.</p>
+
+<pre><code class="python split the location ">jobs.location = jobs.location.fillna('') # sometimes we have nothing in the location field. 
+
+location_split = lambda x: pd.Series([i for i in x.split(',')])
+locations = jobs['location'].apply(location_split)
+
+locations.rename(columns={0:'city', 1: 'location_1', 2: 'location_2'},inplace=True)
+</code></pre>
+
+<h3>Fixing US locations</h3>
+
+<p>So it seems that US locations are special. They are in the form of city, state, we need this to be in form of city, state, country, so let&rsquo;s fix this first.
+If we have a US state in <em>location1 column then put US in </em>location2.</p>
+
+<pre><code class="python Fixing US States ">us_states = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA", 
+          "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", 
+          "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", 
+          "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", 
+          "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+
+locations['location_1'] = locations['location_1'].str.strip()
+locations.loc[locations['location_1'].isin(us_states),'location_2'] = "US"
+</code></pre>
+
+<h3>Filling the state and country columns</h3>
+
+<p>We are now ready to put back the city, state and country information in our original data frame.
+Here is the logic, If in a row location_2 is null then location_1 contains the country of that location, if location_2 is not empty then location_2 is going to be the country and location_1 will contain the state.</p>
+
+<pre><code class="python creating city, stat and country column"># if location_2 is null then location_1 column has the country 
+# if location_2 is not null then location_2 has the country and location_1 contains the state 
+jobs['country'] = np.where(locations['location_2'].isnull(), locations['location_1'], locations['location_2'])
+jobs['state'] = np.where(locations['location_2'].notnull(), locations['location_1'], '')
+
+jobs['city'] = locations['city']
+
+# filling na for country 
+jobs.country = jobs.country.fillna('')
+
+# stripping spaces from new columns
+jobs['city'] = jobs['city'].str.strip()
+jobs['country'] = jobs['country'].str.strip()
+</code></pre>
+
+<p>Now we can see what countries are posting the most jobs. It seems that the US, Deutschland, Germany and the UK are the top countries. But wait. Aren&rsquo;t Germany and Deutschland are the same country? Let&rsquo;s fix this and some other countries with native names.</p>
+
+<pre><code class="python replacing local country names with their english names"># replacing some of the country names with their english version 
+jobs.loc[jobs['country'].str.contains('Deutschland'),'country'] = 'Germany' # Deutschland -&gt; Germany
+jobs.loc[jobs['country'].str.contains('Österreich'),'country'] = 'Austria' # Österreich -&gt; Austria
+jobs.loc[jobs['country'].str.contains('Suisse'), 'country'] = 'Switzerland' # Suisse -&gt; Switzerland
+jobs.loc[jobs['country'].str.contains('Schweiz'), 'country'] = 'Switzerland' # Schweiz -&gt; Switzerland
+jobs.loc[jobs['country'].str.contains('Espagne'), 'country'] = 'Spain' # Espagne -&gt; Spain
+jobs.loc[jobs['country'].str.contains('République tchèque'), 'country'] = 'Czech Republic' # République tchèque -&gt; Czech Republic
+jobs.loc[jobs['country'].str.contains('Niederlande'), 'country'] = 'Netherlands' # Niederlande -&gt; Netherlands
+
+jobs['country'].value_counts().head()
+</code></pre>
+
+<p>Now, we have a pretty neat table with data that we can do analytics on. In the next part, I will try to ask questions from  data and create some graphs to find out interesting stuff like:</p>
+
+<ul>
+<li>What countries has the most jobs?</li>
+<li>What cities has the most jobs?</li>
+<li>What technologies are the most popular?</li>
+<li>What technologies are paying the most?</li>
+</ul>
+
+
+<p>Coming soon…</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Scraping Stackoverflow Careers for Fun and Profit - Part 2]]></title>

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.littlebigtomatoes.com/2016/09/playing-with-pandas/</loc>
+    <lastmod>2016-09-26T11:58:11+02:00</lastmod>
+  </url>
+  <url>
     <loc>http://www.littlebigtomatoes.com/2016/08/getting-started-with-handsontable/</loc>
     <lastmod>2016-08-26T13:01:03+02:00</lastmod>
   </url>
@@ -296,15 +300,9 @@
     <loc>http://www.littlebigtomatoes.com/blog/categories/mongodb/</loc>
   </url>
   <url>
-    <loc>http://www.littlebigtomatoes.com/page2/</loc>
+    <loc>http://www.littlebigtomatoes.com/blog/categories/pandas/</loc>
   </url>
   <url>
-    <loc>http://www.littlebigtomatoes.com/page3/</loc>
-  </url>
-  <url>
-    <loc>http://www.littlebigtomatoes.com/page4/</loc>
-  </url>
-  <url>
-    <loc>http://www.littlebigtomatoes.com/page5/</loc>
+    <loc>http://www.littlebigtomatoes.com/blog/categories/jupiter-notebooks/</loc>
   </url>
 </urlset>
