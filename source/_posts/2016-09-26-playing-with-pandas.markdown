@@ -26,7 +26,7 @@ cd /path/to/stackjobs
 jupiter notebooks
 ```
 
-With this command, we started the iPython (Jupyter) notebooks and a new browser will be opened. Click on the [Enhancing and Extending data with Pandas](https://github.com/gyurisc/stackjobs/blob/master/Enhancing%20and%20Extending%20data%20with%20Pandas%20.ipynb) notebook to see and run the code that this article with describe. Also the [enhance_data_with_pandas.py](https://github.com/gyurisc/stackjobs/blob/master/enhance_data_with_pandas.py) file contains the same code, so it can be run without iptyhon notebook. 
+With this command, we started the iPython (Jupyter) notebooks and a new browser will be opened. Click on the [Enhancing and Extending data with Pandas](https://github.com/gyurisc/stackjobs/blob/master/notebooks/Enhancing%20and%20Extending%20data%20with%20Pandas%20.ipynb) notebook to see and run the code that this article with describe. Also the [enhance_data_with_pandas.py](https://github.com/gyurisc/stackjobs/blob/master/enhance_data_with_pandas.py) file contains the same code, so it can be run without iptyhon notebook. 
 
 ## Exploring data with pandas
 
