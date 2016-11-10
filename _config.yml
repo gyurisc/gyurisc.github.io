@@ -57,7 +57,7 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.ht
 # and add an array with the asides you want to use.
 # blog_index_asides:
 # post_asides:
-# page_asides:
+# page_asides: [custom/asides/about.html]
 
 # ----------------------- #
 #   3rd Party Settings    #
@@ -83,8 +83,8 @@ google_plus_one_size: medium
 
 # Google Plus Profile
 # Hidden: No visible button, just add author information to search results
-googleplus_user:
-googleplus_hidden: false
+# googleplus_user:
+# googleplus_hidden: false
 
 # Pinboard
 pinboard_user: gyurisc
