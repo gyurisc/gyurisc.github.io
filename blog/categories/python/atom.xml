@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2016-10-02T21:25:42+02:00</updated>
+  <updated>2016-11-10T08:14:08+01:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -36,7 +36,7 @@ cd /path/to/stackjobs
 jupiter notebooks
 </code></pre>
 
-<p>With this command, we started the iPython (Jupyter) notebooks and a new browser will be opened. Click on the <a href="https://github.com/gyurisc/stackjobs/blob/master/Enhancing%20and%20Extending%20data%20with%20Pandas%20.ipynb">Enhancing and Extending data with Pandas</a> notebook to see and run the code that this article with describe. Also the <a href="https://github.com/gyurisc/stackjobs/blob/master/enhance_data_with_pandas.py">enhance_data_with_pandas.py</a> file contains the same code, so it can be run without iptyhon notebook.</p>
+<p>With this command, we started the iPython (Jupyter) notebooks and a new browser will be opened. Click on the <a href="https://github.com/gyurisc/stackjobs/blob/master/notebooks/Enhancing%20and%20Extending%20data%20with%20Pandas%20.ipynb">Enhancing and Extending data with Pandas</a> notebook to see and run the code that this article with describe. Also the <a href="https://github.com/gyurisc/stackjobs/blob/master/enhance_data_with_pandas.py">enhance_data_with_pandas.py</a> file contains the same code, so it can be run without iptyhon notebook.</p>
 
 <h2>Exploring data with pandas</h2>
 
