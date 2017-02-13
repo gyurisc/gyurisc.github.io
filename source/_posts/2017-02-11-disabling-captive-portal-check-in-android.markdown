@@ -5,12 +5,11 @@ date: 2017-02-11 19:44:15 +0100
 comments: true
 categories: 
     - android 
-    - captive  
-    - wifi
+    - networking  
 ---
 I recently had an issue with an Android phone that kept disconnecting from the wifi network after a certain period. 
-The wifi was configured to do a captive portal style authentication check showing me a webpage and asked me to authenticate myself in order to use the network. 
-When not authenticating for a certain period of time the Android phone disconnected from the network causing me wonder what is causing this.
+The wifi was configured to do a captive portal style authentication check, showing me a webpage after connection that asked me to authenticate myself in order to use the network. 
+When not authenticating for a certain period of time the Android phone disconnected from the wireless network causing me to wonder what is happening.
 
 It seems that this is the default behavior of Android and this is how you can disable this behavior: 
 
@@ -26,7 +25,7 @@ It seems that this is the default behavior of Android and this is how you can di
 ``` bash   
 settings put global captive_portal_detection_enabled 0 
 ```   
-   - Type to see if the value is 0 
+   - Type to see if the value of the configuration key is 0 
 ``` bash   
 settings get global captive_portal_detection_enabled
 ```
