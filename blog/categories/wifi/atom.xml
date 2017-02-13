@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Wifi | littlebigtomatoes]]></title>
+  <link href="http://www.littlebigtomatoes.com/blog/categories/wifi/atom.xml" rel="self"/>
+  <link href="http://www.littlebigtomatoes.com/"/>
+  <updated>2017-02-13T07:21:20+01:00</updated>
+  <id>http://www.littlebigtomatoes.com/</id>
+  <author>
+    <name><![CDATA[Krisztian Gyuris]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Disabling Captive Portal Check in Android]]></title>
+    <link href="http://www.littlebigtomatoes.com/2017/02/disabling-captive-portal-check-in-android/"/>
+    <updated>2017-02-11T19:44:15+01:00</updated>
+    <id>http://www.littlebigtomatoes.com/2017/02/disabling-captive-portal-check-in-android</id>
+    <content type="html"><![CDATA[<p>I recently had an issue with an Android phone that kept disconnecting from the wifi network after a certain period.
+The wifi was configured to do a captive portal style authentication check showing me a webpage and asked me to authenticate myself in order to use the network.
+When not authenticating for a certain period of time the Android phone disconnected from the network causing me wonder what is causing this.</p>
+
+<p>It seems that this is the default behavior of Android and this is how you can disable this behavior:</p>
+
+<ul>
+<li> First download and install <strong>adb</strong> on your machine.
+ <a href="https://developer.android.com/studio/releases/platform-tools.html">SDK Platform Tools from Google</a></li>
+<li> Extract the download and navigate the the folder where the adb executable located.</li>
+<li> Connect your Android phone to your machine with the USB cable</li>
+<li> Then launch the adb shell<br/>
+<code>bash   
+adb shell
+</code></li>
+<li> Type the following command to turn off captive portal check
+<code>bash   
+settings put global captive_portal_detection_enabled 0
+</code></li>
+<li> Type to see if the value is 0
+<code>bash   
+settings get global captive_portal_detection_enabled
+</code></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
