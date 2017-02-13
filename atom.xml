@@ -4,7 +4,7 @@
   <title><![CDATA[littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2017-02-13T07:21:20+01:00</updated>
+  <updated>2017-02-13T07:25:45+01:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -19,8 +19,8 @@
     <updated>2017-02-11T19:44:15+01:00</updated>
     <id>http://www.littlebigtomatoes.com/2017/02/disabling-captive-portal-check-in-android</id>
     <content type="html"><![CDATA[<p>I recently had an issue with an Android phone that kept disconnecting from the wifi network after a certain period.
-The wifi was configured to do a captive portal style authentication check showing me a webpage and asked me to authenticate myself in order to use the network.
-When not authenticating for a certain period of time the Android phone disconnected from the network causing me wonder what is causing this.</p>
+The wifi was configured to do a captive portal style authentication check, showing me a webpage after connection that asked me to authenticate myself in order to use the network.
+When not authenticating for a certain period of time the Android phone disconnected from the wireless network causing me to wonder what is happening.</p>
 
 <p>It seems that this is the default behavior of Android and this is how you can disable this behavior:</p>
 
@@ -49,7 +49,7 @@ When not authenticating for a certain period of time the Android phone disconnec
 
 
 <p> <br/>
-   - Type to see if the value is 0</p>
+   - Type to see if the value of the configuration key is 0</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>settings get global captive_portal_detection_enabled
