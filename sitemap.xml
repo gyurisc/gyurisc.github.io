@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.littlebigtomatoes.com/2017/09/working-backwards/</loc>
+    <lastmod>2017-09-28T20:44:15+02:00</lastmod>
+  </url>
+  <url>
     <loc>http://www.littlebigtomatoes.com/2017/02/disabling-captive-portal-check-in-android/</loc>
     <lastmod>2017-02-11T19:44:15+01:00</lastmod>
   </url>
@@ -314,5 +318,23 @@
   </url>
   <url>
     <loc>http://www.littlebigtomatoes.com/blog/categories/networking/</loc>
+  </url>
+  <url>
+    <loc>http://www.littlebigtomatoes.com/blog/categories/startups/</loc>
+  </url>
+  <url>
+    <loc>http://www.littlebigtomatoes.com/blog/categories/indiehackers/</loc>
+  </url>
+  <url>
+    <loc>http://www.littlebigtomatoes.com/page2/</loc>
+  </url>
+  <url>
+    <loc>http://www.littlebigtomatoes.com/page3/</loc>
+  </url>
+  <url>
+    <loc>http://www.littlebigtomatoes.com/page4/</loc>
+  </url>
+  <url>
+    <loc>http://www.littlebigtomatoes.com/page5/</loc>
   </url>
 </urlset>

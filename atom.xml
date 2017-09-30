@@ -4,7 +4,7 @@
   <title><![CDATA[littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2017-07-20T08:20:47+02:00</updated>
+  <updated>2017-09-30T10:20:43+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -12,6 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Working Backwards]]></title>
+    <link href="http://www.littlebigtomatoes.com/2017/09/working-backwards/"/>
+    <updated>2017-09-28T20:44:15+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2017/09/working-backwards</id>
+    <content type="html"><![CDATA[<blockquote><p>What&#8217;s your advice for indie hackers who are just starting out?</p><p>If you&#8217;re struggling to find The Product Idea — start working on shit even before you have one. Work backwards. Come up with a brand name. Start designing a website, then actually launch a website and start blogging about your journey. Build backlinks, work on SEO, build a personal brand, establish yourself as an expert, make connections, speak at conferences… It&#8217;s not the lack of ideas that holds you back; it&#8217;s procrastination.</p><footer><strong>Indiehackers</strong> <cite><a href='https://www.indiehackers.com/businesses/jitbit-software'>www.indiehackers.com/businesses/&hellip;</a></cite></footer></blockquote>
+
+
+<p>So true&hellip; :)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Disabling Captive Portal Check in Android]]></title>
@@ -2738,25 +2750,6 @@ The idea here is to able to create a two-way binding that would be able to repre
 <p>This article is a total eye-opener for me. With this trend, non-native apps (HTML-CSS-JS have now an edge over native mobile apps. The common source code base. With this common code-base, you can provide customizable apps that can be built and packaged from a web page and deployed much faster. Obviously, you will not build cutting edge racing games or first person shooters in html, but it does not matter. You can build awesome apps to large customers on all platform using the same codebase.</p>
 
 <p>This is totally awesome!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The 5th Recommendation to Get Better at Designing Windows Phone Apps]]></title>
-    <link href="http://www.littlebigtomatoes.com/2013/02/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps/"/>
-    <updated>2013-02-05T17:57:00+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2013/02/the-5th-recommendation-to-get-better-at-designing-windows-phone-apps</id>
-    <content type="html"><![CDATA[<p>It seems I am unable to count to 5. In my last blog <a href="http://www.littlebigtomatoes.com/2013/01/5-ways-to-get-better-at-designing-apps-for-windows-phone/">5 ways to get better at designing apps for Windows Phone</a> I promised 5 ways and I delivered only four. This is the follow up, where I try to give one last piece of advice.</p>
-
-<h2>Write apps for yourself</h2>
-
-<p>You need to scratch your own itch. You need to solve your own existing problem, so find something you truly miss from your phone and then solve it! This way you will have an app that make your life better. Also, you will use this app every single day, so bugs and problems with your app surface much quicker and it will be easier to fix them as you are the one, who designed and coded it. But be very careful&hellip;.</p>
-
-<h2>Do not write apps that no one will use&hellip;</h2>
-
-<p>I am guilty as charged. I had this idea of <a href="www.hotbidd.com/apps/emailme">sending emails to myself</a> and wrote the app. It took me three months of hard work and when I finally released it, there were only a few downloads. This is not the end of the world, because I use the app myself several times a day and learned lot of stuff, while designing and coding it! But when I started to promote my app, no-one seemed to understand what problem of theirs that my app will help to solve.</p>
-
-<p>I found a solution to a problem, that seemingly no other person on earth had. Frustrating, but the key lesson I learned is this - similar to designing your app - you should start promoting your app, before you start coding it! Go out and explain the idea behind your app and the problem it tries to solve. Find out that others are having this problem too and pitch your app to them. Embrace the feedback and in the end you will have a much better app. Learn from my mistake and do not create your app in vacuum&hellip;</p>
 ]]></content>
   </entry>
   
