@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Productivity | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/productivity/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2017-09-30T10:20:43+02:00</updated>
+  <updated>2018-07-20T09:35:05+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Meeting Heuristics]]></title>
+    <link href="http://www.littlebigtomatoes.com/2018/07/meeting-heuristics/"/>
+    <updated>2018-07-20T09:19:26+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2018/07/meeting-heuristics</id>
+    <content type="html"><![CDATA[<p>This is a collection of heuristics for decinding on meetings. Found it via twitter from <a href="https://fs.blog/about/">Shane Parrish</a>. I subscribed to both of his <a href="https://fs.blog/blog/">blog</a> and twitter <a href="https://twitter.com/farnamstreet">@farnamstreet</a>. He is putting out incredible content on everyday wisdom.</p>
+
+<p>Filling this for myself for future meetings:</p>
+
+<ol>
+<li>If you wouldn’t do it right now, say no.</li>
+<li>Say no to everything outside of work hours you wouldn’t call your partner and bail on dinner for.</li>
+<li>Say no to all recurring meetings with the exception of ones from your boss if you have one. Tell people you’ll opt-in on a per-agenda basis.</li>
+<li>Cut all meetings in &frac12;</li>
+<li>If you’re in a meeting and it’s clearly pointless, politely excuse yourself.</li>
+<li>Keep an internal calculation of what your time is worth. Raise this every year.</li>
+<li>If you&rsquo;re going for the drink, don&rsquo;t go.</li>
+<li>If you&rsquo;re the smartest person in the room, you&rsquo;re in the wrong meeting.</li>
+<li>Even if you can&rsquo;t get out of a meeting, rather than sit there an be bored or make a grocery list, become a detective and see what you can learn from/about everyone else in the meeting.</li>
+<li>If everyone is on their phone or laptop at the meeting, leave. The decision has already been made.</li>
+<li>If you&rsquo;re talking to signal how smart you are just shut up.</li>
+<li>If you&rsquo;re going to &ldquo;add value&rdquo; to someone else&rsquo;s idea, just skip the meeting. That type of stuff is best-done one-on-one and not in a group setting where you reduce the motivation of the other person. (See signally how smart you are (11) and shut up.)</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Reverse Todo Process]]></title>
@@ -139,42 +166,6 @@ The next shortcut is <em>Windows + C</em>, that brings up the charms bar. This o
 <p><strong>Windows + X</strong> is the last one. This keyboard shortcut is for the power users. It will bring up an advanced menu on the bottom left side of the screen and there will be menus to access all the advanced features of the operating system such Command Prompt Admin, Task Manager, Control Panel, File Explorer. This comes very handy, if you need to access the more advanced functions a lot.</p>
 
 <p>This is my start kit of keyboard shortcuts for Windows8. I hope it will help you to become faster. Enjoy!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Crossing the Rubicon]]></title>
-    <link href="http://www.littlebigtomatoes.com/2012/11/crossing-the-rubicon/"/>
-    <updated>2012-11-21T10:11:00+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2012/11/crossing-the-rubicon</id>
-    <content type="html"><![CDATA[<p>Once in every few years I have this moment, when I start to use something new and I realize that this thing will stay with me and I cannot go back anymore to the old stuff!</p>
-
-<p>Couple of days ago I had this moment with Windows 8, because of a keyboard shortcut!</p>
-
-<!--more-->
-
-
-<p></p>
-
-<p>I clearly remember when I first installed Google Chrome and realized that is far superior to the browser that I was using before Chrome. The moment for me when I realized that I will not be able to switch back to IE was when I discovered that I can create shortcuts out of websites such as Gmail and when launching Chrome it will present the site for me as an app!</p>
-
-<p>Before that I had such moment, when I discovered Gmail and the way Gmail is using labels instead of folders. I instantly said goodbye to Outlook and Hotmail and Yahoo Mail! Whenever I had to use Outlook at work it was such a pain afterwards and I just could not understand why I was putting up with this slow beast for so long!</p>
-
-<p>Years before that I discovered IE4 is much superior to Netscape and I do not remember what was the tiny feature that pushed me over to use IE, but I never turned back!</p>
-
-<p>The Kindle ditched the PDF. iPod with iTunes decimated Windows Media based no-name portable player in my life. Because of Instapaper I stopped using RSS readers.</p>
-
-<p>They all had tiny features that pushed me over and made me never look back. Kindle had seamless syncing. Instapaper allowed me to read longer articles in a clutter free format. iPod and iTunes were far superior, but the final straw for me were the seamless podcast experience!</p>
-
-<p>I started to use Windows 8 as my full time operating system since the consumer preview. I generally liked this newest operating system and its new start screen, but what pushed me over finally was a keyboard shortcut.</p>
-
-<p><strong>Windows + Spacebar</strong></p>
-
-<p>This shortcut is for switching input language in Windows. OS X had the Apple Key and Spacebar shortcut since I started to use Macs and it was one of my favorite shortcut on that platform.</p>
-
-<p>When I discovered this keyboard shortcut to switch languages and started using it on Windows 8, I found myself more and more annoyed when I needed to switch from English to Hungarian on my Windows 7 desktop at work. That one click on the language not tolerable anymore.</p>
-
-<p>Since that moment I found more and more new stuff to like in Windows 8 every day and less and less I could bear Windows 7. In my eyes, these small moments that make the difference between a great product and a good one!</p>
 ]]></content>
   </entry>
   

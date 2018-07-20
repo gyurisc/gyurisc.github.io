@@ -4,7 +4,7 @@
   <title><![CDATA[littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2017-09-30T10:20:43+02:00</updated>
+  <updated>2018-07-20T09:35:05+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Meeting Heuristics]]></title>
+    <link href="http://www.littlebigtomatoes.com/2018/07/meeting-heuristics/"/>
+    <updated>2018-07-20T09:19:26+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2018/07/meeting-heuristics</id>
+    <content type="html"><![CDATA[<p>This is a collection of heuristics for decinding on meetings. Found it via twitter from <a href="https://fs.blog/about/">Shane Parrish</a>. I subscribed to both of his <a href="https://fs.blog/blog/">blog</a> and twitter <a href="https://twitter.com/farnamstreet">@farnamstreet</a>. He is putting out incredible content on everyday wisdom.</p>
+
+<p>Filling this for myself for future meetings:</p>
+
+<ol>
+<li>If you wouldn’t do it right now, say no.</li>
+<li>Say no to everything outside of work hours you wouldn’t call your partner and bail on dinner for.</li>
+<li>Say no to all recurring meetings with the exception of ones from your boss if you have one. Tell people you’ll opt-in on a per-agenda basis.</li>
+<li>Cut all meetings in &frac12;</li>
+<li>If you’re in a meeting and it’s clearly pointless, politely excuse yourself.</li>
+<li>Keep an internal calculation of what your time is worth. Raise this every year.</li>
+<li>If you&rsquo;re going for the drink, don&rsquo;t go.</li>
+<li>If you&rsquo;re the smartest person in the room, you&rsquo;re in the wrong meeting.</li>
+<li>Even if you can&rsquo;t get out of a meeting, rather than sit there an be bored or make a grocery list, become a detective and see what you can learn from/about everyone else in the meeting.</li>
+<li>If everyone is on their phone or laptop at the meeting, leave. The decision has already been made.</li>
+<li>If you&rsquo;re talking to signal how smart you are just shut up.</li>
+<li>If you&rsquo;re going to &ldquo;add value&rdquo; to someone else&rsquo;s idea, just skip the meeting. That type of stuff is best-done one-on-one and not in a group setting where you reduce the motivation of the other person. (See signally how smart you are (11) and shut up.)</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Working Backwards]]></title>
@@ -2736,20 +2763,6 @@ The idea here is to able to create a two-way binding that would be able to repre
 </span><span class='line'>  <span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Mass Customization of Apps]]></title>
-    <link href="http://www.littlebigtomatoes.com/2013/02/mass-customization-of-apps/"/>
-    <updated>2013-02-14T16:13:00+01:00</updated>
-    <id>http://www.littlebigtomatoes.com/2013/02/mass-customization-of-apps</id>
-    <content type="html"><![CDATA[<blockquote><p>But in the past couple of months we’ve noticed another category of customers, and that group is growing fast.</p><p>I call the trend the “mass customization” of apps, to borrow the manufacturing term. This group creates app templates designed for a particular industry and then customize those templates for each end customer. The customization could be as simple as different branding but more often includes adding differentiating features also.</p><footer><strong>triggerio</strong> <cite><a href='http://trigger.io/cross-platform-application-development-blog/2013/01/29/trend-towards-the-mass-customization-of-apps-from-banking-to-government-to-entertainment/'>Trend Towards the Mass Customization of Apps From Banking to Government to Entertainment</a></cite></footer></blockquote>
-
-
-<p>This article is a total eye-opener for me. With this trend, non-native apps (HTML-CSS-JS have now an edge over native mobile apps. The common source code base. With this common code-base, you can provide customizable apps that can be built and packaged from a web page and deployed much faster. Obviously, you will not build cutting edge racing games or first person shooters in html, but it does not matter. You can build awesome apps to large customers on all platform using the same codebase.</p>
-
-<p>This is totally awesome!</p>
 ]]></content>
   </entry>
   

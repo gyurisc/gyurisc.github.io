@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.littlebigtomatoes.com/2018/07/meeting-heuristics/</loc>
+    <lastmod>2018-07-20T09:19:26+02:00</lastmod>
+  </url>
+  <url>
     <loc>http://www.littlebigtomatoes.com/2017/09/working-backwards/</loc>
     <lastmod>2017-09-28T20:44:15+02:00</lastmod>
   </url>
@@ -185,19 +189,19 @@
     <lastmod>2011-07-21T16:05:41+02:00</lastmod>
   </url>
   <url>
+    <loc>http://www.littlebigtomatoes.com/</loc>
+  </url>
+  <url>
     <loc>http://www.littlebigtomatoes.com/blog/archives/</loc>
   </url>
   <url>
-    <loc>http://www.littlebigtomatoes.com/</loc>
+    <loc>http://www.littlebigtomatoes.com/projects/</loc>
   </url>
   <url>
     <loc>http://www.littlebigtomatoes.com/bootstrapmvc/</loc>
   </url>
   <url>
     <loc>http://www.littlebigtomatoes.com/about/</loc>
-  </url>
-  <url>
-    <loc>http://www.littlebigtomatoes.com/projects/</loc>
   </url>
   <url>
     <loc>http://www.littlebigtomatoes.com/blog/categories/code/</loc>
@@ -326,15 +330,6 @@
     <loc>http://www.littlebigtomatoes.com/blog/categories/indiehackers/</loc>
   </url>
   <url>
-    <loc>http://www.littlebigtomatoes.com/page2/</loc>
-  </url>
-  <url>
-    <loc>http://www.littlebigtomatoes.com/page3/</loc>
-  </url>
-  <url>
-    <loc>http://www.littlebigtomatoes.com/page4/</loc>
-  </url>
-  <url>
-    <loc>http://www.littlebigtomatoes.com/page5/</loc>
+    <loc>http://www.littlebigtomatoes.com/blog/categories/wisdom/</loc>
   </url>
 </urlset>
