@@ -15,3 +15,7 @@ Hello, Friend! My name's Krisztián Gyuris and I am currently located in Budapes
 I restarted this blog because I need a fresh start. I am hoping to document here my efforts to creating something useful including the designing and the actual implementation.
 
 Let's the journey begin!
+
+## Reading list 
+
+- [Reading in 2018](./reading-2018)
