@@ -12,10 +12,10 @@ Hoping to read at least 10 books each year. This list is my way of tracking my p
 
 - [The Clan Corporate: Book Three of the Merchant Princess](https://www.amazon.com/Clan-Corporate-Three-Merchant-Princess/dp/B0106D6UOK/ref=sr_1_1?ie=UTF8&qid=1532073606&sr=1-1&keywords=the+clan+corporate) by Charles Stross
 - [The Everything Store: Jeff Bezos and the Age of Amazon](https://www.amazon.com/Everything-Store-Jeff-Bezos-Amazon/dp/B00FJFJOLC/ref=tmm_aud_swatch_0?_encoding=UTF8&qid=1532073654&sr=1-1&dpID=51ULBoVSTcL&preST=_SX342_QL70_&dpSrc=detail) by Brad Stone.
+- [Unshakeable: Your Financial Freedom Playbook](https://www.amazon.com/Unshakeable-Your-Financial-Freedom-Playbook/dp/1501164589/ref=sr_1_1?s=books&ie=UTF8&qid=1532073564&sr=1-1&keywords=unbreakable+by+tony+robbins) by Tony Robbins 
 
 ## Currently Reading 
 
-- [Unshakeable: Your Financial Freedom Playbook](https://www.amazon.com/Unshakeable-Your-Financial-Freedom-Playbook/dp/1501164589/ref=sr_1_1?s=books&ie=UTF8&qid=1532073564&sr=1-1&keywords=unbreakable+by+tony+robbins) by Tony Robbins 
 - [Homo Deus: A Brief History of Tomorrow](https://www.amazon.com/Homo-Deus-Brief-History-Tomorrow/dp/0062464310/ref=sr_1_1?ie=UTF8&qid=1532073524&sr=8-1&keywords=homo+deus+by+yuval+noah+harari) by Yuval Harari
 
 ## Planning to read 
