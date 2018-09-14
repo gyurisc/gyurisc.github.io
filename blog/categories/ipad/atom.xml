@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ipad | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/ipad/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2018-09-14T09:44:53+02:00</updated>
+  <updated>2018-09-14T10:06:41+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -22,19 +22,7 @@
 
 <p>When I look at these apps, I see something different. With all these subtle touches and sweating the small details, these apps express craftmanship, pride, humbleness. These apps tell me the following:</p>
 
-<p>{% blockquote %}
-Dear User,</p>
-
-<p>We love you! We are humbled and greatly appreciate that you entrusted us with a piece of your attention and a little part of your life.</p>
-
-<p>There is no task too small for us! We will handle all your request promptly, effortlessly and with a beaming smile on our UI.</p>
-
-<p>We do what you ask us to do and then disappear like we never existed. But that&rsquo;s okay! We exists to make you happier!</p>
-
-<p>Regards,
-The Well Designed Apps
-PS: Oh and the stiched corinthian leather is there, because we think you deserve the best! Period!
-{% endblockquote %}</p>
+<p><blockquote><p>Dear User,</p></p><p><p>We love you! We are humbled and greatly appreciate that you entrusted us with a piece of your attention and a little part of your life.</p></p><p><p>There is no task too small for us! We will handle all your request promptly, effortlessly and with a beaming smile on our UI.</p></p><p><p>We do what you ask us to do and then disappear like we never existed. But that&rsquo;s okay! We exists to make you happier!</p></p><p><p>Regards,<br/>The Well Designed Apps<br/>PS: Oh and the stiched corinthian leather is there, because we think you deserve the best! Period!</p></blockquote></p>
 ]]></content>
   </entry>
   
@@ -60,7 +48,7 @@ PS: Oh and the stiched corinthian leather is there, because we think you deserve
     <id>http://www.littlebigtomatoes.com/2012/01/my-version-of-the-ikeapad</id>
     <content type="html"><![CDATA[<p>I recently saw the <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad stand</a> on <a href="http://www.ikeahackers.net/">IKEA Hackers</a> and I really liked it. <a href="http://www.ikeahackers.net/2010/12/ikeapad-stand.html">IKEAPad</a> is basically a simple iPad stand constructed from an <a href="http://www.ikea.com/us/en/catalog/products/76696009/">Ekby Valter</a> that costs 3$, that is less cheaper that you would pay for any iPad stand on the market. After reading the article, I decided to create my own version, for this you will need to buy 2 pieces of Ekby Valter and take out the shortest piece of wood from one of the Ekby Valter and use it as a dowel. I guess it is easier to understand if you see it.</p>
 
-<p>{% img /images/WP_0003951-300x225.jpg &lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo; %}</p>
+<p><img src="/images/WP_0003951-300x225.jpg" title="&lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo;" ></p>
 
 <!--more-->
 
@@ -69,17 +57,17 @@ PS: Oh and the stiched corinthian leather is there, because we think you deserve
 
 <p>The rest of the images:</p>
 
-<p>{% img /images/WP_000394-150x150.jpg &lsquo;Testing with iPad&rsquo; &lsquo;Testing with iPad&rsquo; %}</p>
+<p><img src="/images/WP_000394-150x150.jpg" title="&lsquo;Testing with iPad&rsquo; &lsquo;Testing with iPad&rsquo;" ></p>
 
-<p>{% img /images/WP_0003951-150x150.jpg &lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo; %}</p>
+<p><img src="/images/WP_0003951-150x150.jpg" title="&lsquo;Finished iPad stand&rsquo; &lsquo;The finished iPad stand in my kitchen holding the iPad&rsquo;" ></p>
 
-<p>{% img /images/WP_0003981-150x150.jpg &lsquo;Finished iPad stand in the kitchen&rsquo; &lsquo;Finished iPad stand in the kitchen&rsquo; %}</p>
+<p><img src="/images/WP_0003981-150x150.jpg" title="&lsquo;Finished iPad stand in the kitchen&rsquo; &lsquo;Finished iPad stand in the kitchen&rsquo;" ></p>
 
-<p>{% img /images/WP_0003911-150x150.jpg &lsquo;Ekby Valter&rsquo; &lsquo;Ekby Valter&rsquo; %}</p>
+<p><img src="/images/WP_0003911-150x150.jpg" title="&lsquo;Ekby Valter&rsquo; &lsquo;Ekby Valter&rsquo;" ></p>
 
-<p>{% img /images/WP_0003921-150x150.jpg &lsquo;Ekby Valter parts&rsquo; &lsquo;Ekby Valter parts&rsquo; %}</p>
+<p><img src="/images/WP_0003921-150x150.jpg" title="&lsquo;Ekby Valter parts&rsquo; &lsquo;Ekby Valter parts&rsquo;" ></p>
 
-<p>{% img /images/WP_0003941-150x150.jpg &lsquo;iPad stand is ready&rsquo; &lsquo;iPad stand is ready&rsquo; %}</p>
+<p><img src="/images/WP_0003941-150x150.jpg" title="&lsquo;iPad stand is ready&rsquo; &lsquo;iPad stand is ready&rsquo;" ></p>
 ]]></content>
   </entry>
   

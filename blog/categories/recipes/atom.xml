@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Recipes | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/recipes/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2018-09-14T09:44:53+02:00</updated>
+  <updated>2018-09-14T10:06:41+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -25,7 +25,7 @@
 
 <p></p>
 
-<p>{% img /images/20121218_anti_todo.png &lsquo;Anti Todo&rsquo; &lsquo;Anti Todo list in Sublime Text 2&rsquo; %}</p>
+<p><img src="/images/20121218_anti_todo.png" title="&lsquo;Anti Todo&rsquo; &lsquo;Anti Todo list in Sublime Text 2&rsquo;" ></p>
 
 <p>The idea here is to have this list everywhere and to be easily accessible and synchronized all the time. For synchronization I am using the <a href="http://www.dropbox.com">Dropbox</a> service. In the root of my dropbox folder I created a file called anti.todo The easiest way of do something like this from your bash command line:</p>
 
