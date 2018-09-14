@@ -8,7 +8,7 @@ categories:
 - code 
 - dotnet
 - javascript 
-- 
+- Visual Studio
 ---
 I will teach you how to create Typescript classes from your existing C# classes effortlessly like a pro within 30 seconds.
  
