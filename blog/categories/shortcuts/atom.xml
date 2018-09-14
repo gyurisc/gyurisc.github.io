@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Shortcuts | littlebigtomatoes]]></title>
+  <link href="http://www.littlebigtomatoes.com/blog/categories/shortcuts/atom.xml" rel="self"/>
+  <link href="http://www.littlebigtomatoes.com/"/>
+  <updated>2018-09-14T09:44:34+02:00</updated>
+  <id>http://www.littlebigtomatoes.com/</id>
+  <author>
+    <name><![CDATA[Krisztian Gyuris]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[My Favorite Shortcuts in Excel]]></title>
+    <link href="http://www.littlebigtomatoes.com/2018/09/my-favorite-shortcuts-in-excel/"/>
+    <updated>2018-09-14T08:45:43+02:00</updated>
+    <id>http://www.littlebigtomatoes.com/2018/09/my-favorite-shortcuts-in-excel</id>
+    <content type="html"><![CDATA[<p>I love shortcuts a lot. They are the most important tool in my productivity tool belt. Helping me to speed things up immensely. Here are the most important shortcuts that I us in Excel all the time:</p>
+
+<p>The first two shortcuts are for inserting the current time and date when tracking my hours for a client in my contractor work. Previously, I looked up the date and time on the system clock and typed them in. This took only a few seconds, but when you try to leave a busy commuter train every second counts. Today, they are just a shortcut away.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h2>Current Date and Time</h2>
+
+<p>To Insert the current date in Excel, press <strong>Ctrl+;</strong> (semi-colon) at the same time on both  Windows and the Mac</p>
+
+<p><img src="/images/Excel_Current_Date.gif" title="&lsquo;Current Date Shortcut&rsquo; &lsquo;Animated git showing how to insert the current date in a cell&rsquo;" ></p>
+
+<p>To insert the current static time in Excel, press <strong>Ctrl+Shift+;</strong> (semi-colon) at the same time on Windows or <strong>&#8984;+;</strong> (command plus semi-colon) on Mac.</p>
+
+<p><img src="/images/Excel_Current_Time.gif" title="&lsquo;Current Time Shortcut&rsquo; &lsquo;Animated git showing how to insert the current time in a cell&rsquo;" ></p>
+
+<p>Note, both of the above shortcuts are going to insert the static value that remains always the same versus being recalculated each time when using the <strong>=TODAY()</strong> and <strong>=NOW()</strong> functions.</p>
+
+<h2>Copy cell content from the above or from the left</h2>
+
+<p>Sometimes, I just need quickly duplicated content form the above or from the left cell. Using the clipboard is a good way to do it, but if you need something faster then here are the shortcuts I use duplicating existing content</p>
+
+<p>To copy cell content from the left of your current cell in Excel hit <strong>Ctrl+R</strong> on Both Windows and Mac.</p>
+
+<p><img src="/images/Excel_Content_From_Left.gif" title="&lsquo;Copy the content from the left&rsquo; &lsquo;Animated git showing how to insert the content of the left cell in our current cell&rsquo;" ></p>
+
+<p>To copy cell content form the top of your current cell in Excel hit <strong>Ctrl+D</strong> on both Windows and Mac.</p>
+
+<p><img src="/images/Excel_Content_From_Above.gif" title="&lsquo;Copy the content from the top&rsquo; &lsquo;Animated git showing how to insert the content of the top cell in our current cell&rsquo;" ></p>
+]]></content>
+  </entry>
+  
+</feed>

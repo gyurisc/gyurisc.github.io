@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Code | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2018-07-25T09:04:14+02:00</updated>
+  <updated>2018-09-14T09:44:53+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -24,7 +24,7 @@
 
 <p>So let’s look how easy to build a minimal example using with <a href="https://handsontable.com/">handsontable</a>…</p>
 
-<p><img src="/images/handsontable_minimal.png" title="‘Handsontable Demo’ ‘Handsontable demo page'" ></p>
+<p>{%img /images/handsontable_minimal.png ‘Handsontable Demo’ ‘Handsontable demo page&#8217; %}</p>
 
 <!--more-->
 
@@ -33,7 +33,9 @@
 
 <p>The main web-page describes this library as:</p>
 
-<p><blockquote><p>Handsontable is a composite spreadsheet component for apps and websites. It is written in JavaScript and not constrained by any external framework. Handsontable can be easily modified or extended with custom plugins. It also binds to any source using the JSON format and is capable of handling a large amount of data. You can easily do all CRUD operations and provide end-users with an Excel-like experience.</p></blockquote></p>
+<p>{% blockquote %}
+Handsontable is a composite spreadsheet component for apps and websites. It is written in JavaScript and not constrained by any external framework. Handsontable can be easily modified or extended with custom plugins. It also binds to any source using the JSON format and is capable of handling a large amount of data. You can easily do all CRUD operations and provide end-users with an Excel-like experience.
+{% endblockquote %}</p>
 
 <h3>Creating the minimal Handsontable page</h3>
 
@@ -194,7 +196,7 @@
 
 <p>First you will need to install this plugin called <a href="https://visualstudiogallery.msdn.microsoft.com/eb0887f8-3ac1-434a-b50b-f0112f1572f7">TypescriptSyntaxPaste</a> in Visual Studio.NET 2015.</p>
 
-<p><img src="/images/InstallTypescriptPaste_001.gif" title="&lsquo;Install TypeScriptSyntaxPaste plugin&rsquo; &lsquo;Animated git showing how to install TypeScriptSyntaxPage plugin in Visual Studio.NET 2015&rsquo;" ></p>
+<p>{%img /images/InstallTypescriptPaste_001.gif &lsquo;Install TypeScriptSyntaxPaste plugin&rsquo; &lsquo;Animated git showing how to install TypeScriptSyntaxPage plugin in Visual Studio.NET 2015&rsquo; %}</p>
 
 <h2>Installing it</h2>
 
@@ -212,7 +214,7 @@
 
 <p>After installing the plugin this is how you use it:</p>
 
-<p><img src="/images/UseTypeScriptPaste_002.gif" title="&lsquo;Using TypeScriptSyntaxPaste plugin&rsquo; &lsquo;Animated git showing how to use TypeScriptSyntaxPage plugin in Visual Studio.NET 2015&rsquo;" ></p>
+<p>{%img /images/UseTypeScriptPaste_002.gif &lsquo;Using TypeScriptSyntaxPaste plugin&rsquo; &lsquo;Animated git showing how to use TypeScriptSyntaxPage plugin in Visual Studio.NET 2015&rsquo; %}</p>
 
 <ul>
 <li>Select your C# class and press Ctrl-C to copy.</li>
@@ -282,7 +284,13 @@
 var user = db.Users.FindByNameAndPassword(name, password);
 </code></pre>
 
-<p><blockquote><p>That’s pretty neat, right? So, did we have to generate the Database class and a bunch of table classes to make this work?</p></p><p><p>No.</p></p><p><p>In this example, the type returned by Database.Open() is dynamic. It doesn’t have a Users property, but when that property is referenced on it, it returns a new instance of a DynamicTable type, again as dynamic. That instance doesn’t actually have a method called FindByNameAndPassword, but when it’s called, it sees “FindBy” at the start of the method, so it pulls apart the rest of the method name, combines it with the arguments, and builds an ADO.NET command which safely encapsulates the name and password values inside parameters. The FindBy<em> methods will only return one record; there are FindAllBy</em> methods which return result sets. This approach is used by the Ruby/Rails ActiveRecord library; Ruby’s metaprogramming nature encourages stuff like this.</p><footer><strong>Mark Rendle <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data">http://blog.markrendle.net/2010/08/05/introducing-simple-data</a> Introducing Simple.Data</strong></footer></blockquote></p>
+<p>{% blockquote Mark Rendle <a href="http://blog.markrendle.net/2010/08/05/introducing-simple-data">http://blog.markrendle.net/2010/08/05/introducing-simple-data</a> Introducing Simple.Data %}
+That’s pretty neat, right? So, did we have to generate the Database class and a bunch of table classes to make this work?</p>
+
+<p>No.</p>
+
+<p>In this example, the type returned by Database.Open() is dynamic. It doesn’t have a Users property, but when that property is referenced on it, it returns a new instance of a DynamicTable type, again as dynamic. That instance doesn’t actually have a method called FindByNameAndPassword, but when it’s called, it sees “FindBy” at the start of the method, so it pulls apart the rest of the method name, combines it with the arguments, and builds an ADO.NET command which safely encapsulates the name and password values inside parameters. The FindBy<em> methods will only return one record; there are FindAllBy</em> methods which return result sets. This approach is used by the Ruby/Rails ActiveRecord library; Ruby’s metaprogramming nature encourages stuff like this.
+{% endblockquote %}</p>
 
 <p>Just read that sentence once again&hellip;</p>
 
@@ -482,17 +490,17 @@ namespace DynamicTest
 
 <p>I installed the Xamarin environment and started up Visual Studio.NET 2012. Selected File | New Project and created the project.</p>
 
-<p><img src="/images/xam_vs_001.png" title="&lsquo;New Project&rsquo; &lsquo;Creating new project for iOS in Visual Studio&rsquo;" ></p>
+<p>{%img /images/xam_vs_001.png &lsquo;New Project&rsquo; &lsquo;Creating new project for iOS in Visual Studio&rsquo; %}</p>
 
 <p>In order to be able to use Visual Studio.NET with Xamarin, you need the Business version or you will need to start the 30 days trial. I opted for the second option.</p>
 
 <p>But first begin the <a href="http://docs.xamarin.com/guides/cross-platform/getting_started/beginning_a_xamarin_trial">30 days trial</a>.</p>
 
-<p><img src="/images/xam_vs_002.png" title="&lsquo;Starting the 30 days trial&rsquo; &lsquo;Starting the 30 days trial&rsquo;" ></p>
+<p>{%img /images/xam_vs_002.png &lsquo;Starting the 30 days trial&rsquo; &lsquo;Starting the 30 days trial&rsquo; %}</p>
 
 <p>After creating and logging in with the Xamarin account the 30 days trial starts and Visual Studio .NET restarts. It starts searching on the network for active OS X machines to be used as build machine. I have nothing like that on my network, so let’s close the dialog.</p>
 
-<p><img src="/images/xam_vs_003.png" title="&lsquo;Searching for build machine&rsquo; &lsquo;Searching for build machine&rsquo;" ></p>
+<p>{%img /images/xam_vs_003.png &lsquo;Searching for build machine&rsquo; &lsquo;Searching for build machine&rsquo; %}</p>
 
 <p>I have no mac machine on the network currently so let’s choose <strong>Close</strong>.</p>
 
@@ -505,11 +513,21 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
 
 <p>Looking through the guide I find the following section:</p>
 
-<p><blockquote><p>Storyboard and XIB files (used by Apple’s Interface Builder for GUI design) cannot currently be edited in Visual Studio. If you create an application from a Storyboard template (or a template that includes XIB files) then you’ll have to switch to the Mac and open the entire solution in Xamarin Studio. From within Xamarin Studio, double-click on XIBs or Storyboards to open and edit them. This includes adding a new item after the project is created, from the following options:</p></p><p><p>Working with Storyboards and XIBs</p></p><p><p>Editing storyboard and XIB files must be done on OS X with Interface Builder. The Xamarin.iOS plug-in for Visual Studio does not provide any support for this.</p><footer><strong>Xamarin <a href="http://docs.xamarin.com/guides/ios/getting_started/introduction_to_xamarin_ios_for_visual_studio">http://docs.xamarin.com/guides/ios/getting_started/introduction_to_xamarin_ios_for_visual_studio</a> Introduction to Xamarin iOS for Visual Studio</strong></footer></blockquote></p>
+<p>{% blockquote Xamarin <a href="http://docs.xamarin.com/guides/ios/getting_started/introduction_to_xamarin_ios_for_visual_studio">http://docs.xamarin.com/guides/ios/getting_started/introduction_to_xamarin_ios_for_visual_studio</a> Introduction to Xamarin iOS for Visual Studio %}
+Storyboard and XIB files (used by Apple’s Interface Builder for GUI design) cannot currently be edited in Visual Studio. If you create an application from a Storyboard template (or a template that includes XIB files) then you’ll have to switch to the Mac and open the entire solution in Xamarin Studio. From within Xamarin Studio, double-click on XIBs or Storyboards to open and edit them. This includes adding a new item after the project is created, from the following options:</p>
+
+<p>Working with Storyboards and XIBs</p>
+
+<p>Editing storyboard and XIB files must be done on OS X with Interface Builder. The Xamarin.iOS plug-in for Visual Studio does not provide any support for this.
+{% endblockquote %}</p>
 
 <p><a href="http://xamarin.com/guide/">Xamarin Guide</a> explains the alternatives in greater details:</p>
 
-<p><blockquote><p>Xamarin.iOS for Visual Studio comes with several simplified iOS application templates that eschew XIB and Storyboard files, giving developers the option of building their entire user interface in code.  That approach could be desirable for some developers on Windows who want to avoid Xcode and minimize their reliance on a Mac. Xamarin’s MonoTouch.Dialog library— which provides a simple, declarative API for building iOS user interface layouts in code—might prove especially useful for that particular audience.</p></p><p><p>Developers who still want to use XIB or Storyboard files can still use Xcode on Mac OS X in order to modify the layout. Fortunately, the high degree of interoperability between Xamarin Studio and Visual Studio makes that a relatively straightforward process. A developer can do most of their development with Visual Studio on Windows and jump over to Xamarin Studio on a Mac while working on user interface design. The same exact project and solution files can be used in both environments.</p><footer><strong>Xamarin <a href="http://xamarin.com/guide/">http://xamarin.com/guide/</a> Xamarin Guide</strong></footer></blockquote></p>
+<p>{% blockquote Xamarin <a href="http://xamarin.com/guide/">http://xamarin.com/guide/</a> Xamarin Guide %}
+Xamarin.iOS for Visual Studio comes with several simplified iOS application templates that eschew XIB and Storyboard files, giving developers the option of building their entire user interface in code.  That approach could be desirable for some developers on Windows who want to avoid Xcode and minimize their reliance on a Mac. Xamarin’s MonoTouch.Dialog library— which provides a simple, declarative API for building iOS user interface layouts in code—might prove especially useful for that particular audience.</p>
+
+<p>Developers who still want to use XIB or Storyboard files can still use Xcode on Mac OS X in order to modify the layout. Fortunately, the high degree of interoperability between Xamarin Studio and Visual Studio makes that a relatively straightforward process. A developer can do most of their development with Visual Studio on Windows and jump over to Xamarin Studio on a Mac while working on user interface design. The same exact project and solution files can be used in both environments.
+{% endblockquote %}</p>
 
 <p>So you can get rid of XIB if you like and define your UI entirely using the dialog library or you can use XiB but then you need a Mac too.</p>
 
@@ -517,39 +535,39 @@ Minor inconvenience is that you will need a live network connection for Xamarin 
 
 <p>I decided to stay with the path I know and restarted my macbook to boot OS X. This way I can use the xib approach for now and once I finished I will be going back to Visual Studio.</p>
 
-<p><img src="/images/xam_vs_004.png" title="&lsquo;Xamarin Studio on OS X&rsquo; &lsquo;Looking at Xamarin Studio in OS X&rsquo;" ></p>
+<p>{%img /images/xam_vs_004.png &lsquo;Xamarin Studio on OS X&rsquo; &lsquo;Looking at Xamarin Studio in OS X&rsquo; %}</p>
 
 <p>Opening the project in Xamarin Studio I realized that I have no idea how to integrate a new storyboard to my project, so I opted to create a brand new project that has a xib file included. It is not a very high-tech move, but sometimes it pays to create your project from scratch.</p>
 
-<p><img src="/images/xam_vs_005.png" title="&lsquo;Creating a new project&rsquo; &lsquo;Creating a new project&rsquo;" ></p>
+<p>{%img /images/xam_vs_005.png &lsquo;Creating a new project&rsquo; &lsquo;Creating a new project&rsquo; %}</p>
 
 <h3>Creating the UI in XCode</h3>
 
 <p>Once the new project is created, I can open the xib file in XCode to add my controls and create actions and outlets for these controls. I started with dragging a label and a button onto the design surface.</p>
 
-<p><img src="/images/xam_vs_006.png" title="&lsquo;Dragging the controls in XCode&rsquo; &lsquo;Dragging the controls in XCode&rsquo;" ></p>
+<p>{%img /images/xam_vs_006.png &lsquo;Dragging the controls in XCode&rsquo; &lsquo;Dragging the controls in XCode&rsquo; %}</p>
 
 <p>Selecting the code icon in XCode will bring in the source control editor. I now can control-drag – clicking on the control while dragging the control to the source code editor – to create my outlet for the Label and the action for my button.</p>
 
-<p><img src="/images/xam_vs_007.png" title="&lsquo;Press this button to bring in the source code editor in XCode&rsquo; &lsquo;Press this button to bring in the source code editor in XCode&rsquo;" ></p>
+<p>{%img /images/xam_vs_007.png &lsquo;Press this button to bring in the source code editor in XCode&rsquo; &lsquo;Press this button to bring in the source code editor in XCode&rsquo; %}</p>
 
 <p>Pressing control and dragging the button to the source code editor will bring up a little window that allows me to set up the action for my button. I changed the connection type to action and name it btnPRessed.</p>
 
-<p><img src="/images/xam_vs_008.png" title="&lsquo;Creating an action for the button in XCode&rsquo; &lsquo;Creating an action for the button in XCode&rsquo;" ></p>
+<p>{%img /images/xam_vs_008.png &lsquo;Creating an action for the button in XCode&rsquo; &lsquo;Creating an action for the button in XCode&rsquo; %}</p>
 
 <p>I do the same control dragging for the labe, but this time the connection type is set to outlet and the name lblText.</p>
 
-<p><img src="/images/xam_vs_009.png" title="&lsquo;Creating an outlet for the label in XCode&rsquo; &lsquo;Creating an outlet for the label in XCode&rsquo;" ></p>
+<p>{%img /images/xam_vs_009.png &lsquo;Creating an outlet for the label in XCode&rsquo; &lsquo;Creating an outlet for the label in XCode&rsquo; %}</p>
 
 <p>The last important step is to make sure that you save the .xib file. I forget this most of the time annd the result is that these changes will not be generated in the code behind for the view controlller. Back in Xamarin Studio, I can confirm by looking at the codebehind for the view controller that the outlet and action for my controlls are showing up in the code. Let’s go back to Visual Studio.NET.</p>
 
-<p><img src="/images/xam_vs_010.png" title="&lsquo;Codebehind for the ViewController in Xamarin Studio shows that the constructs for my controlls are generated&rsquo; &lsquo;Codebehind for the ViewController in Xamarin Studio&rsquo;" ></p>
+<p>{%img /images/xam_vs_010.png &lsquo;Codebehind for the ViewController in Xamarin Studio shows that the constructs for my controlls are generated&rsquo; &lsquo;Codebehind for the ViewController in Xamarin Studio&rsquo; %}</p>
 
 <h3>Back to Visual Studio</h3>
 
 <p>All I have left is to define the event handler – or action method if you like for my button and set the content of the label. The action is defined as a partial method in the code-behind, so I need to provide the implementation for my method. With this I am finished constructing my very basic application for iOS. All is left to test it on a Mac in an emulator to see if it works.</p>
 
-<p><img src="/images/xam_vs_011.png" title="&lsquo;Partial method for the button in Visual Studio&rsquo; &lsquo;Partial method for the button in Visual Studio&rsquo;" ></p>
+<p>{%img /images/xam_vs_011.png &lsquo;Partial method for the button in Visual Studio&rsquo; &lsquo;Partial method for the button in Visual Studio&rsquo; %}</p>
 
 <h3>Conclusion</h3>
 

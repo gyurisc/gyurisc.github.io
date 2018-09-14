@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Keyboard Shortcuts | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/keyboard-shortcuts/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2018-07-25T09:04:14+02:00</updated>
+  <updated>2018-09-14T09:44:53+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -29,7 +29,7 @@
 
 <p>To help myself and hopefully others to memorize these shortcuts I created an app that makes easy to find and learn the shortcuts. Currently, it contains about 100 shortcuts for Windows 8, Calendar and Mail. I am hoping to add more shortcuts and other applications soon.</p>
 
-<p><div class="embed-video-container"><iframe src="http://www.youtube.com/embed/HiyMIWcum_c "></iframe></div></p>
+<p>{% youtube HiyMIWcum_c %}</p>
 
 <p>If you have any feedback, issues or you think there is something missing just ping me on twitter. I would be happy to help you!</p>
 ]]></content>

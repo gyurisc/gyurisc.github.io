@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Windows 8 | littlebigtomatoes]]></title>
   <link href="http://www.littlebigtomatoes.com/blog/categories/windows-8/atom.xml" rel="self"/>
   <link href="http://www.littlebigtomatoes.com/"/>
-  <updated>2018-07-25T09:04:14+02:00</updated>
+  <updated>2018-09-14T09:44:53+02:00</updated>
   <id>http://www.littlebigtomatoes.com/</id>
   <author>
     <name><![CDATA[Krisztian Gyuris]]></name>
@@ -83,7 +83,7 @@
 
 <p>To help myself and hopefully others to memorize these shortcuts I created an app that makes easy to find and learn the shortcuts. Currently, it contains about 100 shortcuts for Windows 8, Calendar and Mail. I am hoping to add more shortcuts and other applications soon.</p>
 
-<p><div class="embed-video-container"><iframe src="http://www.youtube.com/embed/HiyMIWcum_c "></iframe></div></p>
+<p>{% youtube HiyMIWcum_c %}</p>
 
 <p>If you have any feedback, issues or you think there is something missing just ping me on twitter. I would be happy to help you!</p>
 ]]></content>
@@ -125,7 +125,9 @@ The next shortcut is <em>Windows + C</em>, that brings up the charms bar. This o
     <link href="http://www.littlebigtomatoes.com/2012/11/windows-app-store-leaves-mac-app-store-behind/"/>
     <updated>2012-11-28T15:18:00+01:00</updated>
     <id>http://www.littlebigtomatoes.com/2012/11/windows-app-store-leaves-mac-app-store-behind</id>
-    <content type="html"><![CDATA[<p><blockquote><p>The daily download volume among the top 300 most popular applications in the Windows Store is already three times higher than the volume among the top 300 most popular applications in the Apple Mac App Store. However, in terms of paid volume only, the Apple Mac App Store is still doing much (5 times) better.</p><footer><strong>Distimo <a href="http://www.distimo.com/blog/2012_11_publication-discover-the-windows-store/">http://www.distimo.com/blog/2012_11_publication-discover-the-windows-store/</a> Discover The Windows Store</strong></footer></blockquote></p>
+    <content type="html"><![CDATA[<p>{% blockquote Distimo <a href="http://www.distimo.com/blog/2012_11_publication-discover-the-windows-store/">http://www.distimo.com/blog/2012_11_publication-discover-the-windows-store/</a> Discover The Windows Store%}
+The daily download volume among the top 300 most popular applications in the Windows Store is already three times higher than the volume among the top 300 most popular applications in the Apple Mac App Store. However, in terms of paid volume only, the Apple Mac App Store is still doing much (5 times) better.
+{% endblockquote %}</p>
 
 <p>After one month, Windows Store has 3 times more downloads in the top 300 apps than the app store shipping with the <a href="http://www.apple.com/osx/">world&rsquo;s most advanced desktop operating system</a>. Not too bad, although the Mac App Store still generates 5 times more paid volume than Windows Store.</p>
 
